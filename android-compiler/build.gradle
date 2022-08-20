@@ -31,6 +31,7 @@ android {
 
 dependencies {
     // r8 dependency
+    implementation 'org.eclipse.jdt:ecj:3.13.0'
     implementation 'com.android.tools:r8:3.3.28'
     implementation project(':kotlinc')
 }
