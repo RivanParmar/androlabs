@@ -1,9 +1,9 @@
 plugins {
-    id(BuildPlugins.JAVA_LIBRARY)
+    id 'java-library'
 }
 
 dependencies {
-    implementation(projects.jaxp.xml)
+    implementation project(':jaxp:xml')
 }
 
 java {
