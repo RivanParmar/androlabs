@@ -5,7 +5,7 @@
 
 package org.jetbrains.kotlin.com.intellij.ide.plugins;
 
-import com.github.marschall.com.sun.nio.zipfs.ZipFileSystemProvider;
+import com.itsaky.androidide.zipfs.ZipFileSystemProvider;
 
 import gnu.trove.THashMap;
 
@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * I have modified this class to use {@link com.github.marschall.com.sun.nio.zipfs.ZipFileSystem} because
+ * I have modified this class to use {@link com.itsaky.androidide.zipfs.ZipFileSystem} because
  * android doesn't provide a ZipFileSystem
  */
 final class DescriptorLoadingContext implements AutoCloseable {
@@ -28,12 +28,14 @@ final class DescriptorLoadingContext implements AutoCloseable {
     final PathBasedJdomXIncluder.PathResolver<?> pathResolver;
 
     /**
-     * parentContext is null only for CoreApplicationEnvironment - it is not valid otherwise because in this case XML is not interned.
+     * parentContext is null only for CoreApplicationEnvironment - it is not valid otherwise because
+     * in this case XML is not interned.
      */
-    DescriptorLoadingContext(DescriptorListLoadingContext parentContext,
-                             boolean isBundled,
-                             boolean isEssential,
-                             PathBasedJdomXIncluder.PathResolver<?> pathResolver) {
+    DescriptorLoadingContext(
+            DescriptorListLoadingContext parentContext,
+            boolean isBundled,
+            boolean isEssential,
+            PathBasedJdomXIncluder.PathResolver<?> pathResolver) {
         this.parentContext = parentContext;
         this.isBundled = isBundled;
         this.isEssential = isEssential;
@@ -54,12 +56,10 @@ final class DescriptorLoadingContext implements AutoCloseable {
         for (FileSystem file : openedFiles.values()) {
             try {
                 file.close();
-            }
-            catch (IOException ignore) {
+            } catch (IOException ignore) {
             }
         }
     }
-
 
     public DescriptorLoadingContext copy(boolean isEssential) {
         return new DescriptorLoadingContext(parentContext, isBundled, isEssential, pathResolver);

@@ -16,3 +16,4 @@ rootProject.name = "Android Playgrounds"
 include ':app'
 include ':kotlinc'
 include ':android-compiler'
+include ':jaxp'
