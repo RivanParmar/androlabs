@@ -8,7 +8,8 @@ configurations.implementation {
 }
 
 dependencies {
-    implementation project(path: "jaxp")
+    implementation project(':jaxp:xml')
+    implementation project(':jaxp:internal')
     implementation 'com.github.marschall:zipfilesystem-standalone:1.0.1'
 
     runtimeOnly ('org.jetbrains.kotlin:kotlin-reflect:1.7.10')
