@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.cli.jvm.plugins
 
-import dalvik.system.DexClassLoader
+import dalvik.system.PathClassLoader
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtil.isJavaIdentifierPart
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtil.isJavaIdentifierStart
 import java.io.File
@@ -8,7 +8,7 @@ import java.io.IOError
 import java.net.URLClassLoader
 import java.nio.file.FileSystemNotFoundException
 import java.nio.file.Paths
-import java.util.*
+import java.util.Locale
 import java.util.zip.ZipFile
 
 object ServiceLoaderLite {
@@ -38,10 +38,10 @@ object ServiceLoaderLite {
             val classpath = classLoader.urLs.joinToString(separator = File.pathSeparator) {
                 it.path
             }
-            val loader = DexClassLoader(classpath, "", "", this::class.java.classLoader)
+            val loader = PathClassLoader(classpath, this::class.java.classLoader)
             return loadImplementations(service, files, loader)
         }
-        return loadImplementations(service, files, classLoader);
+        return loadImplementations(service, files, classLoader)
     }
 
     fun <Service> loadImplementations(service: Class<out Service>, files: List<File>, classLoader: ClassLoader): MutableList<Service> {
@@ -49,11 +49,11 @@ object ServiceLoaderLite {
 
         for (className in findImplementations(service, files)) {
             try {
-                val instance = classLoader.loadClass(className)
-                    .newInstance();
+                val instance = classLoader.loadClass(className).getConstructor()
+                    .newInstance()
                 implementations += service.cast(instance)
             } catch (e: ClassNotFoundException) {
-                throw ClassNotFoundException("Unable to find class $className in $files");
+                throw ClassNotFoundException("Unable to find class $className in $files")
             }
         }
 
