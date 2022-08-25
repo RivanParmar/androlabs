@@ -5,7 +5,7 @@
 
 package org.jetbrains.kotlin.com.intellij.ide.plugins;
 
-import com.itsaky.androidide.zipfs.ZipFileSystemProvider;
+import com.github.marschall.com.sun.nio.zipfs.ZipFileSystemProvider;
 
 import gnu.trove.THashMap;
 

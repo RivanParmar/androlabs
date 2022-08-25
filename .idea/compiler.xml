@@ -3,7 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="Android_Playgrounds.android-compiler" target="18" />
+      <module name="Android_Playgrounds.androidplaygrounds" target="18" />
       <module name="Android_Playgrounds.app" target="18" />
+      <module name="Android_Playgrounds.core-navigation" target="18" />
     </bytecodeTargetLevel>
   </component>
 </project>

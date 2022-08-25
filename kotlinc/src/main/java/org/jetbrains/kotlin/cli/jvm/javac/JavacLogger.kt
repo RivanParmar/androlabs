@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("JAVA_MODULE_DOES_NOT_EXPORT_PACKAGE")
+
 package org.jetbrains.kotlin.cli.jvm.javac
 
 import com.sun.tools.javac.util.Context

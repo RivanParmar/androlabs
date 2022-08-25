@@ -1,6 +1,10 @@
 plugins {
-    id 'java-library'
-} 
+    id("java-library")
+}
+
+dependencies {
+    implementation(project(":jaxp:xml"))
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

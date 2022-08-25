@@ -1,8 +1,7 @@
 package com.rivan.android_compiler
 
-import android.content.SharedPreferences
+import com.android.tools.r8.CompilationFailedException
 import org.eclipse.jdt.internal.compiler.batch.Main
-import java.io.File
 import java.io.OutputStream
 import java.io.PrintWriter
 
