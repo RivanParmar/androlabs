@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.cli.jvm.plugins
 
-/*import dalvik.system.PathClassLoader
+import dalvik.system.PathClassLoader
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtil.isJavaIdentifierPart
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtil.isJavaIdentifierStart
 import java.io.File
@@ -9,10 +9,10 @@ import java.net.URLClassLoader
 import java.nio.file.FileSystemNotFoundException
 import java.nio.file.Paths
 import java.util.Locale
-import java.util.zip.ZipFile*/
+import java.util.zip.ZipFile
 
 object ServiceLoaderLite {
-    /*private const val SERVICE_DIRECTORY_LOCATION = "META-INF/services/"
+    private const val SERVICE_DIRECTORY_LOCATION = "META-INF/services/"
 
     class ServiceLoadingException(val file: File, cause: Throwable) : RuntimeException("Error loading services from $file", cause)
 
@@ -23,6 +23,7 @@ object ServiceLoaderLite {
      * ServiceLoaderLite doesn't iterate over the whole ClassLoader hierarchy, it takes only the immediate roots of `classLoader`.
      * In fact, this is often the desired behavior.
      */
+
     fun <Service> loadImplementations(service: Class<out Service>, classLoader: URLClassLoader): List<Service> {
         val files = classLoader.urLs.map { url ->
             try {
@@ -123,5 +124,5 @@ object ServiceLoaderLite {
         return service.name
     }
 
-    fun isDalvik() = System.getProperty("java.vm.name")?.contains("Dalvik")*/
+    fun isDalvik() = System.getProperty("java.vm.name")?.contains("Dalvik")
 }

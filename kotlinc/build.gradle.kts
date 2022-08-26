@@ -17,6 +17,9 @@ dependencies {
 
     api("org.jetbrains.trove4j:trove4j:20160824")
     api(files("libs/kotlin-compiler-embeddable-1.7.20-Beta.jar"))
+
+    compileOnly(files("libs/the-unsafe.jar"))
+    compileOnly(files("libs/android-stubs.jar"))
 }
 
 java {

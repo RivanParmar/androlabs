@@ -1,7 +1,7 @@
 package com.rivan.androidplaygrounds.core.navigation
 
 /**
- * Interface for describing the Now in Android navigation destinations
+ * Interface for describing the Android Playgrounds navigation destinations
  */
 
 interface APNavigationDestination {
