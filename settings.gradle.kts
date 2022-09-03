@@ -14,9 +14,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Android Playgrounds"
 include("app")
-include("kotlinc")
 include("android-compiler")
 include("core-navigation")
+include("feature-recents")
 include("jaxp:internal")
 include("jaxp:xml")
-//include("feature-recents")
+include("kotlinc")
+include("project-utils")

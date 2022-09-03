@@ -6,6 +6,10 @@
       <module name="Android_Playgrounds.androidplaygrounds" target="18" />
       <module name="Android_Playgrounds.app" target="18" />
       <module name="Android_Playgrounds.core-navigation" target="18" />
+      <module name="Android_Playgrounds.feature-recents" target="18" />
+      <module name="Android_Playgrounds.project-utils" target="11" />
+      <module name="Android_Playgrounds.project-utils.main" target="11" />
+      <module name="Android_Playgrounds.project-utils.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

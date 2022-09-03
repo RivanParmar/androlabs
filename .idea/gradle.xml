@@ -14,10 +14,12 @@
             <option value="$PROJECT_DIR$/android-compiler" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-navigation" />
+            <option value="$PROJECT_DIR$/feature-recents" />
             <option value="$PROJECT_DIR$/jaxp" />
             <option value="$PROJECT_DIR$/jaxp/internal" />
             <option value="$PROJECT_DIR$/jaxp/xml" />
             <option value="$PROJECT_DIR$/kotlinc" />
+            <option value="$PROJECT_DIR$/project-utils" />
           </set>
         </option>
       </GradleProjectSettings>
