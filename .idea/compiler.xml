@@ -2,9 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="Android_Playgrounds.android-compiler" target="18" />
       <module name="Android_Playgrounds.androidplaygrounds" target="18" />
       <module name="Android_Playgrounds.app" target="18" />
+      <module name="Android_Playgrounds.build-tools.android-builder" target="11" />
+      <module name="Android_Playgrounds.build-tools.android-builder.main" target="11" />
+      <module name="Android_Playgrounds.build-tools.android-builder.test" target="11" />
+      <module name="Android_Playgrounds.build-tools.build-logic" target="11" />
+      <module name="Android_Playgrounds.build-tools.build-logic.main" target="11" />
+      <module name="Android_Playgrounds.build-tools.build-logic.test" target="11" />
+      <module name="Android_Playgrounds.build-tools.builder-core" target="11" />
+      <module name="Android_Playgrounds.build-tools.builder-core.main" target="11" />
+      <module name="Android_Playgrounds.build-tools.builder-core.test" target="11" />
+      <module name="Android_Playgrounds.build-tools.project" target="11" />
+      <module name="Android_Playgrounds.build-tools.project.main" target="11" />
+      <module name="Android_Playgrounds.build-tools.project.test" target="11" />
       <module name="Android_Playgrounds.core-navigation" target="18" />
       <module name="Android_Playgrounds.feature-recents" target="18" />
       <module name="Android_Playgrounds.project-utils" target="11" />
