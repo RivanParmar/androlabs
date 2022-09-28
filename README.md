@@ -5,4 +5,4 @@ Android Playgrounds [Work in progress 🚧]
 
 The app is currently in early stages of development and is not yet ready to be used.
 
-[^1]: Java is primarily used for compiler code and not in app development.
+[^1]: Java is primarily used in compiler code and not in app development.
