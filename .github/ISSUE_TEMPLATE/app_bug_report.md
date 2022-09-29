@@ -1,6 +1,6 @@
 ---
 name: App bug report
-about: Create a report to help us improve
+about: Create a report to help us improve the app
 title: ''
 labels: ''
 assignees: ''
