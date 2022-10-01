@@ -2,7 +2,7 @@
 name: Code error report
 about: Create a report to help us improve the code
 title: ''
-labels: ''
+labels: 'code error'
 assignees: ''
 
 ---
