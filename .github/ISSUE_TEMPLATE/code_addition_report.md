@@ -2,7 +2,7 @@
 name: Code addition report
 about: Create a report to add code to the project
 title: ''
-labels: 'code addition'
+labels: code addition
 assignees: ''
 
 ---
