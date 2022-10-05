@@ -5,4 +5,7 @@ Android Playgrounds [Work in progress 🚧]
 
 The app is currently in early stages of development and is not yet ready to be used.
 
+# License
+The Android Playgrounds project is available under the [Apache-2.0](/LICENSE) license.
+
 [^1]: Java is primarily used in compiler code and not in app development.
