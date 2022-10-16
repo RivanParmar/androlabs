@@ -16,7 +16,6 @@ rootProject.name = "Android Playgrounds"
 include("app")
 include("core-navigation")
 include("feature-recents")
-include("project-utils")
 
 include("build-tools:android-builder")
 include("build-tools:jaxp:internal")

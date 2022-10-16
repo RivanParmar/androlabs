@@ -23,7 +23,6 @@
             <option value="$PROJECT_DIR$/build-tools/project" />
             <option value="$PROJECT_DIR$/core-navigation" />
             <option value="$PROJECT_DIR$/feature-recents" />
-            <option value="$PROJECT_DIR$/project-utils" />
           </set>
         </option>
       </GradleProjectSettings>
