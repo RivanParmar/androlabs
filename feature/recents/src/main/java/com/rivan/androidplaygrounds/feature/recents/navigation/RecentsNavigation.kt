@@ -11,6 +11,6 @@ object RecentsDestination : APNavigationDestination {
 
 fun NavGraphBuilder.recentsGraph() {
     composable(route = RecentsDestination.route) {
-        // TODO: Add composable function
+        TODO("Add composable function")
     }
 }

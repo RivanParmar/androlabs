@@ -8,7 +8,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core-navigation"))
+    //implementation(project(":core-navigation"))
 
     implementation(libs.androidx.compose.material3.windowSizeClass)
 }

@@ -47,42 +47,26 @@ android {
 
 dependencies {
 
-    /*implementation 'androidx.core:core-ktx:1.8.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha15'
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
-    implementation 'androidx.navigation:navigation-runtime-ktx:2.4.2'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"*/
-
     //implementation(project(":feature-recents"))
 
-    implementation(project(":core-navigation"))
+    //implementation(project(":core-navigation"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
-    implementation(libs.material3)
 
-    // TODO : Remove these dependency once we upgrade to Android Studio Dolphin
-    // These dependencies are currently necessary to render Compose previews
-    debugImplementation(libs.androidx.customview)
-    debugImplementation(libs.androidx.customview.poolingcontainer)
-    debugImplementation(libs.androidx.lifecycle.viewModelCompose)
-    debugImplementation(libs.androidx.savedstate.ktx)
+    //debugImplementation(libs.androidx.compose.ui.testManifest)
 
-    api(libs.androidx.compose.material3)
+    /*api(libs.androidx.compose.material3)
     debugApi(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)
-    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.compose.ui.util)*/
 
     // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
     configurations.configureEach {

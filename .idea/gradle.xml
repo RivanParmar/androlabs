@@ -13,16 +13,18 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-tools" />
-            <option value="$PROJECT_DIR$/build-tools/android-builder" />
             <option value="$PROJECT_DIR$/build-tools/build-logic" />
             <option value="$PROJECT_DIR$/build-tools/builder-core" />
+            <option value="$PROJECT_DIR$/build-tools/javac" />
             <option value="$PROJECT_DIR$/build-tools/jaxp" />
             <option value="$PROJECT_DIR$/build-tools/jaxp/internal" />
             <option value="$PROJECT_DIR$/build-tools/jaxp/xml" />
             <option value="$PROJECT_DIR$/build-tools/kotlinc" />
             <option value="$PROJECT_DIR$/build-tools/project" />
-            <option value="$PROJECT_DIR$/core-navigation" />
-            <option value="$PROJECT_DIR$/feature-recents" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/navigation" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/recents" />
           </set>
         </option>
       </GradleProjectSettings>

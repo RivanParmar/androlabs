@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-
+    implementation(project(":build-tools:kotlinc"))
 }
 
 java {
