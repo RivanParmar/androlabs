@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-plugins")
     repositories {
         gradlePluginPortal()
         google()
@@ -14,8 +15,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Android Playgrounds"
 include(":app")
-include(":core:navigation")
-include(":feature:recents")
+include(":core:designsystem")
+include(":feature:recent")
 
 include(":build-tools:javac")
 include(":build-tools:jaxp:internal")

@@ -1,5 +1,6 @@
 package com.rivan.builder.project.api
 
+import com.rivan.builder.project.Project
 import org.jetbrains.kotlin.com.intellij.openapi.util.UserDataHolderEx
 import java.io.File
 import java.io.IOException
@@ -40,5 +41,16 @@ interface Module : UserDataHolderEx {
      */
     fun getModuleDependencies(): Set<String> {
         return Collections.emptySet()
+    }
+
+    /**
+     * @return the project that this module is part of
+     */
+    fun getProject(): Project {
+        throw UnsupportedOperationException()
+    }
+
+    fun setProject(project: Project) {
+        throw UnsupportedOperationException()
     }
 }

@@ -9,6 +9,8 @@ dependencies {
     api(project(":build-tools:jaxp:internal"))
     api(project(":build-tools:jaxp:xml"))
     api(project(":build-tools:kotlinc"))
+
+    implementation(project(":build-tools:project"))
 }
 
 java {

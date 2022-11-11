@@ -4,6 +4,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-plugins" name="build-plugins">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-plugins" />
+                  <project path="$PROJECT_DIR$/build-plugins/convention" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -12,6 +24,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/build-plugins" />
+            <option value="$PROJECT_DIR$/build-plugins/convention" />
             <option value="$PROJECT_DIR$/build-tools" />
             <option value="$PROJECT_DIR$/build-tools/build-logic" />
             <option value="$PROJECT_DIR$/build-tools/builder-core" />
@@ -22,9 +36,9 @@
             <option value="$PROJECT_DIR$/build-tools/kotlinc" />
             <option value="$PROJECT_DIR$/build-tools/project" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/navigation" />
+            <option value="$PROJECT_DIR$/core/designsystem" />
             <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/recents" />
+            <option value="$PROJECT_DIR$/feature/recent" />
           </set>
         </option>
       </GradleProjectSettings>

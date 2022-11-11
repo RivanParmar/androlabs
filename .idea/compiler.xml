@@ -19,12 +19,16 @@
       <module name="Android_Playgrounds.build-tools.project" target="11" />
       <module name="Android_Playgrounds.build-tools.project.main" target="11" />
       <module name="Android_Playgrounds.build-tools.project.test" target="11" />
+      <module name="Android_Playgrounds.core.designsystem" target="18" />
       <module name="Android_Playgrounds.core.navigation" target="18" />
-      <module name="Android_Playgrounds.feature.recents" target="18" />
+      <module name="Android_Playgrounds.feature.recent" target="18" />
       <module name="Android_Playgrounds.project-utils" target="11" />
       <module name="Android_Playgrounds.project-utils.main" target="11" />
       <module name="Android_Playgrounds.project-utils.test" target="11" />
       <module name="Android_Playgrounds.recents" target="18" />
+      <module name="build-plugins.convention" target="11" />
+      <module name="build-plugins.convention.main" target="11" />
+      <module name="build-plugins.convention.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
