@@ -15,8 +15,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Android Playgrounds"
 include(":app")
+
 include(":core:designsystem")
+
 include(":feature:recent")
+include(":feature:settings")
 
 include(":build-tools:javac")
 include(":build-tools:jaxp:internal")

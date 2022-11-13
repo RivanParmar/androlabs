@@ -32,6 +32,8 @@ android {
 dependencies {
 
     implementation(project(":feature:recent"))
+    implementation(project(":feature:settings"))
+
     implementation(project(":core:designsystem"))
 
     implementation(libs.androidx.activity.compose)
