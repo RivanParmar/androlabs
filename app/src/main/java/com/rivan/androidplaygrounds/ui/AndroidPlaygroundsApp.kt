@@ -1,7 +1,6 @@
 package com.rivan.androidplaygrounds.ui
 
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -15,16 +14,16 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.rivan.androidplaygrounds.core.designsystem.component.APBackground
-import com.rivan.androidplaygrounds.core.designsystem.component.APNavigationBar
-import com.rivan.androidplaygrounds.core.designsystem.component.APNavigationBarItem
+import com.rivan.androidplaygrounds.core.designsystem.component.*
 import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.ImageVectorIcon
+import com.rivan.androidplaygrounds.navigation.APNavHost
 import com.rivan.androidplaygrounds.navigation.TopLevelDestination
 
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalComposeUiApi::class
+    ExperimentalComposeUiApi::class,
+    ExperimentalLayoutApi::class
 )
 
 @Composable
@@ -34,8 +33,7 @@ fun AndroidPlaygroundsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    val background: @Composable (@Composable () -> Unit) -> Unit = {
-        content ->
+    val background: @Composable (@Composable () -> Unit) -> Unit = { content ->
         APBackground(content = content)
     }
 
@@ -55,7 +53,7 @@ fun AndroidPlaygroundsApp(
                 // Show the top app bar on top level destinations
                 val destination = appState.currentTopLevelDestination
                 if (destination != null) {
-                    
+
                 }
             },
             bottomBar = {
@@ -67,10 +65,34 @@ fun AndroidPlaygroundsApp(
                     )
                 }
             }
-        ) {
-            // This is just a sample composable to suppress warnings
-            // TODO: Remove once UI elements are ready
-            Text(text = "Hello, world!", modifier = Modifier.padding(it))
+        ) { padding ->
+
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal
+                        )
+                    )
+            ) {
+                if (appState.shouldShowNavRail) {
+                    APNavRail(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToDestination = appState::navigateToTopLevelDestination,
+                        currentDestination = appState.currentDestination,
+                        modifier = Modifier.safeDrawingPadding()
+                    )
+                }
+
+                APNavHost(
+                    navController = appState.navController,
+                    onBackClick = appState::onBackClick,
+                    modifier = Modifier
+                        .padding(padding)
+                        .consumedWindowInsets(padding)
+                )
+            }
         }
     }
 }
@@ -100,7 +122,44 @@ private fun APBottomBar(
                             imageVector = icon.imageVector,
                             contentDescription = null
                         )
+                        is DrawableResourceIcon -> Icon(
+                            painter = painterResource(id = icon.id),
+                            contentDescription = null
+                        )
+                    }
+                },
+                label = { Text(text = stringResource(id = destination.iconTextId)) }
+            )
+        }
+    }
+}
 
+@Composable
+private fun APNavRail(
+    destinations: List<TopLevelDestination>,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?,
+    modifier: Modifier = Modifier
+) {
+    APNavigationRail(modifier = Modifier) {
+        destinations.forEach { destination ->
+            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+
+            APNavigationRailItem(
+                selected = selected,
+                onClick = { onNavigateToDestination(destination) },
+                icon = {
+                    val icon = if (selected) {
+                        destination.selectedIcon
+                    } else {
+                        destination.unselectedIcon
+                    }
+
+                    when (icon) {
+                        is ImageVectorIcon -> Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = null
+                        )
                         is DrawableResourceIcon -> Icon(
                             painter = painterResource(id = icon.id),
                             contentDescription = null
