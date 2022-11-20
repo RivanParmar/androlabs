@@ -141,7 +141,7 @@ private fun APNavRail(
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier
 ) {
-    APNavigationRail(modifier = Modifier) {
+    APNavigationRail(modifier = modifier) {
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
 
