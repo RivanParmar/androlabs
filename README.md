@@ -8,5 +8,8 @@ The app is currently in early stages of development and is not yet ready to be u
 # License
 The Android Playgrounds project is available under the [Apache-2.0](/LICENSE) license.
 
+## Special Thanks
+- [NowInAndroid](https://www.github.com/android/nowinandroid)
+
 [^1]: Android is a trademark of Google LLC.
 [^2]: Java is primarily used in compiler code and not in app development.
