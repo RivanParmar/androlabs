@@ -48,6 +48,11 @@ fun AndroidPlaygroundsApp(
                 if (destination != null) {
 
                 }
+            },
+            bottomBar = {
+                if (appState.shouldShowBottomBar) {
+
+                }
             }
         ) {
             // This is just a sample composable to suppress warnings
