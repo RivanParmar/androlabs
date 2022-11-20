@@ -2,6 +2,7 @@ package com.rivan.androidplaygrounds.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -12,9 +13,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.rivan.androidplaygrounds.core.designsystem.component.*
+import com.rivan.androidplaygrounds.core.designsystem.icon.APIcons
 import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.ImageVectorIcon
 import com.rivan.androidplaygrounds.navigation.APNavHost
@@ -53,7 +59,24 @@ fun AndroidPlaygroundsApp(
                 // Show the top app bar on top level destinations
                 val destination = appState.currentTopLevelDestination
                 if (destination != null) {
-
+                    APTopAppBar(
+                        // When the nav rail is displayed, the top app bar will, by default
+                        // overlap it. This means that the top most item in the nav rail
+                        // won't be tappable. A workaround is to position the top app bar
+                        // behind the nav rail using zIndex.
+                        modifier = Modifier.zIndex(-1F),
+                        titleRes = destination.titleTextId,
+                        // TODO: Remove action related items from function declaration if not needed.
+                        actionIcon = APIcons.MoreVert,
+                        actionIconContentDescription = stringResource(
+                            // TODO: Add proper string resource here.
+                            id = android.R.string.untitled
+                        ),
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Color.Transparent
+                        ),
+                        onActionClick = { /*TODO*/ }
+                    )
                 }
             },
             bottomBar = {
@@ -142,6 +165,8 @@ private fun APNavRail(
     modifier: Modifier = Modifier
 ) {
     APNavigationRail(modifier = modifier) {
+        // Align the items to the center of the navigation rail.
+        Spacer(modifier = Modifier.weight(1F))
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
 
