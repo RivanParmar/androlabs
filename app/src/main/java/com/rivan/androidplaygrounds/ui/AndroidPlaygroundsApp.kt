@@ -9,9 +9,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.rivan.androidplaygrounds.core.designsystem.component.APBackground
+import com.rivan.androidplaygrounds.core.designsystem.component.APNavigationBar
+import com.rivan.androidplaygrounds.core.designsystem.component.APNavigationBarItem
+import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.DrawableResourceIcon
+import com.rivan.androidplaygrounds.core.designsystem.icon.Icon.ImageVectorIcon
+import com.rivan.androidplaygrounds.navigation.TopLevelDestination
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -46,12 +55,16 @@ fun AndroidPlaygroundsApp(
                 // Show the top app bar on top level destinations
                 val destination = appState.currentTopLevelDestination
                 if (destination != null) {
-
+                    
                 }
             },
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
-
+                    APBottomBar(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToDestination = appState::navigateToTopLevelDestination,
+                        currentDestination = appState.currentDestination
+                    )
                 }
             }
         ) {
@@ -61,3 +74,46 @@ fun AndroidPlaygroundsApp(
         }
     }
 }
+
+@Composable
+private fun APBottomBar(
+    destinations: List<TopLevelDestination>,
+    onNavigateToDestination: (TopLevelDestination) -> Unit,
+    currentDestination: NavDestination?
+) {
+    APNavigationBar {
+        destinations.forEach { destination ->
+            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+
+            APNavigationBarItem(
+                selected = selected,
+                onClick = { onNavigateToDestination(destination) },
+                icon = {
+                    val icon = if (selected) {
+                        destination.selectedIcon
+                    } else {
+                        destination.unselectedIcon
+                    }
+
+                    when (icon) {
+                        is ImageVectorIcon -> Icon(
+                            imageVector = icon.imageVector,
+                            contentDescription = null
+                        )
+
+                        is DrawableResourceIcon -> Icon(
+                            painter = painterResource(id = icon.id),
+                            contentDescription = null
+                        )
+                    }
+                },
+                label = { Text(text = stringResource(id = destination.iconTextId)) }
+            )
+        }
+    }
+}
+
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
+    this?.hierarchy?.any {
+        it.route?.contains(destination.name, true) ?: false
+    } ?: false
