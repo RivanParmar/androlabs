@@ -39,7 +39,7 @@ fun AndroidPlaygroundsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    // TODO: Use this backgrounds once APBackground is ready
+    // TODO: Use this background once APBackground is ready
     /*val background: @Composable (@Composable () -> Unit) -> Unit = { content ->
         APBackground(content = content)
     }
