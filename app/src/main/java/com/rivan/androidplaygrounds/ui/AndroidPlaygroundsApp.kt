@@ -39,11 +39,14 @@ fun AndroidPlaygroundsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    val background: @Composable (@Composable () -> Unit) -> Unit = { content ->
+    // TODO: Use this backgrounds once APBackground is ready
+    /*val background: @Composable (@Composable () -> Unit) -> Unit = { content ->
         APBackground(content = content)
     }
 
-    background {
+    background {*/
+
+    Surface(modifier = Modifier.fillMaxSize()) {
 
         val snackbarHostState = remember { SnackbarHostState() }
 
@@ -119,6 +122,7 @@ fun AndroidPlaygroundsApp(
         }
     }
 }
+//}
 
 @Composable
 private fun APBottomBar(

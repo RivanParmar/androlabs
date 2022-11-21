@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.rivan.androidplaygrounds.feature.recent.RecentScreen
 
 const val recentNavigationRoute = "recent_route"
 
@@ -13,6 +14,6 @@ fun NavController.navigateToRecent(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.recentScreen() {
     composable(route = recentNavigationRoute) {
-        TODO("Add composable here")
+        RecentScreen()
     }
 }
