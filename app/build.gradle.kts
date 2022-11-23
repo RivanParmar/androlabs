@@ -36,6 +36,15 @@ dependencies {
 
     implementation(project(":core:designsystem"))
 
+    androidTestImplementation(libs.androidx.navigation.testing)
+    androidTestImplementation(kotlin("test"))
+    api(libs.junit4)
+    api(libs.androidx.compose.ui.test)
+    api(libs.androidx.test.espresso.core)
+    api(libs.androidx.test.runner)
+    api(libs.androidx.test.rules)
+    debugApi(libs.androidx.compose.ui.testManifest)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
