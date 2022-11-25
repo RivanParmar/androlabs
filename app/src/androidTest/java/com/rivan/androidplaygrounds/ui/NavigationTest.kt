@@ -20,7 +20,7 @@ class NavigationTest {
     /**
      * Use the primary activity to initialize the app normally.
      */
-    @get:Rule(order = 0)
+    @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     // The strings used for matching in these tests
@@ -82,6 +82,22 @@ class NavigationTest {
             // When the user uses the system button/gesture to go back
             Espresso.pressBack()
             // then the app quits
+        }
+    }
+
+    /**
+     * When pressing back from any top level destination except "Recent", the app navigates back
+     * to the "Recent" destination, no matter which destinations you visited in between.
+     */
+    @Test
+    fun navigationBar_backFromAnyDestination_returnsToRecent() {
+        composeTestRule.apply {
+            // Given user navigated to the Settings destination
+            onNodeWithText(settings).performClick()
+            // When the user use the system button/gesture to go back,
+            Espresso.pressBack()
+            // Then the app shows the Recent destination
+            onNodeWithText(recent).assertExists()
         }
     }
 }
