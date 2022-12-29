@@ -3,7 +3,7 @@ The `build-plugins` folder defines project specific convention plugins, used to 
 source of truth for common module configurations.
 
 This approach has been adopted from the 
-[NowIndAndroid](https://www.github.com/android/nowinandroid/tree/main/build-logic) app.
+[NowInAndroid](https://www.github.com/android/nowinandroid/tree/main/build-logic) app.
 
 By setting up convention plugins, we can avoid duplicated build script setup, messy `subproject` 
 configurations, without the pitfalls of the `buildSrc` directory.
