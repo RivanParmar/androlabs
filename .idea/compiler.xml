@@ -16,11 +16,18 @@
       <module name="Android_Playgrounds.build-tools.builder-core" target="11" />
       <module name="Android_Playgrounds.build-tools.builder-core.main" target="11" />
       <module name="Android_Playgrounds.build-tools.builder-core.test" target="11" />
+      <module name="Android_Playgrounds.build-tools.javac" target="11" />
+      <module name="Android_Playgrounds.build-tools.javac.main" target="11" />
+      <module name="Android_Playgrounds.build-tools.javac.test" target="11" />
       <module name="Android_Playgrounds.build-tools.project" target="11" />
       <module name="Android_Playgrounds.build-tools.project.main" target="11" />
       <module name="Android_Playgrounds.build-tools.project.test" target="11" />
       <module name="Android_Playgrounds.core.designsystem" target="18" />
+      <module name="Android_Playgrounds.core.model" target="18" />
+      <module name="Android_Playgrounds.core.model.main" target="18" />
+      <module name="Android_Playgrounds.core.model.test" target="18" />
       <module name="Android_Playgrounds.core.navigation" target="18" />
+      <module name="Android_Playgrounds.core.ui" target="18" />
       <module name="Android_Playgrounds.feature.recent" target="18" />
       <module name="Android_Playgrounds.feature.settings" target="18" />
       <module name="Android_Playgrounds.project-utils" target="11" />

@@ -17,6 +17,7 @@ rootProject.name = "Android Playgrounds"
 include(":app")
 
 include(":core:designsystem")
+include(":core:ui")
 
 include(":feature:recent")
 include(":feature:settings")

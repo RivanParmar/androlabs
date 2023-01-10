@@ -8,7 +8,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun RecentScreen() {
+internal fun RecentRoute(
+    modifier: Modifier = Modifier
+) {
+    RecentScreen(modifier = modifier)
+}
+
+@Composable
+internal fun RecentScreen(
+    modifier: Modifier
+) {
     // This is just a placeholder for now
     // TODO: Add UI elements here once they are ready
     Box(
