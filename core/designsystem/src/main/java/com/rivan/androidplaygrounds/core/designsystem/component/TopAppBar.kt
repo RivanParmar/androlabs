@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.rivan.androidplaygrounds.core.designsystem.component
 
 import androidx.annotation.StringRes
@@ -11,7 +13,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun APTopAppBar(
     @StringRes titleRes: Int,
@@ -52,7 +53,6 @@ fun APTopAppBar(
 /**
  * Top app bar with action, displayed on the right
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun APTopAppBar(
     @StringRes titleRes: Int,
@@ -78,7 +78,6 @@ fun APTopAppBar(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview("Top App Bar")
 @Composable
 fun APTopAppBarPreview() {

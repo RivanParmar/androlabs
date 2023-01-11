@@ -2,7 +2,6 @@ package com.rivan.androidplaygrounds.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -13,9 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -70,7 +66,7 @@ fun AndroidPlaygroundsApp(
                         modifier = Modifier.zIndex(-1F),
                         titleRes = destination.titleTextId,
                         // TODO: Remove action related items from function declaration if not needed.
-                        actionIcon = APIcons.MoreVert,
+                        actionIcon = APIcons.Account,
                         actionIconContentDescription = stringResource(
                             // TODO: Add proper string resource here.
                             id = android.R.string.untitled
