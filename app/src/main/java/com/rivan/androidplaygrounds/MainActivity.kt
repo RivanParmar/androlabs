@@ -8,7 +8,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.view.WindowCompat
 import com.rivan.androidplaygrounds.ui.AndroidPlaygroundsApp
-import com.rivan.androidplaygrounds.ui.theme.AndroidPlaygroundsTheme
+import com.rivan.androidplaygrounds.core.designsystem.theme.AndroidPlaygroundsTheme
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
