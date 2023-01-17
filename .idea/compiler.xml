@@ -3,7 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="Android_Playgrounds.androidplaygrounds" target="18" />
-      <module name="Android_Playgrounds.app" target="18" />
+      <module name="Android_Playgrounds.app" target="11" />
       <module name="Android_Playgrounds.build-tools.android-builder" target="11" />
       <module name="Android_Playgrounds.build-tools.android-builder.main" target="11" />
       <module name="Android_Playgrounds.build-tools.android-builder.test" target="11" />
@@ -27,9 +27,9 @@
       <module name="Android_Playgrounds.core.model.main" target="18" />
       <module name="Android_Playgrounds.core.model.test" target="18" />
       <module name="Android_Playgrounds.core.navigation" target="18" />
-      <module name="Android_Playgrounds.core.ui" target="18" />
-      <module name="Android_Playgrounds.feature.recent" target="18" />
-      <module name="Android_Playgrounds.feature.settings" target="18" />
+      <module name="Android_Playgrounds.core.ui" target="11" />
+      <module name="Android_Playgrounds.feature.recent" target="11" />
+      <module name="Android_Playgrounds.feature.settings" target="11" />
       <module name="Android_Playgrounds.project-utils" target="11" />
       <module name="Android_Playgrounds.project-utils.main" target="11" />
       <module name="Android_Playgrounds.project-utils.test" target="11" />

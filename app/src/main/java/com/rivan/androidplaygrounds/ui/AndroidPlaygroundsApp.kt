@@ -35,14 +35,7 @@ fun AndroidPlaygroundsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    // TODO: Use this background once APBackground is ready
-    /*val background: @Composable (@Composable () -> Unit) -> Unit = { content ->
-        APBackground(content = content)
-    }
-
-    background {*/
-
-    Surface(modifier = Modifier.fillMaxSize()) {
+    APBackground {
 
         val snackbarHostState = remember { SnackbarHostState() }
 
@@ -54,30 +47,6 @@ fun AndroidPlaygroundsApp(
             contentColor = MaterialTheme.colorScheme.onBackground,
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-            topBar = {
-                // Show the top app bar on top level destinations
-                val destination = appState.currentTopLevelDestination
-                if (destination != null) {
-                    APTopAppBar(
-                        // When the nav rail is displayed, the top app bar will, by default
-                        // overlap it. This means that the top most item in the nav rail
-                        // won't be tappable. A workaround is to position the top app bar
-                        // behind the nav rail using zIndex.
-                        modifier = Modifier.zIndex(-1F),
-                        titleRes = destination.titleTextId,
-                        // TODO: Remove action related items from function declaration if not needed.
-                        actionIcon = APIcons.Account,
-                        actionIconContentDescription = stringResource(
-                            // TODO: Add proper string resource here.
-                            id = android.R.string.untitled
-                        ),
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.Transparent
-                        ),
-                        onActionClick = { /*TODO*/ }
-                    )
-                }
-            },
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
                     APBottomBar(
@@ -92,6 +61,8 @@ fun AndroidPlaygroundsApp(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(padding)
+                    .consumedWindowInsets(padding)
                     .windowInsetsPadding(
                         WindowInsets.safeDrawing.only(
                             WindowInsetsSides.Horizontal
@@ -107,18 +78,33 @@ fun AndroidPlaygroundsApp(
                     )
                 }
 
-                APNavHost(
-                    navController = appState.navController,
-                    onBackClick = appState::onBackClick,
-                    modifier = Modifier
-                        .padding(padding)
-                        .consumedWindowInsets(padding)
-                )
+                Column(Modifier.fillMaxSize()) {
+                    // Show the top app bar on top level destinations.
+                    val destination = appState.currentTopLevelDestination
+                    if (destination != null) {
+                        APTopAppBar(
+                            titleRes = destination.titleTextId,
+                            actionIcon = APIcons.Account,
+                            actionIconContentDescription = stringResource(
+                                // TODO: Add proper string resource here.
+                                id = android.R.string.untitled
+                            ),
+                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                containerColor = Color.Transparent
+                            ),
+                            onActionClick = { /*TODO*/ }
+                        )
+                    }
+
+                    APNavHost(
+                        navController = appState.navController,
+                        onBackClick = appState::onBackClick
+                    )
+                }
             }
         }
     }
 }
-//}
 
 @Composable
 private fun APBottomBar(

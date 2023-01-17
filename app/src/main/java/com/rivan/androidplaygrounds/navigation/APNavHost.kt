@@ -8,6 +8,12 @@ import com.rivan.androidplaygrounds.feature.recent.navigation.recentNavigationRo
 import com.rivan.androidplaygrounds.feature.recent.navigation.recentScreen
 import com.rivan.androidplaygrounds.feature.settings.navigation.settingScreen
 
+/**
+ * Top-level navigation graph.
+ *
+ * The navigation graph defined in this file defines the different top-level routes. Navigation
+ * within each route is handled using state and Back Handlers.
+ */
 @Composable
 fun APNavHost(
     navController: NavHostController,
