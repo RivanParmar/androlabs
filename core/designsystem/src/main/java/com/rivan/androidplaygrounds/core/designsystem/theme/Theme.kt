@@ -17,12 +17,31 @@ import androidx.compose.ui.unit.dp
  */
 @VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = Blue40,
     onPrimary = Color.White,
-    secondary = PurpleGrey40,
+    primaryContainer = Blue90,
+    onPrimaryContainer = Blue10,
+    secondary = BlueGrey40,
     onSecondary = Color.White,
-    tertiary = Pink40,
-    onTertiary = Color.White
+    secondaryContainer = BlueGrey90,
+    onSecondaryContainer = BlueGrey10,
+    tertiary = Green40,
+    onTertiary = Color.White,
+    tertiaryContainer = Green90,
+    onTertiaryContainer = Green10,
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = DarkGrey99,
+    onBackground = DarkGrey10,
+    surface = DarkGrey99,
+    onSurface = DarkGrey10,
+    surfaceVariant = Grey90,
+    onSurfaceVariant = Grey30,
+    inverseSurface = DarkGrey20,
+    inverseOnSurface = DarkGrey95,
+    outline = Grey50
 )
 
 // TODO: Not yet completed
@@ -31,12 +50,31 @@ val LightDefaultColorScheme = lightColorScheme(
  */
 @VisibleForTesting
 val DarkDefaultColorScheme = darkColorScheme(
-    primary = Purple80,
-    onPrimary = Color.White,
-    secondary = PurpleGrey80,
-    onSecondary = Color.White,
-    tertiary = Pink80,
-    onTertiary = Color.White
+    primary = Blue80,
+    onPrimary = Blue20,
+    primaryContainer = Blue30,
+    onPrimaryContainer = Blue90,
+    secondary = BlueGrey80,
+    onSecondary = BlueGrey20,
+    secondaryContainer = BlueGrey30,
+    onSecondaryContainer = BlueGrey90,
+    tertiary = Green80,
+    onTertiary = Green20,
+    tertiaryContainer = Green30,
+    onTertiaryContainer = Green90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = DarkGrey10,
+    onBackground = DarkGrey90,
+    surface = DarkGrey10,
+    onSurface = DarkGrey90,
+    surfaceVariant = Grey30,
+    onSurfaceVariant = Grey80,
+    inverseSurface = DarkGrey90,
+    inverseOnSurface = DarkGrey10,
+    outline = Grey60
 )
 
 /**
