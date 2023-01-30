@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":feature:settings"))
 
     implementation(project(":core:designsystem"))
+    implementation(project(":core:ui"))
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(kotlin("test"))

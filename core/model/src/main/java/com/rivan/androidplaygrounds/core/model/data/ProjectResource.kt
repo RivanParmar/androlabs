@@ -8,6 +8,23 @@ data class ProjectResource(
     val id: String,
     val title: String,
     val description: String,
-    val projectPath: String?,
+    val path: String?,
     val type: ProjectResourceType
+)
+
+val previewProjectResource = listOf(
+    ProjectResource(
+        id = "1",
+        title = "Android App 1",
+        description = "First Android app made by me.",
+        path = "/downloads/",
+        type = ProjectResourceType.Project
+    ),
+    ProjectResource(
+        id = "2",
+        title = "Android Playground 1",
+        description = "First Android Playground.",
+        path = null,
+        type = ProjectResourceType.Playground
+    )
 )

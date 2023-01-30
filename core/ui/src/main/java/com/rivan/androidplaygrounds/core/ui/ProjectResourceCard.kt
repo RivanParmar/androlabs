@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.rivan.androidplaygrounds.core.designsystem.theme.AndroidPlaygroundsTheme
 import com.rivan.androidplaygrounds.core.model.data.ProjectResource
 import com.rivan.androidplaygrounds.core.model.data.ProjectResourceType
+import com.rivan.androidplaygrounds.core.model.data.previewProjectResource
 
 // TODO: Not yet completed
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,16 +68,8 @@ private fun ProjectResourceCardPreview() {
     AndroidPlaygroundsTheme {
         Surface {
             ProjectResourceCard(
-                projectResource = previewProjectResource,
+                projectResource = previewProjectResource[0],
                 onClick = { /*TODO*/ })
         }
     }
 }
-
-val previewProjectResource = ProjectResource(
-    id = "1",
-    title = "Sample",
-    description = "A sample preview.",
-    projectPath = null,
-    type = ProjectResourceType.Playground
-)
