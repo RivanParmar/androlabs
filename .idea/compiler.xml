@@ -22,10 +22,10 @@
       <module name="Android_Playgrounds.build-tools.project" target="11" />
       <module name="Android_Playgrounds.build-tools.project.main" target="11" />
       <module name="Android_Playgrounds.build-tools.project.test" target="11" />
-      <module name="Android_Playgrounds.core.designsystem" target="18" />
-      <module name="Android_Playgrounds.core.model" target="18" />
-      <module name="Android_Playgrounds.core.model.main" target="18" />
-      <module name="Android_Playgrounds.core.model.test" target="18" />
+      <module name="Android_Playgrounds.core.designsystem" target="11" />
+      <module name="Android_Playgrounds.core.model" target="11" />
+      <module name="Android_Playgrounds.core.model.main" target="11" />
+      <module name="Android_Playgrounds.core.model.test" target="11" />
       <module name="Android_Playgrounds.core.navigation" target="18" />
       <module name="Android_Playgrounds.core.ui" target="11" />
       <module name="Android_Playgrounds.feature.recent" target="11" />
