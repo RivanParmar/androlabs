@@ -24,7 +24,7 @@ Scan through our [existing issues](https://github.com/RivanParmar/Android-Playgr
 ### Pull Request
 When you're finished with the changes, create a pull request.
  - Write a summary of the pull request before proposing changes. This would help us understand your changes as well as the purpose of your pull request.
- - Don't forget to [link PR to issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if your fixing one.
+ - Don't forget to [link PR to issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if you're fixing one.
  - Once you submit your PR, we will review your proposal. We may ask questions or request for additional information.
  - We may ask for changes to be made before a PR can be merged, either using [suggested changes](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request) or pull request changes.
  - As you update your PR and apply changes, mark each conversation as [resolved](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request#resolving-conversations).
