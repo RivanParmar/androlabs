@@ -2,6 +2,26 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="Andro_Labs.app" target="11" />
+      <module name="Andro_Labs.build-tools.build-logic" target="11" />
+      <module name="Andro_Labs.build-tools.build-logic.main" target="11" />
+      <module name="Andro_Labs.build-tools.build-logic.test" target="11" />
+      <module name="Andro_Labs.build-tools.builder-core" target="11" />
+      <module name="Andro_Labs.build-tools.builder-core.main" target="11" />
+      <module name="Andro_Labs.build-tools.builder-core.test" target="11" />
+      <module name="Andro_Labs.build-tools.javac" target="11" />
+      <module name="Andro_Labs.build-tools.javac.main" target="11" />
+      <module name="Andro_Labs.build-tools.javac.test" target="11" />
+      <module name="Andro_Labs.build-tools.project" target="11" />
+      <module name="Andro_Labs.build-tools.project.main" target="11" />
+      <module name="Andro_Labs.build-tools.project.test" target="11" />
+      <module name="Andro_Labs.core.designsystem" target="11" />
+      <module name="Andro_Labs.core.model" target="11" />
+      <module name="Andro_Labs.core.model.main" target="11" />
+      <module name="Andro_Labs.core.model.test" target="11" />
+      <module name="Andro_Labs.core.ui" target="11" />
+      <module name="Andro_Labs.feature.recent" target="11" />
+      <module name="Andro_Labs.feature.settings" target="11" />
       <module name="Android_Playgrounds.androidplaygrounds" target="18" />
       <module name="Android_Playgrounds.app" target="11" />
       <module name="Android_Playgrounds.build-tools.android-builder" target="11" />

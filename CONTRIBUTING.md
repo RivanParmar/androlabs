@@ -1,4 +1,4 @@
-# Welcome to Android Playgrounds contributing guide
+# Welcome to Andro Labs contributing guide
 Firstly, thanks for any contribution that you make to this project. We want to make contributing to this project as easy as possible, be it:
  - A bug report 
  - Fixing an issue
@@ -16,10 +16,10 @@ We accept issues, bug reports, feature requests, discussions and pull requests.
 
 ### Issues
 #### Create a new issue
-If you spot a problem with the app or the code, [search if an issue already exists](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue template](https://github.com/RivanParmar/Android-Playgrounds/issues/new/choose) or using a blank template.
+If you spot a problem with the app or the code, [search if an issue already exists](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue template](https://github.com/RivanParmar/AndroLabs/issues/new/choose) or using a blank template.
 
 #### Fix an issue
-Scan through our [existing issues](https://github.com/RivanParmar/Android-Playgrounds/issues) to find one that interests you. You can narrow down the search using `labels` as filters. The issues marked with the label "**task**" have been created to help you get started with contributing easily and quickly. These issues contain detailed information and steps required to add code or any other thing to the app. If you find an issue to work on, you are welcome to open a PR with a fix.
+Scan through our [existing issues](https://github.com/RivanParmar/AndroLabs/issues) to find one that interests you. You can narrow down the search using `labels` as filters. The issues marked with the label "**task**" have been created to help you get started with contributing easily and quickly. These issues contain detailed information and steps required to add code or any other thing to the app. If you find an issue to work on, you are welcome to open a PR with a fix.
 
 ### Pull Request
 When you're finished with the changes, create a pull request.
@@ -33,4 +33,4 @@ When you're finished with the changes, create a pull request.
 Congrats 🎉! We thank you for your contribution✨.
 
 ### GitHub Projects
-The [project](https://github.com/RivanParmar/Android-Playgrounds/projects) linked with this repository is primarily used as a roadmap. The project will show currently open issues and their status as well as their priority. The project can also be used to track changes to the project as well as to track progress of new features.
+The [project](https://github.com/RivanParmar/AndroLabs/projects) linked with this repository is primarily used as a roadmap. The project will show currently open issues and their status as well as their priority. The project can also be used to track changes to the project as well as to track progress of new features.

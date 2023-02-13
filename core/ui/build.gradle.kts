@@ -1,10 +1,10 @@
 plugins {
-    id("androidplaygrounds.android.library")
-    id("androidplaygrounds.android.library.compose")
+    id("androlabs.android.library")
+    id("androlabs.android.library.compose")
 }
 
 android {
-    namespace = "com.rivan.androidplaygrounds.core.ui"
+    namespace = "com.rivan.androlabs.core.ui"
 }
 
 dependencies {

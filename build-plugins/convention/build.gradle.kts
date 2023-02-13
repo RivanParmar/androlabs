@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.rivan.androidplaygrounds.buildplugins"
+group = "com.rivan.androlabs.buildplugins"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -17,23 +17,23 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplicationCompose") {
-            id = "androidplaygrounds.android.application.compose"
+            id = "androlabs.android.application.compose"
             implementationClass = "AndroidAppComposeConventionPlugin"
         }
         register("androidApplication") {
-            id = "androidplaygrounds.android.application"
+            id = "androlabs.android.application"
             implementationClass = "AndroidAppConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "androidplaygrounds.android.library.compose"
+            id = "androlabs.android.library.compose"
             implementationClass = "AndroidLibComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = "androidplaygrounds.android.library"
+            id = "androlabs.android.library"
             implementationClass = "AndroidLibConventionPlugin"
         }
         register("androidFeature") {
-            id = "androidplaygrounds.android.feature"
+            id = "androlabs.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
     }

@@ -1,5 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.rivan.androidplaygrounds.configureKotlinAndroid
+import com.rivan.androlabs.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

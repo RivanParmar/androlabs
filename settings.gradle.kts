@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Android Playgrounds"
+rootProject.name = "Andro Labs"
 include(":app")
 
 include(":core:designsystem")

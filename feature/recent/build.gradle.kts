@@ -1,10 +1,10 @@
 plugins {
-    id("androidplaygrounds.android.feature")
-    id("androidplaygrounds.android.library.compose")
+    id("androlabs.android.feature")
+    id("androlabs.android.library.compose")
 }
 
 android {
-    namespace = "com.rivan.androidplaygrounds.feature.recent"
+    namespace = "com.rivan.androlabs.feature.recent"
 }
 
 dependencies {

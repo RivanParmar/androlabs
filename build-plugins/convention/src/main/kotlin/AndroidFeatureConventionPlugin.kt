@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.getByType
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("androidplaygrounds.android.library")
+            pluginManager.apply("androlabs.android.library")
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 

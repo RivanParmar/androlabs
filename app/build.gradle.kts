@@ -1,11 +1,11 @@
 plugins {
-    id("androidplaygrounds.android.application")
-    id("androidplaygrounds.android.application.compose")
+    id("androlabs.android.application")
+    id("androlabs.android.application.compose")
 }
 
 android {
     defaultConfig {
-        applicationId = "com.rivan.androidplaygrounds"
+        applicationId = "com.rivan.androlabs"
         versionCode = 1
         versionName = "0.0.1" //X.Y.Z; X = Major, Y = Minor, Z = Patch level
 
@@ -26,7 +26,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    namespace = "com.rivan.androidplaygrounds"
+    namespace = "com.rivan.androlabs"
 }
 
 dependencies {
