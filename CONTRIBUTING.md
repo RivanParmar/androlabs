@@ -33,4 +33,4 @@ When you're finished with the changes, create a pull request.
 Congrats 🎉! We thank you for your contribution✨.
 
 ### GitHub Projects
-The [project](https://github.com/RivanParmar/AndroLabs/projects) linked with this repository is primarily used as a roadmap. The project will show currently open issues and their status as well as their priority. The project can also be used to track changes to the project as well as to track progress of new features.
+The [project](https://github.com/RivanParmar/AndroLabs/projects) linked with this repository is primarily used as a roadmap. The project will show currently open issues and their status as well as their priority. The project can also be used to track changes made to the code and progress of new features.
