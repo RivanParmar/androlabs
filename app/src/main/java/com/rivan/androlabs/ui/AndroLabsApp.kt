@@ -56,7 +56,17 @@ fun AndroLabsApp(
                         currentDestination = appState.currentDestination
                     )
                 }
-            }
+            },
+            floatingActionButton = {
+                if (appState.shouldShowBottomBar) {
+                    // TODO: Use string resource for contentDescription
+                    ALFloatingActionButton(
+                        onClick = { /*TODO*/ },
+                        icon = { Icon(imageVector = ALIcons.Add, contentDescription = null) }
+                    )
+                }
+            },
+            floatingActionButtonPosition = FabPosition.End
         ) { padding ->
 
             Row(
