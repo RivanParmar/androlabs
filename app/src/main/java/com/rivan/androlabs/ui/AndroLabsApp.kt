@@ -73,7 +73,7 @@ fun AndroLabsApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .consumedWindowInsets(padding)
+                    .consumeWindowInsets(padding)
                     .windowInsetsPadding(
                         WindowInsets.safeDrawing.only(
                             WindowInsetsSides.Horizontal

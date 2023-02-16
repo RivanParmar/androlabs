@@ -46,6 +46,7 @@ dependencies {
     api(libs.androidx.test.rules)
     debugApi(libs.androidx.compose.ui.testManifest)
 
+    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
