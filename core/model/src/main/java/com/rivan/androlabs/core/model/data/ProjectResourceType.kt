@@ -5,9 +5,9 @@ enum class ProjectResourceType(
     // TODO: descriptions should probably be string resources
     val description: String
 ) {
-    Playground(
-        serializedName = "Playground",
-        description = "An Android Playground project."
+    Lab(
+        serializedName = "Lab",
+        description = "An Android Lab project."
     ),
     Project(
         serializedName = "Project",
