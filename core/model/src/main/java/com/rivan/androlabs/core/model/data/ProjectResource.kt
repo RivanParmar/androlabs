@@ -7,24 +7,8 @@ package com.rivan.androlabs.core.model.data
 data class ProjectResource(
     val id: String,
     val title: String,
-    val description: String,
+    val shortDescription: String,
+    val longDescription: String,
     val path: String?,
     val type: List<ProjectResourceType>
-)
-
-val previewProjectResource = listOf(
-    ProjectResource(
-        id = "1",
-        title = "Android App 1",
-        description = "First Android app made by me.",
-        path = "/downloads/",
-        type = listOf(ProjectResourceType.Project)
-    ),
-    ProjectResource(
-        id = "2",
-        title = "Android Lab 1",
-        description = "First Android Lab.",
-        path = null,
-        type = listOf(ProjectResourceType.Lab)
-    )
 )

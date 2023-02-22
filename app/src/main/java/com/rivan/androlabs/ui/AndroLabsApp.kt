@@ -15,13 +15,11 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.rivan.androlabs.core.designsystem.component.*
+import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.rivan.androlabs.core.designsystem.icon.Icon.ImageVectorIcon
-import com.rivan.androlabs.navigation.TopLevelDestination
-import com.rivan.androlabs.core.designsystem.component.ALBackground
-import com.rivan.androlabs.core.designsystem.component.ALTopAppBar
-import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.navigation.ALNavHost
+import com.rivan.androlabs.navigation.TopLevelDestination
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -108,8 +106,7 @@ fun AndroLabsApp(
                     }
 
                     ALNavHost(
-                        navController = appState.navController,
-                        onBackClick = appState::onBackClick
+                        navController = appState.navController
                     )
                 }
             }

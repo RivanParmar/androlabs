@@ -15,14 +15,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun RecentRoute(
-    modifier: Modifier = Modifier
-) {
-    RecentScreen(modifier = modifier)
-}
-
-@Composable
-internal fun RecentScreen(
-    modifier: Modifier
+    onResourceTypeClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: RecentViewModel = RecentViewModel()
 ) {
     // This is just a placeholder for now
     // TODO: Add UI elements here once they are ready

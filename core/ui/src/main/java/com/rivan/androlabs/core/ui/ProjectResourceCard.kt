@@ -6,17 +6,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
-import com.rivan.androlabs.core.model.data.ProjectResource
-import com.rivan.androlabs.core.model.data.previewProjectResource
+import com.rivan.androlabs.core.domain.model.UserProjectResource
 
 // TODO: Not yet completed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectResourceCard(
-    projectResource: ProjectResource,
+    userProjectResource: UserProjectResource,
+    isSaved: Boolean,
+    isCompleted: Boolean,
     onClick: () -> Unit,
+    onResourceTypeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
@@ -33,13 +36,13 @@ fun ProjectResourceCard(
                     Spacer(modifier = Modifier.height(12.dp))
                     Row {
                         ProjectResourceTitle(
-                            projectResource.title,
+                            userProjectResource.title,
                             modifier = Modifier.fillMaxWidth((.8f))
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
                     Spacer(modifier = Modifier.height(12.dp))
-                    ProjectResourceShortDescription(projectResource.description)
+                    ProjectResourceShortDescription(userProjectResource.shortDescription)
                 }
             }
         }
@@ -63,12 +66,19 @@ fun ProjectResourceShortDescription(
 
 @Preview("ProjectResourceCard")
 @Composable
-private fun ProjectResourceCardPreview() {
+private fun ProjectResourceCardPreview(
+    @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
+    userProjectResources: List<UserProjectResource>
+) {
     AndroLabsTheme {
         Surface {
             ProjectResourceCard(
-                projectResource = previewProjectResource[0],
-                onClick = { /*TODO*/ })
+                userProjectResource = userProjectResources[0],
+                isSaved = true,
+                isCompleted = false,
+                onClick = { },
+                onResourceTypeClick = { }
+            )
         }
     }
 }

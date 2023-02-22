@@ -17,7 +17,6 @@ import com.rivan.androlabs.feature.settings.navigation.settingScreen
 @Composable
 fun ALNavHost(
     navController: NavHostController,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     startDestination: String = recentNavigationRoute
 ) {
@@ -26,7 +25,7 @@ fun ALNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        recentScreen()
+        recentScreen(onResourceTypeClick = {})
         settingScreen()
     }
 }

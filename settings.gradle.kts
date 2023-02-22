@@ -17,6 +17,7 @@ rootProject.name = "Andro Labs"
 include(":app")
 
 include(":core:designsystem")
+include(":core:domain")
 include(":core:model")
 include(":core:ui")
 

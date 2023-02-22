@@ -16,6 +16,7 @@
       <module name="Andro_Labs.build-tools.project.main" target="11" />
       <module name="Andro_Labs.build-tools.project.test" target="11" />
       <module name="Andro_Labs.core.designsystem" target="11" />
+      <module name="Andro_Labs.core.domain" target="11" />
       <module name="Andro_Labs.core.model" target="11" />
       <module name="Andro_Labs.core.model.main" target="11" />
       <module name="Andro_Labs.core.model.test" target="11" />
