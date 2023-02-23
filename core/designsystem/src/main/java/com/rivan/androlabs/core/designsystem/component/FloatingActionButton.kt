@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 fun ALFloatingActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer,
+    containerColor: Color,
     icon: @Composable () -> Unit
 ) {
     FloatingActionButton(

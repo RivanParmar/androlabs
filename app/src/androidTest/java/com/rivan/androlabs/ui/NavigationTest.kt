@@ -4,13 +4,13 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
-import com.rivan.androidplaygrounds.R
+import com.rivan.androlabs.R
 import com.rivan.androlabs.MainActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import com.rivan.androidplaygrounds.feature.recent.R as RecentR
-import com.rivan.androidplaygrounds.feature.settings.R as SettingsR
+import com.rivan.androlabs.feature.recent.R as RecentR
+import com.rivan.androlabs.feature.settings.R as SettingsR
 
 /**
  * Tests all the navigation flows that are handled by the navigation library.

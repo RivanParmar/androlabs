@@ -57,11 +57,7 @@ fun AndroLabsApp(
             },
             floatingActionButton = {
                 if (appState.shouldShowBottomBar) {
-                    // TODO: Use string resource for contentDescription
-                    ALFloatingActionButton(
-                        onClick = { /*TODO*/ },
-                        icon = { Icon(imageVector = ALIcons.Add, contentDescription = null) }
-                    )
+                    ALFab(onClick = { /*TODO*/ })
                 }
             },
             floatingActionButtonPosition = FabPosition.End
@@ -83,6 +79,10 @@ fun AndroLabsApp(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
                         currentDestination = appState.currentDestination,
+                        header = {
+                            // TODO: Test this on large screen device
+                            ALFab(onClick = { /*TODO*/ })
+                        },
                         modifier = Modifier.safeDrawingPadding()
                     )
                 }
@@ -156,9 +156,13 @@ private fun ALNavRail(
     destinations: List<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?,
+    header: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier
 ) {
-    ALNavigationRail(modifier = modifier) {
+    ALNavigationRail(
+        modifier = modifier,
+        header = header
+    ) {
         // Align the items to the center of the navigation rail.
         Spacer(modifier = Modifier.weight(1F))
         destinations.forEach { destination ->
@@ -195,3 +199,19 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false
+
+@Composable
+private fun ALFab(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer
+) {
+    ALFloatingActionButton(
+        onClick = onClick,
+        containerColor = containerColor,
+        modifier = modifier
+    ) {
+        // TODO: Use string resource for contentDescription
+        Icon(ALIcons.Add, contentDescription = null)
+    }
+}
