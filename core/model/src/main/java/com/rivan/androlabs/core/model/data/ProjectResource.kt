@@ -7,8 +7,10 @@ package com.rivan.androlabs.core.model.data
 data class ProjectResource(
     val id: String,
     val title: String,
-    val shortDescription: String,
-    val longDescription: String,
+    // TODO: Maybe create another class defining types of project (or lab) levels such as beginner,
+    // foundational, etc. or remove this altogether.
+    val level: String,
+    val description: String,
     val path: String?,
     val type: List<ProjectResourceType>
 )

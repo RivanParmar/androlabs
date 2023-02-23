@@ -18,7 +18,8 @@ import com.rivan.androlabs.core.domain.model.UserProjectResource
  */
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
-    onResourceTypeClick: (String) -> Unit
+    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
+    onResourceTypeClick: ((String) -> Unit)?
 ) {
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
@@ -26,8 +27,14 @@ fun LazyGridScope.projectFeed(
             items(feedState.feed, key = { it.id }) { userProjectResource ->
                 ProjectResourceCard(
                     userProjectResource = userProjectResource,
-                    isSaved = userProjectResource.isSaved,
+                    isFavourite = userProjectResource.isFavourite,
                     isCompleted = userProjectResource.isCompleted,
+                    onToggleFavourite = {
+                        onProjectResourcesCheckedChanged(
+                            userProjectResource.id,
+                            !userProjectResource.isFavourite
+                        )
+                    },
                     onClick = { /*TODO*/ },
                     onResourceTypeClick = onResourceTypeClick
                 )
@@ -63,6 +70,7 @@ private fun ProjectFeedLoadingPreview() {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
                 feedState = ProjectFeedUiState.Loading,
+                onProjectResourcesCheckedChanged = { _, _ -> },
                 onResourceTypeClick = {}
             )
         }
@@ -80,6 +88,7 @@ private fun ProjectFeedContentPreview(
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
                 feedState = ProjectFeedUiState.Success(userProjectResource),
+                onProjectResourcesCheckedChanged = { _, _ -> },
                 onResourceTypeClick = {}
             )
         }

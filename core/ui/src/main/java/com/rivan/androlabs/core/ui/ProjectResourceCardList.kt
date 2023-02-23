@@ -14,8 +14,9 @@ import com.rivan.androlabs.core.model.data.ProjectResource
  */
 fun LazyListScope.projectResourceCardItems(
     items: List<UserProjectResource>,
+    onToggleFavourite: (item: UserProjectResource) -> Unit,
     onItemClick: ((item: UserProjectResource) -> Unit)? = null,
-    onResourceTypeClick: (String) -> Unit,
+    onResourceTypeClick: ((String) -> Unit)? = null,
     itemModifier: Modifier = Modifier
 ) = items(
     items = items,
@@ -23,8 +24,9 @@ fun LazyListScope.projectResourceCardItems(
     itemContent = {userProjectResource ->
         ProjectResourceCard(
             userProjectResource = userProjectResource,
-            isSaved = userProjectResource.isSaved,
+            isFavourite = userProjectResource.isFavourite,
             isCompleted = userProjectResource.isCompleted,
+            onToggleFavourite = { onToggleFavourite(userProjectResource) },
             onClick = {
                 when (onItemClick) {
                     // TODO: Not yet implemented

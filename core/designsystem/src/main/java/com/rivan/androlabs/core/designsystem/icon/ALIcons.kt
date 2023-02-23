@@ -10,6 +10,8 @@ import com.rivan.androlabs.core.designsystem.R
 object ALIcons {
     val Account = Icons.Outlined.AccountCircle
     val Add = Icons.Filled.Add
+    val Favourite = R.drawable.ic_star
+    val FavouriteBorder = R.drawable.ic_star_border
     val Recent = R.drawable.ic_access_time_filled
     val RecentBorder = R.drawable.ic_access_time
     val Settings = R.drawable.ic_settings

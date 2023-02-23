@@ -11,21 +11,21 @@ import com.rivan.androlabs.core.model.data.UserData
 data class UserProjectResource internal constructor(
     val id: String,
     val title: String,
-    val shortDescription: String,
-    val longDescription: String,
+    val level: String,
+    val description: String,
     val path: String?,
     val type: List<ProjectResourceType>,
-    val isSaved: Boolean,
+    val isFavourite: Boolean,
     val isCompleted: Boolean
 ) {
     constructor(projectResource: ProjectResource, userData: UserData) : this(
         id = projectResource.id,
         title = projectResource.title,
-        shortDescription = projectResource.shortDescription,
-        longDescription = projectResource.longDescription,
+        level = projectResource.level,
+        description = projectResource.description,
         path = projectResource.path,
         type = projectResource.type,
-        isSaved = userData.savedProjectResources.contains(projectResource.id),
+        isFavourite = userData.favouriteProjectResources.contains(projectResource.id),
         isCompleted = userData.completedProjectResources.contains(projectResource.id)
     )
 }
