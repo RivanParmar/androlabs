@@ -12,8 +12,8 @@ fun NavController.navigateToRecent(navOptions: NavOptions? = null) {
     this.navigate(recentNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.recentScreen(onResourceTypeClick: (String) -> Unit) {
+fun NavGraphBuilder.recentScreen() {
     composable(route = recentNavigationRoute) {
-        RecentRoute(onResourceTypeClick)
+        RecentRoute()
     }
 }

@@ -25,7 +25,7 @@ fun ALNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        recentScreen(onResourceTypeClick = {})
+        recentScreen()
         settingScreen()
     }
 }
