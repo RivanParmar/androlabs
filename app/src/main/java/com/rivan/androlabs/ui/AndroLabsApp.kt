@@ -192,6 +192,7 @@ private fun ALNavRail(
                 label = { Text(text = stringResource(id = destination.iconTextId)) }
             )
         }
+        Spacer(modifier = Modifier.weight(1F))
     }
 }
 
