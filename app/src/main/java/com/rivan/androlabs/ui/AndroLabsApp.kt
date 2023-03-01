@@ -56,7 +56,8 @@ fun AndroLabsApp(
                 }
             },
             floatingActionButton = {
-                if (appState.shouldShowBottomBar) {
+                if (appState.shouldShowBottomBar &&
+                    appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
                     ALFab(onClick = { /*TODO*/ })
                 }
             },
@@ -163,7 +164,8 @@ private fun ALNavRail(
         modifier = modifier,
         header = header
     ) {
-        // Align the items to the center of the navigation rail.
+        // Align the items to the bottom of the navigation rail.
+        // Both the spacers above and below combine to align the items to the center.
         Spacer(modifier = Modifier.weight(1F))
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
@@ -192,6 +194,7 @@ private fun ALNavRail(
                 label = { Text(text = stringResource(id = destination.iconTextId)) }
             )
         }
+        // Align the items to the top of the navigation rail.
         Spacer(modifier = Modifier.weight(1F))
     }
 }
