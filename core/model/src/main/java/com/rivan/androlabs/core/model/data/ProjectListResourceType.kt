@@ -1,6 +1,6 @@
 package com.rivan.androlabs.core.model.data
 
-enum class ProjectResourceType(
+enum class ProjectListResourceType(
     val serializedName: String,
     // TODO: descriptions should probably be string resources
     val description: String
@@ -13,7 +13,7 @@ enum class ProjectResourceType(
         serializedName = "Project",
         description = "An Android app project."
     ),
-    // TODO: Remove this if creating libraries won't be supported
+    // TODO: Remove this if creating libraries won't be supported!
     Library(
         serializedName = "Library",
         description = "An Android library project."
