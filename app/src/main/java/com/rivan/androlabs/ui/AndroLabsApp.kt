@@ -60,8 +60,7 @@ fun AndroLabsApp(
                     appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
                     ALFab(onClick = { /*TODO*/ })
                 }
-            },
-            floatingActionButtonPosition = FabPosition.End
+            }
         ) { padding ->
 
             Row(
