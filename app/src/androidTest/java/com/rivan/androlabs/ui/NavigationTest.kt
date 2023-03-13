@@ -4,8 +4,10 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.NoActivityResumedException
-import com.rivan.androlabs.R
 import com.rivan.androlabs.MainActivity
+import com.rivan.androlabs.R
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,12 +17,19 @@ import com.rivan.androlabs.feature.settings.R as SettingsR
 /**
  * Tests all the navigation flows that are handled by the navigation library.
  */
+@HiltAndroidTest
 class NavigationTest {
+
+    /**
+     * Manages the components' state and is used to perform injection on your test
+     */
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
 
     /**
      * Use the primary activity to initialize the app normally.
      */
-    @get:Rule
+    @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     // The strings used for matching in these tests
@@ -61,9 +70,8 @@ class NavigationTest {
         }
     }
 
-    // TODO: Remove this if we remove the action icon from the top app bar or rename it as per icon
     @Test
-    fun topLevelDestinations_showMoreOptionsIcon() {
+    fun topLevelDestinations_showAccountIcon() {
         composeTestRule.apply {
             onNodeWithContentDescription(untitled).assertExists()
 
