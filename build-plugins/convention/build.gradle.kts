@@ -27,15 +27,19 @@ gradlePlugin {
         }
         register("androidLibraryCompose") {
             id = "androlabs.android.library.compose"
-            implementationClass = "AndroidLibComposeConventionPlugin"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidLibrary") {
             id = "androlabs.android.library"
-            implementationClass = "AndroidLibConventionPlugin"
+            implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
             id = "androlabs.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "androlabs.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
         }
         register("androidRoom") {
             id = "androlabs.android.room"

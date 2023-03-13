@@ -27,10 +27,10 @@ setup.
 Current list of convention plugins:
 
 - [`androlabs.android.application`](convention/src/main/kotlin/AndroidAppConventionPlugin.kt),
-  [`androlabs.android.library`](convention/src/main/kotlin/AndroidLibConventionPlugin.kt):
+  [`androlabs.android.library`](convention/src/main/kotlin/AndroidLibraryConventionPlugin.kt):
   Configures common Android and Kotlin options.
 - [`androlabs.android.application.compose`](convention/src/main/kotlin/AndroidAppComposeConventionPlugin.kt),
-  [`androlabs.android.library.compose`](convention/src/main/kotlin/AndroidLibComposeConventionPlugin.kt):
+  [`androlabs.android.library.compose`](convention/src/main/kotlin/AndroidLibraryComposeConventionPlugin.kt):
   Configures Jetpack Compose options.
 - [`androlabs.android.feature`](convention/src/main/kotlin/AndroidFeatureConventionPlugin.kt):
   Configures common options required by [`feature`](../feature) modules.
