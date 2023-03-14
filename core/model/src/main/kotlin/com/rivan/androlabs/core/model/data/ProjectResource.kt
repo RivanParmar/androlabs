@@ -11,6 +11,7 @@ data class ProjectResource(
     val title: String,
     val extraTitle: String,
     val description: String,
+    val url: String?,
     val headerImageUrl: String?,
     val lastEdited: Instant?,
     val path: String?,

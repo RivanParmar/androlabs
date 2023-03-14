@@ -15,7 +15,7 @@ class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<Lis
         get() {
             val userProjectResourceData: UserProjectResourceData = UserProjectResourceData(
                 favouriteProjectResources = setOf("1", "3"),
-                completedLabs = emptySet(),
+                completedProjectResources = emptySet(),
             )
 
             return sequenceOf(
@@ -26,6 +26,7 @@ class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<Lis
                             title = "Android App 1",
                             extraTitle = "Beginner Project",
                             description = "No description provided!",
+                            url = null,
                             headerImageUrl = "null",
                             lastEdited = LocalDateTime(
                                 year = 2023,
@@ -47,6 +48,7 @@ class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<Lis
                             title = "Android Lab 1",
                             extraTitle = "Beginner Lab",
                             description = "No description provided!",
+                            url = null,
                             headerImageUrl = "null",
                             lastEdited = Instant.parse("2022-12-15T00:00:00.00Z"),
                             path = null,
@@ -60,6 +62,7 @@ class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<Lis
                             title = "Android Lab 2",
                             extraTitle = "Foundational Lab",
                             description = "No description provided!",
+                            url = null,
                             headerImageUrl = "null",
                             lastEdited = Instant.parse("2022-12-09T00:00:00.00Z"),
                             path = null,

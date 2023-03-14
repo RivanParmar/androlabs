@@ -14,6 +14,7 @@ data class UserProjectResource internal constructor(
     val title: String,
     val extraTitle: String,
     val description: String,
+    val url: String?,
     val headerImageUrl: String?,
     val lastEdited: Instant?,
     val path: String?,
@@ -29,13 +30,14 @@ data class UserProjectResource internal constructor(
         title = projectResource.title,
         extraTitle = projectResource.extraTitle,
         description = projectResource.description,
+        url = projectResource.url,
         headerImageUrl = projectResource.headerImageUrl,
         lastEdited = projectResource.lastEdited,
         path = projectResource.path,
         type = projectResource.type,
         isFavourite = userProjectResourceData
             .favouriteProjectResources.contains(projectResource.id),
-        isCompleted = userProjectResourceData.completedLabs.contains(projectResource.id)
+        isCompleted = userProjectResourceData.completedProjectResources.contains(projectResource.id)
     )
 }
 

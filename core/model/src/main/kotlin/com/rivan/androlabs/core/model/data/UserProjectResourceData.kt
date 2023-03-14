@@ -5,5 +5,5 @@ package com.rivan.androlabs.core.model.data
  */
 data class UserProjectResourceData(
     val favouriteProjectResources: Set<String>,
-    val completedLabs: Set<String>
+    val completedProjectResources: Set<String>
 )
