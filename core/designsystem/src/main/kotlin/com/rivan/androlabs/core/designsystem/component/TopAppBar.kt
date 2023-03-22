@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
+// TODO: Maybe use a Medium Top App Bar
 @Composable
 fun ALTopAppBar(
     @StringRes titleRes: Int,
@@ -74,7 +75,7 @@ fun ALTopAppBar(
             }
         },
         colors = colors,
-        modifier = modifier,
+        modifier = modifier
     )
 }
 

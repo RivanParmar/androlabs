@@ -12,6 +12,7 @@ java {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.firebase.crashlytics.gradle)
     compileOnly(libs.ksp.gradlePlugin)
 }
 
@@ -44,6 +45,18 @@ gradlePlugin {
         register("androidRoom") {
             id = "androlabs.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("androidFirebase") {
+            id = "androlabs.android.application.firebase"
+            implementationClass = "AndroidAppFirebaseConventionPlugin"
+        }
+        register("androidFlavors") {
+            id = "androlabs.android.application.flavors"
+            implementationClass = "AndroidAppFlavorsConventionPlugin"
+        }
+        register("javaLibrary") {
+            id = "androlabs.java.library"
+            implementationClass = "JavaLibraryConventionPlugin"
         }
     }
 }
