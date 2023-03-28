@@ -1,5 +1,6 @@
 package com.rivan.androlabs.core.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -12,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.rivan.androlabs.core.designsystem.R.*
+import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
@@ -34,12 +37,12 @@ fun ProjectResourceCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         modifier = modifier
     ) {
-        if (!userProjectResource.headerImageUrl.isNullOrEmpty()) {
-            Row {
-                ProjectResourceHeaderImage(userProjectResource.headerImageUrl)
-            }
-            Divider()
+        Row {
+            ProjectResourceHeaderImage(userProjectResource.headerImageUrl)
         }
+
+        Divider()
+
         Box(
             modifier = Modifier.padding(10.dp)
         ) {
@@ -56,21 +59,33 @@ fun ProjectResourceCard(
 fun ProjectResourceHeaderImage(
     headerImageUrl: String?
 ) {
-    AsyncImage(
-        placeholder = if (LocalInspectionMode.current) {
-            // TODO: Add a placeholder image here
-            painterResource(com.rivan.androlabs.core.designsystem.R.drawable.ic_launcher_background_2)
-        } else {
-            // TODO: Show specific loading image visual
-            null
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(180.dp),
-        contentScale = ContentScale.Crop,
-        model = headerImageUrl,
-        contentDescription = null
-    )
+    if (!headerImageUrl.isNullOrEmpty()) {
+        AsyncImage(
+            placeholder = if (LocalInspectionMode.current) {
+                // TODO: Add a placeholder image here
+                painterResource(ic_launcher_background_2)
+            } else {
+                // TODO: Show specific loading image visual
+                null
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp),
+            contentScale = ContentScale.Crop,
+            model = headerImageUrl,
+            contentDescription = null
+        )
+    } else {
+        Image(
+            // TODO: Use a default image for project resources that don't specify a headerImageUrl
+            painterResource(id = ic_launcher_background_2),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp),
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 @Composable

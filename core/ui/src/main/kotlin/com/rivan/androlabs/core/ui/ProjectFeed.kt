@@ -20,15 +20,15 @@ fun LazyGridScope.projectFeed(
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
         is ProjectFeedUiState.Success -> {
-            items(feedState.feed, key = { it.id }) { userProjectListResource ->
+            items(feedState.feed, key = { it.id }) { userProjectResource ->
                 ProjectResourceCard(
-                    userProjectResource = userProjectListResource,
-                    isFavourite = userProjectListResource.isFavourite,
-                    isCompleted = userProjectListResource.isCompleted,
+                    userProjectResource = userProjectResource,
+                    isFavourite = userProjectResource.isFavourite,
+                    isCompleted = userProjectResource.isCompleted,
                     onToggleFavourite = {
                         onProjectResourcesCheckedChanged(
-                            userProjectListResource.id,
-                            !userProjectListResource.isFavourite
+                            userProjectResource.id,
+                            !userProjectResource.isFavourite
                         )
                     },
                     onClick = { /*TODO*/ }
