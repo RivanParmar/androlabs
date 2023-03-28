@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 rootProject.name = "Andro Labs"
 include(":app")
 
+include(":core:common")
 include(":core:data")
 include(":core:database")
 include(":core:designsystem")
