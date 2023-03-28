@@ -22,6 +22,7 @@ include(":core:database")
 include(":core:designsystem")
 include(":core:domain")
 include(":core:model")
+include(":core:testing")
 include(":core:ui")
 
 include(":feature:recent")

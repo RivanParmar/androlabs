@@ -14,7 +14,8 @@ android {
         versionCode = 1
         versionName = "0.0.1" //X.Y.Z; X = Major, Y = Minor, Z = Patch level
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Custom test runner to set up Hilt dependency graph
+        testInstrumentationRunner = "com.rivan.androlabs.core.testing.AndroLabsTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -55,12 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin("test"))
-    api(libs.junit4)
-    api(libs.androidx.compose.ui.test)
-    api(libs.androidx.test.espresso.core)
-    api(libs.androidx.test.runner)
-    api(libs.androidx.test.rules)
-    debugApi(libs.androidx.compose.ui.testManifest)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)

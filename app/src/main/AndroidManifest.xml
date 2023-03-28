@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2023 Rivan Parmar
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.rivan.androlabs">
@@ -10,6 +26,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--
+    Firebase automatically adds the AD_ID permission, even though we don't use it. If you use this
+    permission you must declare how you're using it to Google Play, otherwise the app will be
+    rejected when publishing it. To avoid this we remove the permission entirely.
+    -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+
     <application
         android:name=".AndroLabsApplication"
         android:allowBackup="true"
@@ -18,8 +41,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AL.Splash"
-        tools:targetApi="q">
+        android:theme="@style/Theme.AL.Splash">
+        <profileable android:shell="true" tools:targetApi="q"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -29,6 +53,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Disable Firebase analytics by default. This setting is overwritten for the `prod`
+        flavor -->
+        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
+        <!-- Disable collection of AD_ID for all build variants -->
+        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     </application>
 
 </manifest>
