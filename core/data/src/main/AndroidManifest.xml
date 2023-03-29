@@ -15,6 +15,7 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.rivan.androlabs.core.data">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rivan.androlabs.core.data">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
-    id("kotlinx-serialization")
-}
+package com.rivan.androlabs.core.data.model
 
-android {
-    namespace = "com.rivan.androlabs.core.data"
-}
+import com.rivan.androlabs.core.database.model.ProjectResourceEntity
+import com.rivan.androlabs.core.network.model.FirestoreProjectResource
 
-dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:database"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
-
-    implementation(libs.androidx.core.ktx)
-
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.coroutines.android)
-}
+fun FirestoreProjectResource.asEntity() = ProjectResourceEntity(
+    id = id,
+    title = title,
+    extraTitle = extraTitle,
+    description = description,
+    url = url,
+    headerImageUrl = headerImageUrl,
+    lastEdited = lastEdited,
+    path = path,
+    type = type
+)
