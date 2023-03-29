@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "54da16d73c291a324a0881b392692b95",
+    "identityHash": "9dae77f762e93761d57e731d33025a35",
     "entities": [
       {
         "tableName": "project_resources",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `extra_title` TEXT NOT NULL, `description` TEXT NOT NULL, `url` TEXT, `header_image_url` TEXT, `last_edited` INTEGER NOT NULL, `path` TEXT, `type` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `extra_title` TEXT NOT NULL, `description` TEXT NOT NULL, `url` TEXT, `header_image_url` TEXT, `last_edited` INTEGER, `path` TEXT, `type` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -48,7 +48,7 @@
             "fieldPath": "lastEdited",
             "columnName": "last_edited",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "path",
@@ -76,7 +76,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54da16d73c291a324a0881b392692b95')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9dae77f762e93761d57e731d33025a35')"
     ]
   }
 }

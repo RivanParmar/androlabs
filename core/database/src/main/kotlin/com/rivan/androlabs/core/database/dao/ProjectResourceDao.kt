@@ -2,6 +2,7 @@ package com.rivan.androlabs.core.database.dao
 
 import androidx.room.*
 import com.rivan.androlabs.core.database.model.ProjectResourceEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO for [ProjectResource] and [ProjectResourceEntity] access.
@@ -9,7 +10,25 @@ import com.rivan.androlabs.core.database.model.ProjectResourceEntity
 @Dao
 interface ProjectResourceDao {
 
-    // TODO: Add function to retrieve values from db
+    /**
+     * Fetches project resources that match the query parameters
+     */
+    @Transaction
+    @Query(
+        value = """
+            SELECT * FROM project_resources
+            WHERE
+                CASE WHEN :useFilterProjectIds
+                    THEN id IN (:filterProjectIds)
+                    ELSE 1
+                END
+            ORDER BY last_edited DESC
+        """
+    )
+    fun getProjectResources(
+        useFilterProjectIds: Boolean = false,
+        filterProjectIds: Set<String> = emptySet()
+    ): Flow<List<ProjectResourceEntity>>
 
     /**
      * Inserts [entities] into the db if they don't exist, and ignores those that do
