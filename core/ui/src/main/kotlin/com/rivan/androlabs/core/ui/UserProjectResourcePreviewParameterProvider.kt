@@ -14,6 +14,7 @@ class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<Lis
     override val values: Sequence<List<UserProjectResource>>
         get() {
             val userProjectResourceData: UserProjectResourceData = UserProjectResourceData(
+                recentProjectResources = emptySet(),
                 favouriteProjectResources = setOf("1", "3"),
                 completedProjectResources = emptySet(),
             )
