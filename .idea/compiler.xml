@@ -15,11 +15,17 @@
       <module name="Andro_Labs.build-tools.project" target="11" />
       <module name="Andro_Labs.build-tools.project.main" target="11" />
       <module name="Andro_Labs.build-tools.project.test" target="11" />
+      <module name="Andro_Labs.core.common" target="11" />
+      <module name="Andro_Labs.core.data" target="11" />
+      <module name="Andro_Labs.core.database" target="11" />
+      <module name="Andro_Labs.core.datastore" target="11" />
       <module name="Andro_Labs.core.designsystem" target="11" />
       <module name="Andro_Labs.core.domain" target="11" />
       <module name="Andro_Labs.core.model" target="11" />
       <module name="Andro_Labs.core.model.main" target="11" />
       <module name="Andro_Labs.core.model.test" target="11" />
+      <module name="Andro_Labs.core.network" target="11" />
+      <module name="Andro_Labs.core.testing" target="11" />
       <module name="Andro_Labs.core.ui" target="11" />
       <module name="Andro_Labs.feature.recent" target="11" />
       <module name="Andro_Labs.feature.settings" target="11" />
