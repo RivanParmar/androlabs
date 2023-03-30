@@ -18,7 +18,7 @@ package com.rivan.androlabs.core.data
 
 import android.util.Log
 import com.rivan.androlabs.core.datastore.ChangeListVersions
-import com.rivan.androlabs.core.network.model.NetworkChangeList
+import com.rivan.androlabs.core.network.model.FirestoreChangeList
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -79,7 +79,7 @@ private suspend fun <T> suspendRunCatching(block: suspend () -> T): Result<T> = 
  */
 suspend fun Synchronizer.changeListSync(
     versionReader: (ChangeListVersions) -> Int,
-    changeListFetcher: suspend (Int) -> List<NetworkChangeList>,
+    changeListFetcher: suspend (Int) -> List<FirestoreChangeList>,
     modelDeleter: suspend (List<String>) -> Unit,
     modelUpdater: suspend (List<String>) -> Unit,
     versionUpdater: ChangeListVersions.(Int) -> ChangeListVersions
@@ -89,13 +89,13 @@ suspend fun Synchronizer.changeListSync(
     val changeList = changeListFetcher(currentVersion)
     if (changeList.isEmpty()) return@suspendRunCatching true
 
-    val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
+    val (deleted, updated) = changeList.partition(FirestoreChangeList::isDelete)
 
     // Delete models that have been deleted server-side
-    modelDeleter(deleted.map(NetworkChangeList::id))
+    modelDeleter(deleted.map(FirestoreChangeList::id))
 
     // Using the change list, pull down and save the changes (akin to a git pull)
-    modelUpdater(updated.map(NetworkChangeList::id))
+    modelUpdater(updated.map(FirestoreChangeList::id))
 
     // Update the last synced version (akin to updating local git HEAD)
     val latestVersion = changeList.last().changeListVersion
