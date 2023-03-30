@@ -53,6 +53,10 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:ui"))
 
+    implementation(project(":sync:work"))
+
+    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(project(":core:network"))
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin("test"))

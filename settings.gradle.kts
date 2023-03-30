@@ -30,6 +30,8 @@ include(":core:ui")
 include(":feature:recent")
 include(":feature:settings")
 
+include(":sync:work")
+
 include(":build-tools:javac")
 include(":build-tools:jaxp:internal")
 include(":build-tools:jaxp:xml")
