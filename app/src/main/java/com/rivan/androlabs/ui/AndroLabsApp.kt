@@ -1,6 +1,8 @@
 package com.rivan.androlabs.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.rivan.androlabs.core.designsystem.component.*
@@ -60,7 +63,7 @@ fun AndroLabsApp(
             floatingActionButton = {
                 if (appState.shouldShowBottomBar &&
                     appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
-                    ALFab(onClick = { /*TODO*/ })
+                    ALFab(onClick = { /*TODO*/ }, elevation = FloatingActionButtonDefaults.elevation())
                 }
             }
         ) { padding ->
@@ -83,7 +86,20 @@ fun AndroLabsApp(
                         currentDestination = appState.currentDestination,
                         header = {
                             // TODO: Test this on large screen device
-                            ALFab(onClick = { /*TODO*/ })
+                            IconButton(
+                                onClick = { /*TODO*/},
+                                content = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Menu,
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+                            ALFab(
+                                onClick = { /*TODO*/ },
+                                elevation =
+                                FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
+                            )
                         },
                         modifier = Modifier
                             .testTag("ALNavRail")
@@ -213,11 +229,13 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
 @Composable
 private fun ALFab(
     onClick: () -> Unit,
+    elevation: FloatingActionButtonElevation,
     modifier: Modifier = Modifier,
     containerColor: Color = MaterialTheme.colorScheme.tertiaryContainer
 ) {
     ALFloatingActionButton(
         onClick = onClick,
+        elevation = elevation,
         containerColor = containerColor,
         modifier = modifier
     ) {
