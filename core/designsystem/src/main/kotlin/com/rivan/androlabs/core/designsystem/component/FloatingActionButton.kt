@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
  * [FloatingActionButton].
  *
  * @param onClick Will be called when the user clicks the button.
- * @param elevation The elevation to be used for the button.
+ * @param elevation The elevation to applied to the button.
  * @param modifier Modifier to be applied to the button.
  * @param containerColor The background color to be used for the button.
  * @param icon The button icon content.

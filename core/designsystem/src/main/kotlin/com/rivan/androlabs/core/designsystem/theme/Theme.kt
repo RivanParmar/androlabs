@@ -96,13 +96,6 @@ fun AndroLabsTheme(
         }
         else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
-    /*val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
-        }
-    }*/
 
     // Background theme
     val defaultBackgroundTheme = BackgroundTheme(

@@ -4,8 +4,8 @@ package com.rivan.androlabs.core.designsystem.component
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
-// TODO: Maybe use a Medium Top App Bar
+// TODO: Maybe use a Medium or Large Top App Bar
 @Composable
 fun ALTopAppBar(
     @StringRes titleRes: Int,
@@ -52,7 +52,7 @@ fun ALTopAppBar(
 }
 
 /**
- * Top app bar with action, displayed on the right
+ * Top app bar with action, displayed on the right.
  */
 @Composable
 fun ALTopAppBar(
@@ -84,7 +84,7 @@ fun ALTopAppBar(
 fun ALTopAppBarPreview() {
     ALTopAppBar(
         titleRes = android.R.string.untitled,
-        navigationIcon = Icons.Outlined.Search,
+        navigationIcon = Icons.Outlined.Menu,
         navigationIconContentDescription = "Navigation icon",
         actionIcon = Icons.Outlined.MoreVert,
         actionIconContentDescription = "Action icon"

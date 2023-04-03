@@ -1,6 +1,5 @@
 package com.rivan.androlabs.ui
 
-import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -39,8 +38,7 @@ class AndroLabsAppState(
      * Show Bottom Navigation Bar instead of Navigation Rail on small screen devices.
      */
     val shouldShowBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
     /**
      * Show Navigation Rail on large screen devices.

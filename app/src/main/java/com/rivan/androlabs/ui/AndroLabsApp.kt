@@ -1,8 +1,6 @@
 package com.rivan.androlabs.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -63,7 +61,12 @@ fun AndroLabsApp(
             floatingActionButton = {
                 if (appState.shouldShowBottomBar &&
                     appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
-                    ALFab(onClick = { /*TODO*/ }, elevation = FloatingActionButtonDefaults.elevation())
+                    ALFab(
+                        onClick = {
+                                  /*TODO*/
+                        },
+                        elevation = FloatingActionButtonDefaults.elevation()
+                    )
                 }
             }
         ) { padding ->
@@ -86,7 +89,7 @@ fun AndroLabsApp(
                         currentDestination = appState.currentDestination,
                         header = {
                             // TODO: Test this on large screen device
-                            IconButton(
+                            /*IconButton(
                                 onClick = { /*TODO*/},
                                 content = {
                                     Icon(
@@ -94,7 +97,7 @@ fun AndroLabsApp(
                                         contentDescription = null
                                     )
                                 }
-                            )
+                            )*/
                             ALFab(
                                 onClick = { /*TODO*/ },
                                 elevation =
