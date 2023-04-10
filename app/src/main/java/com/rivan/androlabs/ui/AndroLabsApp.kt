@@ -1,5 +1,6 @@
 package com.rivan.androlabs.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -20,6 +21,7 @@ import com.rivan.androlabs.core.designsystem.component.*
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.rivan.androlabs.core.designsystem.icon.Icon.ImageVectorIcon
+import com.rivan.androlabs.feature.npw.navigation.navigateToNewProjectWizard
 import com.rivan.androlabs.navigation.ALNavHost
 import com.rivan.androlabs.navigation.TopLevelDestination
 
@@ -36,6 +38,10 @@ fun AndroLabsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
+    // TODO: Make the if-else statements related to this, less cluttered
+    val isNewProjectWizardScreen: Boolean =
+        appState.currentDestination.isNewProjectWizardDestination()
+
     ALBackground {
 
         val snackbarHostState = remember { SnackbarHostState() }
@@ -49,7 +55,10 @@ fun AndroLabsApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
-                if (appState.shouldShowBottomBar) {
+                // TODO: Add proper enter and exit transition here!
+                AnimatedVisibility(
+                    visible = !isNewProjectWizardScreen && appState.shouldShowBottomBar
+                ) {
                     ALBottomBar(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -59,11 +68,12 @@ fun AndroLabsApp(
                 }
             },
             floatingActionButton = {
-                if (appState.shouldShowBottomBar &&
+                // TODO: Maybe use animations here too when navigating between destinations
+                if (appState.shouldShowBottomBar && !isNewProjectWizardScreen &&
                     appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
                     ALFab(
                         onClick = {
-                                  /*TODO*/
+                            appState.navController.navigateToNewProjectWizard()
                         },
                         elevation = FloatingActionButtonDefaults.elevation()
                     )
@@ -82,27 +92,28 @@ fun AndroLabsApp(
                         )
                     )
             ) {
-                if (appState.shouldShowNavRail) {
+                // TODO: Remove AnimatedVisibility if we use dialog for New Project Wizard on large
+                //  screen devices
+                AnimatedVisibility(
+                    visible = appState.shouldShowNavRail && !isNewProjectWizardScreen
+                ) {
                     ALNavRail(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
                         currentDestination = appState.currentDestination,
                         header = {
-                            // TODO: Test this on large screen device
-                            /*IconButton(
-                                onClick = { /*TODO*/},
-                                content = {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Menu,
-                                        contentDescription = null
-                                    )
-                                }
-                            )*/
-                            ALFab(
-                                onClick = { /*TODO*/ },
-                                elevation =
-                                FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
-                            )
+                            // TODO: Maybe disable the FAB rather than hiding it
+                            if (!isNewProjectWizardScreen &&
+                                appState.currentTopLevelDestination != TopLevelDestination.SETTINGS
+                            ) {
+                                ALFab(
+                                    onClick = {
+                                        appState.navController.navigateToNewProjectWizard()
+                                    },
+                                    elevation =
+                                    FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
+                                )
+                            }
                         },
                         modifier = Modifier
                             .testTag("ALNavRail")
@@ -128,9 +139,7 @@ fun AndroLabsApp(
                         )
                     }
 
-                    ALNavHost(
-                        navController = appState.navController
-                    )
+                    ALNavHost(appState.navController)
                 }
             }
         }
@@ -227,6 +236,11 @@ private fun ALNavRail(
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
+    } ?: false
+
+private fun NavDestination?.isNewProjectWizardDestination() =
+    this?.hierarchy?.any {
+        it.route?.contains("new_project_wizard_route", true) ?: false
     } ?: false
 
 @Composable

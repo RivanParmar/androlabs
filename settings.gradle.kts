@@ -27,6 +27,7 @@ include(":core:network")
 include(":core:testing")
 include(":core:ui")
 
+include(":feature:npw")
 include(":feature:recent")
 include(":feature:settings")
 

@@ -27,6 +27,7 @@
       <module name="Andro_Labs.core.network" target="11" />
       <module name="Andro_Labs.core.testing" target="11" />
       <module name="Andro_Labs.core.ui" target="11" />
+      <module name="Andro_Labs.feature.npw" target="11" />
       <module name="Andro_Labs.feature.recent" target="11" />
       <module name="Andro_Labs.feature.settings" target="11" />
       <module name="build-plugins.convention" target="11" />
