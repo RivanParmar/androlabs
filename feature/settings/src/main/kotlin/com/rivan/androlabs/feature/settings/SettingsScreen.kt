@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun SettingsScreen() {
+internal fun SettingsRoute() {
     // This is just a placeholder for now
     // TODO: Add UI elements here once they are ready
     Box(
@@ -17,4 +17,11 @@ internal fun SettingsScreen() {
     ) {
         Text(text = "TODO: SettingsScreen not yet implemented!")
     }
+}
+
+@Composable
+internal fun SettingsScreen(
+
+) {
+
 }

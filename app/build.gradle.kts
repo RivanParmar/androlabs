@@ -51,7 +51,9 @@ dependencies {
     implementation(project(":feature:recent"))
     implementation(project(":feature:settings"))
 
+    implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
     implementation(project(":sync:work"))
