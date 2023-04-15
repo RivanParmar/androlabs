@@ -13,8 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.rivan.androlabs.feature.recent.navigation.navigateToRecent
 import com.rivan.androlabs.feature.recent.navigation.recentNavigationRoute
-import com.rivan.androlabs.feature.settings.navigation.navigateToSettings
-import com.rivan.androlabs.feature.settings.navigation.settingsNavigationRoute
+import com.rivan.androlabs.feature.settings.navigation.navigateToSettingsGraph
+import com.rivan.androlabs.feature.settings.navigation.settingsRoute
 import com.rivan.androlabs.navigation.TopLevelDestination
 import com.rivan.androlabs.navigation.TopLevelDestination.*
 
@@ -30,7 +30,7 @@ class AndroLabsAppState(
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
             recentNavigationRoute -> RECENT
-            settingsNavigationRoute -> SETTINGS
+            settingsRoute -> SETTINGS
             else -> null
         }
 
@@ -76,7 +76,7 @@ class AndroLabsAppState(
 
         when (topLevelDestination) {
             RECENT -> navController.navigateToRecent(topLevelNavOptions)
-            SETTINGS -> navController.navigateToSettings(topLevelNavOptions)
+            SETTINGS -> navController.navigateToSettingsGraph(topLevelNavOptions)
         }
     }
 

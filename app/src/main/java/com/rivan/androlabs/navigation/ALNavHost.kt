@@ -7,7 +7,9 @@ import androidx.navigation.compose.NavHost
 import com.rivan.androlabs.feature.npw.navigation.newProjectWizardScreen
 import com.rivan.androlabs.feature.recent.navigation.recentNavigationRoute
 import com.rivan.androlabs.feature.recent.navigation.recentScreen
-import com.rivan.androlabs.feature.settings.navigation.settingScreen
+import com.rivan.androlabs.feature.settings.navigation.settingsGraph
+import com.rivan.feature.settings.detail.navigation.navigateToSettingsDetail
+import com.rivan.feature.settings.detail.navigation.settingsDetailScreen
 
 /**
  * Top-level navigation graph.
@@ -27,7 +29,16 @@ fun ALNavHost(
         modifier = modifier
     ) {
         recentScreen()
-        settingScreen()
+        settingsGraph(
+            onRootSettingsOptionClick = { settingsDetailId ->
+                navController.navigateToSettingsDetail(settingsDetailId)
+            },
+            nestedGraphs = {
+                settingsDetailScreen(
+                    onBackClick = navController::popBackStack
+                )
+            }
+        )
         // This is not a top-level destination but will be navigated to from all of the top-level
         // destinations except Settings. Therefore, to avoid nesting it with all top-level
         // destinations, it hasn't been implemented as a nested destination.

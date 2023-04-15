@@ -4,5 +4,5 @@ plugins {
 }
 
 android {
-    namespace = "com.rivan.androlabs.feature.settings"
+    namespace = "com.rivan.androlabs.feature.settings.detail"
 }

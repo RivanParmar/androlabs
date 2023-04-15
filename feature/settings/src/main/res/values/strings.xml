@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings">Settings</string>
+
+    <string name="settings_general">General</string>
+    <string name="settings_general_desc">General application preferences</string>
 </resources>

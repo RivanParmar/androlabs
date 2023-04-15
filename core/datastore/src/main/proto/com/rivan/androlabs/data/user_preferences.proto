@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "com/rivan/androlabs/data/dark_theme_config.proto";
+import "com/rivan/androlabs/data/theme_type.proto";
+
+option java_package = "com.rivan.androlabs.core.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+  reserved 2;
+
+  ThemeTypeProto theme_type = 1;
+  DarkThemeConfigProto dark_theme_config = 3;
+
+  bool use_dynamic_color = 4;
+}

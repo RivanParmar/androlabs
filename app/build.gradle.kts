@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":feature:npw"))
     implementation(project(":feature:recent"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:settings-detail"))
 
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))

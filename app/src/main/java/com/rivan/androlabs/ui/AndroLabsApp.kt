@@ -38,9 +38,8 @@ fun AndroLabsApp(
         windowSizeClass = windowSizeClass
     )
 ) {
-    // TODO: Make the if-else statements related to this, less cluttered
-    val isNewProjectWizardScreen: Boolean =
-        appState.currentDestination.isNewProjectWizardDestination()
+    val shouldShowFab: Boolean =
+        !appState.currentDestination.shouldHideFab()
 
     ALBackground {
 
@@ -57,7 +56,8 @@ fun AndroLabsApp(
             bottomBar = {
                 // TODO: Add proper enter and exit transition here!
                 AnimatedVisibility(
-                    visible = !isNewProjectWizardScreen && appState.shouldShowBottomBar
+                    visible = !appState.currentDestination.shouldHideNavigation()
+                            && appState.shouldShowBottomBar
                 ) {
                     ALBottomBar(
                         destinations = appState.topLevelDestinations,
@@ -69,8 +69,7 @@ fun AndroLabsApp(
             },
             floatingActionButton = {
                 // TODO: Maybe use animations here too when navigating between destinations
-                if (appState.shouldShowBottomBar && !isNewProjectWizardScreen &&
-                    appState.currentTopLevelDestination != TopLevelDestination.SETTINGS) {
+                if (appState.shouldShowBottomBar && shouldShowFab) {
                     ALFab(
                         onClick = {
                             appState.navController.navigateToNewProjectWizard()
@@ -95,7 +94,8 @@ fun AndroLabsApp(
                 // TODO: Remove AnimatedVisibility if we use dialog for New Project Wizard on large
                 //  screen devices
                 AnimatedVisibility(
-                    visible = appState.shouldShowNavRail && !isNewProjectWizardScreen
+                    visible = !appState.currentDestination.shouldHideNavigation() &&
+                            appState.shouldShowNavRail
                 ) {
                     ALNavRail(
                         destinations = appState.topLevelDestinations,
@@ -103,9 +103,7 @@ fun AndroLabsApp(
                         currentDestination = appState.currentDestination,
                         header = {
                             // TODO: Maybe disable the FAB rather than hiding it
-                            if (!isNewProjectWizardScreen &&
-                                appState.currentTopLevelDestination != TopLevelDestination.SETTINGS
-                            ) {
+                            if (shouldShowFab) {
                                 ALFab(
                                     onClick = {
                                         appState.navController.navigateToNewProjectWizard()
@@ -238,9 +236,15 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
         it.route?.contains(destination.name, true) ?: false
     } ?: false
 
-private fun NavDestination?.isNewProjectWizardDestination() =
+private fun NavDestination?.shouldHideNavigation() =
     this?.hierarchy?.any {
         it.route?.contains("new_project_wizard_route", true) ?: false
+    } ?: false
+
+private fun NavDestination?.shouldHideFab() =
+    this?.hierarchy?.any {
+        it.route?.contains("new_project_wizard_route", true) ?: false ||
+                it.route?.contains("settings_graph", true) ?: false
     } ?: false
 
 @Composable

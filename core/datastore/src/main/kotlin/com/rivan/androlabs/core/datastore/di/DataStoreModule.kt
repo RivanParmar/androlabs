@@ -20,13 +20,15 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.rivan.androlabs.core.datastore.UserProjectResourcePrefs
-import com.rivan.androlabs.core.datastore.UserProjectResourcePrefsSerializer
+import com.rivan.androlabs.core.datastore.*
+import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
+import com.rivan.androlabs.core.network.Dispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
@@ -39,12 +41,30 @@ object DataStoreModule {
     @Singleton
     fun providesUserProjectResourcePrefsDataStore(
         @ApplicationContext context: Context,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
         userProjectResourcePrefsSerializer: UserProjectResourcePrefsSerializer
     ): DataStore<UserProjectResourcePrefs> =
         DataStoreFactory.create(
             serializer = userProjectResourcePrefsSerializer,
-            scope = CoroutineScope(SupervisorJob())
+            scope = CoroutineScope(ioDispatcher + SupervisorJob()),
+            migrations = listOf(
+                IntToStringIdsMigration
+            )
         ) {
             context.dataStoreFile("user_project_resource_prefs.pb")
+        }
+
+    @Provides
+    @Singleton
+    fun providesUserPreferencesDataStore(
+        @ApplicationContext context: Context,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+        userPreferencesSerializer: UserPreferencesSerializer
+    ): DataStore<UserPreferences> =
+        DataStoreFactory.create(
+            serializer = userPreferencesSerializer,
+            scope = CoroutineScope(ioDispatcher + SupervisorJob())
+        ) {
+            context.dataStoreFile("user_preferences.pb")
         }
 }
