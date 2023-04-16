@@ -17,33 +17,12 @@
 package com.rivan.feature.settings.detail
 
 import androidx.lifecycle.ViewModel
-import com.rivan.androlabs.core.data.repository.UserSettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsDetailViewModel @Inject constructor(
-    private val userSettingsRepository: UserSettingsRepository
-) : ViewModel() {
-    /*val settingsUiState: StateFlow<SettingsUiState> =
-        userSettingsRepository.userSettings
-            .map { userSettings ->
-                SettingsUiState.Success(
-                    settings = UserEditableSettings(
-                        type = userSettings.themeType,
-                        useDynamicColor = userSettings.useDynamicColor,
-                        darkThemeConfig = userSettings.darkThemeConfig
-                    )
-                )
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = SettingsUiState.Loading
-            )*/
-}
 
-/*sealed interface SettingsUiState {
-    object Loading : SettingsUiState
-    data class Success(val settings: EditableSettings) : SettingsUiState
-}*/
+) : ViewModel() {
+
+}
