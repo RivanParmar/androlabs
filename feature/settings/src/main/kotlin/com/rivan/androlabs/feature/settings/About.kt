@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package com.rivan.feature.settings.detail
+package com.rivan.androlabs.feature.settings
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
+import com.rivan.androlabs.feature.settings.navigation.settingsGraph
+
+fun NavGraphBuilder.aboutGraph(route: String) {
+    settingsGraph(
+        route = route,
+        root = { AboutScreen() }
+    )
+}
 
 @Composable
-internal fun SettingsDetailRoute(
-    onBackClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "SettingsDetailScreen not yet implemented!")
-    }
+internal fun AboutScreen() {
+
 }

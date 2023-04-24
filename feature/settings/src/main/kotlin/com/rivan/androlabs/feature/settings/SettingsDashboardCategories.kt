@@ -16,23 +16,31 @@
 
 package com.rivan.androlabs.feature.settings
 
+import androidx.annotation.StringRes
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.icon.Icon.ImageVectorIcon
 
-// TODO: Remove this class if we would allow adding root settings options dynamically through
-//  plugins
-enum class RootSettingsOptions(
-    val id: String,
+object Routes {
+    const val GENERAL_ROUTE = "general"
+    const val ABOUT_ROUTE = "about"
+}
+
+enum class SettingsDashboardCategories(
+    @StringRes val title: Int,
+    @StringRes val description: Int? = null,
     val icon: ImageVectorIcon,
-    val textId: Int,
-    val secondaryTextId: Int
+    val route: String
 ) {
     GENERAL(
-        id = "1",
+        title = R.string.settings_general,
+        description = R.string.settings_general_desc,
         icon = ImageVectorIcon(ALIcons.GeneralSettings),
-        textId = R.string.settings_general,
-        secondaryTextId = R.string.settings_general_desc
+        route = Routes.GENERAL_ROUTE
+    ),
+    ABOUT(
+        title = R.string.settings_about,
+        description = R.string.settings_about_desc,
+        icon = ImageVectorIcon(ALIcons.About),
+        route = Routes.ABOUT_ROUTE
     )
-
-    // TODO: Add other root settings options here!
 }

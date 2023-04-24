@@ -30,7 +30,6 @@ include(":core:ui")
 include(":feature:npw")
 include(":feature:recent")
 include(":feature:settings")
-include(":feature:settings-detail")
 
 include(":sync:work")
 

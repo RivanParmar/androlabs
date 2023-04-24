@@ -3,9 +3,10 @@ package com.rivan.androlabs.feature.settings.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import com.rivan.androlabs.feature.settings.Routes
 import com.rivan.androlabs.feature.settings.SettingsRoute
+import com.rivan.androlabs.feature.settings.aboutGraph
+import com.rivan.androlabs.feature.settings.generalGraph
 
 private const val settingsGraphRoutePattern = "settings_graph"
 const val settingsRoute = "settings_route"
@@ -14,17 +15,15 @@ fun NavController.navigateToSettingsGraph(navOptions: NavOptions? = null) {
     this.navigate(settingsGraphRoutePattern, navOptions)
 }
 
-fun NavGraphBuilder.settingsGraph(
-    onRootSettingsOptionClick: (String) -> Unit,
-    nestedGraphs: NavGraphBuilder.() -> Unit
+fun NavGraphBuilder.createSettingsGraph(
+    onSettingsCategoryItemClick: (String) -> Unit
 ) {
-    navigation(
+    settingsGraph(
         route = settingsGraphRoutePattern,
-        startDestination = settingsRoute
-    ) {
-        composable(route = settingsRoute) {
-            SettingsRoute(onRootSettingsOptionClick)
-        }
-        nestedGraphs()
+        startDestination = settingsRoute,
+        root = { SettingsRoute(onSettingsCategoryItemClick) }
+    ) { subRoute ->
+        generalGraph(route = subRoute(Routes.GENERAL_ROUTE))
+        aboutGraph(route = subRoute(Routes.ABOUT_ROUTE))
     }
 }

@@ -4,4 +4,7 @@
 
     <string name="settings_general">General</string>
     <string name="settings_general_desc">General application preferences</string>
+
+    <string name="settings_about">About</string>
+    <string name="settings_about_desc">Andro Labs</string>
 </resources>

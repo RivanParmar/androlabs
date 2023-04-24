@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package com.rivan.feature.settings.detail
+package com.rivan.androlabs.feature.settings
 
-import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import com.rivan.androlabs.feature.settings.navigation.settingsGraph
 
-@HiltViewModel
-class SettingsDetailViewModel @Inject constructor(
+fun NavGraphBuilder.generalGraph(route: String) {
+    settingsGraph(
+        route = route,
+        root = { GeneralSettingsRoute() }
+    )
+}
 
-) : ViewModel() {
+@Composable
+internal fun GeneralSettingsRoute() {
 
 }

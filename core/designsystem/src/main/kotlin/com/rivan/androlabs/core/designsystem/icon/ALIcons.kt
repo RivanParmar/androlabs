@@ -4,13 +4,17 @@ import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.rivan.androlabs.core.designsystem.R
 
 object ALIcons {
+    val About = Icons.Outlined.Info
     val Account = Icons.Outlined.AccountCircle
     val Add = Icons.Filled.Add
+    val Back = Icons.Outlined.ArrowBack
     val Favourite = R.drawable.ic_star
     val FavouriteBorder = R.drawable.ic_star_border
     val GeneralSettings = Icons.Outlined.Tune
