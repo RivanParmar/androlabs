@@ -31,6 +31,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
+/**
+ * Andro Labs tab with text content slot. Wraps Material 3 [Tab].
+ *
+ * @param selected Whether this tab is selected.
+ * @param onClick The callback to be invoked when this tab is selected.
+ * @param modifier Modifier to be applied to this tab.
+ * @param enabled Controls the enabled state of this tab. When 'false', this tab will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param text The text for the tab.
+ */
 @Composable
 fun ALTab(
     selected: Boolean,
@@ -58,6 +68,13 @@ fun ALTab(
     )
 }
 
+/**
+ * Andro Labs scrollable tab row with tabs content slot. Wraps Material 3 [ScrollableTabRow].
+ *
+ * @param selectedTabIndex The index of the currently selected tab.
+ * @param modifier Modifier to be applied to this scrollable tab row.
+ * @param tabs Tabs inside the tab row. This should contain multiple [Tab]s.
+ */
 @Composable
 fun ALScrollableTabRow(
     selectedTabIndex: Int,
@@ -80,6 +97,13 @@ fun ALScrollableTabRow(
     )
 }
 
+/**
+ * Andro Labs tab row with tabs content slot. Wraps Material 3 [TabRow].
+ *
+ * @param selectedTabIndex The index of the currently selected tab.
+ * @param modifier Modifier to be applied to this scrollable tab row.
+ * @param tabs Tabs inside the tab row. This should contain multiple [Tab]s.
+ */
 @Composable
 fun ALTabRow(
     selectedTabIndex: Int,
