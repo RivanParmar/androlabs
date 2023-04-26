@@ -4,7 +4,10 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -16,7 +19,9 @@ import com.rivan.androlabs.feature.recent.navigation.recentNavigationRoute
 import com.rivan.androlabs.feature.settings.navigation.navigateToSettingsGraph
 import com.rivan.androlabs.feature.settings.navigation.settingsRoute
 import com.rivan.androlabs.navigation.TopLevelDestination
-import com.rivan.androlabs.navigation.TopLevelDestination.*
+import com.rivan.androlabs.navigation.TopLevelDestination.RECENT
+import com.rivan.androlabs.navigation.TopLevelDestination.SETTINGS
+import com.rivan.androlabs.navigation.TopLevelDestination.values
 
 @Stable
 class AndroLabsAppState(
@@ -33,6 +38,9 @@ class AndroLabsAppState(
             settingsRoute -> SETTINGS
             else -> null
         }
+
+    var shouldShowNpwDialog by mutableStateOf(false)
+        private set
 
     /**
      * Show Bottom Navigation Bar instead of Navigation Rail on small screen devices.
@@ -78,6 +86,10 @@ class AndroLabsAppState(
             RECENT -> navController.navigateToRecent(topLevelNavOptions)
             SETTINGS -> navController.navigateToSettingsGraph(topLevelNavOptions)
         }
+    }
+
+    fun setShowNpwDialog(shouldShow: Boolean) {
+        shouldShowNpwDialog = shouldShow
     }
 
     fun onBackClick() = navController.popBackStack()

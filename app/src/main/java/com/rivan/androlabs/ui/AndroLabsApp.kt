@@ -1,8 +1,29 @@
 package com.rivan.androlabs.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,11 +38,17 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.rivan.androlabs.core.designsystem.component.*
+import com.rivan.androlabs.core.designsystem.component.ALBackground
+import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
+import com.rivan.androlabs.core.designsystem.component.ALNavigationBar
+import com.rivan.androlabs.core.designsystem.component.ALNavigationBarItem
+import com.rivan.androlabs.core.designsystem.component.ALNavigationRail
+import com.rivan.androlabs.core.designsystem.component.ALNavigationRailItem
+import com.rivan.androlabs.core.designsystem.component.ALTopAppBar
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.rivan.androlabs.core.designsystem.icon.Icon.ImageVectorIcon
-import com.rivan.androlabs.feature.npw.navigation.navigateToNewProjectWizard
+import com.rivan.androlabs.feature.npw.NewProjectWizardDialog
 import com.rivan.androlabs.navigation.ALNavHost
 import com.rivan.androlabs.navigation.TopLevelDestination
 
@@ -45,6 +72,13 @@ fun AndroLabsApp(
 
         val snackbarHostState = remember { SnackbarHostState() }
 
+        if (appState.shouldShowNpwDialog) {
+            NewProjectWizardDialog(
+                onDismiss = { appState.setShowNpwDialog(false) },
+                isSmallScreen = appState.shouldShowBottomBar
+            )
+        }
+
         Scaffold(
             modifier = Modifier.semantics {
                 testTagsAsResourceId = true
@@ -54,11 +88,7 @@ fun AndroLabsApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             bottomBar = {
-                // TODO: Add proper enter and exit transition here!
-                AnimatedVisibility(
-                    visible = !appState.currentDestination.shouldHideNavigation()
-                            && appState.shouldShowBottomBar
-                ) {
+                if (appState.shouldShowBottomBar) {
                     ALBottomBar(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -72,7 +102,7 @@ fun AndroLabsApp(
                 if (appState.shouldShowBottomBar && shouldShowFab) {
                     ALFab(
                         onClick = {
-                            appState.navController.navigateToNewProjectWizard()
+                            appState.setShowNpwDialog(true)
                         },
                         elevation = FloatingActionButtonDefaults.elevation()
                     )
@@ -91,12 +121,7 @@ fun AndroLabsApp(
                         )
                     )
             ) {
-                // TODO: Remove AnimatedVisibility if we use dialog for New Project Wizard on large
-                //  screen devices
-                AnimatedVisibility(
-                    visible = !appState.currentDestination.shouldHideNavigation() &&
-                            appState.shouldShowNavRail
-                ) {
+                if (appState.shouldShowNavRail) {
                     ALNavRail(
                         destinations = appState.topLevelDestinations,
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -106,7 +131,7 @@ fun AndroLabsApp(
                             if (shouldShowFab) {
                                 ALFab(
                                     onClick = {
-                                        appState.navController.navigateToNewProjectWizard()
+                                        appState.setShowNpwDialog(true)
                                     },
                                     elevation =
                                     FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
@@ -236,15 +261,9 @@ private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLev
         it.route?.contains(destination.name, true) ?: false
     } ?: false
 
-private fun NavDestination?.shouldHideNavigation() =
-    this?.hierarchy?.any {
-        it.route?.contains("new_project_wizard_route", true) ?: false
-    } ?: false
-
 private fun NavDestination?.shouldHideFab() =
     this?.hierarchy?.any {
-        it.route?.contains("new_project_wizard_route", true) ?: false ||
-                it.route?.contains("settings_graph", true) ?: false
+        it.route?.contains("settings_graph", true) ?: false
     } ?: false
 
 @Composable
