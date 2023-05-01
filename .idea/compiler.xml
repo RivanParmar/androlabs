@@ -31,9 +31,9 @@
       <module name="Andro_Labs.feature.recent" target="17" />
       <module name="Andro_Labs.feature.settings" target="17" />
       <module name="Andro_Labs.sync.work" target="17" />
-      <module name="build-plugins.convention" target="11" />
-      <module name="build-plugins.convention.main" target="11" />
-      <module name="build-plugins.convention.test" target="11" />
+      <module name="build-plugins.convention" target="17" />
+      <module name="build-plugins.convention.main" target="17" />
+      <module name="build-plugins.convention.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

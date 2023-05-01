@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-import com.google.protobuf.gradle.builtins
-import com.google.protobuf.gradle.generateProtoTasks
-import com.google.protobuf.gradle.protobuf
-import com.google.protobuf.gradle.protoc
-
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("androlabs.android.library")
     id("androlabs.android.hilt")
