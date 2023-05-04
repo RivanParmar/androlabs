@@ -1,7 +1,7 @@
 plugins {
-    id("java-library")
+    id("androlabs.java.library")
 }
-apply(plugin = "kotlin")
+//apply(plugin = "kotlin")
 
 configurations.implementation {
     exclude(group = "org.jetbrains", module = "annotations")
@@ -13,7 +13,7 @@ dependencies {
     implementation("com.github.marschall:zipfilesystem-standalone:1.0.1")
     implementation(libs.androidx.annotation)
 
-    runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    runtimeOnly("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
 
     api("org.jetbrains.trove4j:trove4j:20160824")
     api(files("libs/kotlin-compiler-embeddable-1.7.20-Beta.jar"))
@@ -22,7 +22,7 @@ dependencies {
     compileOnly(files("libs/android-stubs.jar"))
 }
 
-java {
+/*java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
+}*/

@@ -1,13 +1,13 @@
 plugins {
-    id("java-library")
-    id("kotlin")
+    id("androlabs.java.library")
+    //id("kotlin")
 }
 
 dependencies {
     implementation(project(":build-tools:kotlinc"))
 }
 
-java {
+/*java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-}
+}*/

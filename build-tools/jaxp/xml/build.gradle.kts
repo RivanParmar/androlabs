@@ -1,8 +1,8 @@
 plugins {
-    id("java-library")
+    id("androlabs.java.library")
 } 
 
-java {
+/*java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
+}*/
