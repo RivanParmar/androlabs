@@ -17,32 +17,25 @@
 package com.rivan.androlabs.feature.npw
 
 import androidx.lifecycle.ViewModel
-import com.rivan.androlabs.core.model.data.ProjectTemplate
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.rivan.androlabs.wizard.template.api.Template
+import com.rivan.androlabs.wizard.template.api.TemplateCategory
+import com.rivan.androlabs.wizard.template.impl.WizardTemplateProviderImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
-@HiltViewModel
-class NewProjectWizardViewModel @Inject constructor(
-
-) : ViewModel() {
+class NewProjectWizardViewModel : ViewModel() {
 
     private val _tabState = MutableStateFlow(
         NpwTabState(
-            titles = listOf(
-                R.string.template_phone,
-                R.string.template_wear_os,
-                R.string.template_android_tv,
-                R.string.template_automotive,
-                R.string.template_lab
-            ),
+            titles = TemplateCategory.values().asList(),
             currentIndex = 0
         )
     )
     val tabState: StateFlow<NpwTabState> = _tabState.asStateFlow()
+
+    fun getTemplates(): List<Template> = WizardTemplateProviderImpl().getTemplates()
 
     fun switchTab(newIndex: Int) {
         if (newIndex != tabState.value.currentIndex) {
@@ -54,16 +47,6 @@ class NewProjectWizardViewModel @Inject constructor(
 }
 
 data class NpwTabState(
-    val titles: List<Int>,
+    val titles: List<TemplateCategory>,
     val currentIndex: Int
 )
-
-sealed interface NpwUiState {
-    object Loading : NpwUiState
-
-    data class ProjectTemplates(
-        val templates: List<ProjectTemplate>
-    ) : NpwUiState
-
-    object Empty : NpwUiState
-}

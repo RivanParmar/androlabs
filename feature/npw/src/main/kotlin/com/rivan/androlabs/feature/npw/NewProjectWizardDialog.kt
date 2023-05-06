@@ -39,32 +39,38 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rivan.androlabs.core.designsystem.component.ALScrollableTabRow
 import com.rivan.androlabs.core.designsystem.component.ALTab
 import com.rivan.androlabs.core.designsystem.component.ALTabRow
+import com.rivan.androlabs.wizard.template.api.Template
+import com.rivan.androlabs.wizard.template.api.TemplateCategory
 
 @Composable
 fun NewProjectWizardDialog(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     isSmallScreen: Boolean,
-    viewModel: NewProjectWizardViewModel = hiltViewModel()
+    npwViewModel: NewProjectWizardViewModel = viewModel()
 ) {
-    val tabState by viewModel.tabState.collectAsStateWithLifecycle()
+    val tabState by npwViewModel.tabState.collectAsStateWithLifecycle()
 
     NewProjectWizardDialog(
         modifier = modifier,
         onDismiss = onDismiss,
         tabState = tabState,
         shouldUseScrollableTabRow = isSmallScreen,
-        switchTab = viewModel::switchTab
+        switchTab = npwViewModel::switchTab,
+        templates = npwViewModel.getTemplates()
     )
 }
 
@@ -75,11 +81,15 @@ internal fun NewProjectWizardDialog(
     tabState: NpwTabState,
     switchTab: (Int) -> Unit,
     shouldUseScrollableTabRow: Boolean,
+    templates: List<Template>,
     modifier: Modifier = Modifier
 ) {
+    var selectedIndex by remember { mutableStateOf(-1) }
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
+            // Set platform default width to false, which allows us to create a full-screen dialog.
             usePlatformDefaultWidth = false,
             dismissOnBackPress = true
         )
@@ -89,7 +99,7 @@ internal fun NewProjectWizardDialog(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "New Project") },
+                    title = { Text(text = stringResource(id = R.string.templates)) },
                     navigationIcon = {
                         IconButton(onClick = onDismiss) {
                             Icon(
@@ -101,8 +111,8 @@ internal fun NewProjectWizardDialog(
                     actions = {
                         TextButton(
                             onClick = { /*TODO*/ },
-                            // TODO: Enable this only when the user selects a template
-                            enabled = false
+                            // Enable this only when the user has selected a template
+                            enabled = selectedIndex != -1
                         ) {
                             Text(text = "Next")
                         }
@@ -125,7 +135,12 @@ internal fun NewProjectWizardDialog(
                 NewProjectWizardContent(
                     tabState = tabState,
                     switchTab = switchTab,
-                    shouldUseScrollableTabRow = shouldUseScrollableTabRow
+                    shouldUseScrollableTabRow = shouldUseScrollableTabRow,
+                    templates = templates,
+                    onTemplateClick = { index ->
+                        selectedIndex = if (selectedIndex != index) index else -1
+                    },
+                    selectedIndex = selectedIndex
                 )
             }
         }
@@ -136,55 +151,54 @@ internal fun NewProjectWizardDialog(
 private fun NewProjectWizardContent(
     tabState: NpwTabState,
     switchTab: (Int) -> Unit,
-    shouldUseScrollableTabRow: Boolean = true,
-    modifier: Modifier = Modifier
+    templates: List<Template>,
+    onTemplateClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    selectedIndex: Int = -1,
+    shouldUseScrollableTabRow: Boolean = true
 ) {
+    val tabs: @Composable () -> Unit = {
+        tabState.titles.forEachIndexed { index, titleId ->
+            ALTab(
+                selected = index == tabState.currentIndex,
+                onClick = {
+                    switchTab(index)
+                    // Deselect any selected template when the user switches tabs.
+                    // TODO: Maybe remove this if it gets annoying for the user
+                    onTemplateClick(-1)
+                },
+                text = { Text(text = titleId.displayName) }
+            )
+        }
+    }
+
     Column(modifier) {
         if (shouldUseScrollableTabRow) {
             ALScrollableTabRow(
                 selectedTabIndex = tabState.currentIndex,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                tabState.titles.forEachIndexed { index, titleId ->
-                    ALTab(
-                        selected = index == tabState.currentIndex,
-                        onClick = { switchTab(index) },
-                        text = { Text(text = stringResource(id = titleId)) }
-                    )
-                }
-            }
-            when (tabState.currentIndex) {
-                0 -> {}
-                1 -> {}
-                2 -> {}
-                3 -> {}
-                4 -> {}
-            }
+                modifier = Modifier.fillMaxWidth(),
+                tabs = tabs
+            )
         } else {
             ALTabRow(
                 selectedTabIndex = tabState.currentIndex,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                tabState.titles.forEachIndexed { index, titleId ->
-                    ALTab(
-                        selected = index == tabState.currentIndex,
-                        onClick = { switchTab(index) },
-                        text = { Text(text = stringResource(id = titleId)) }
-                    )
-                }
-            }
-            when (tabState.currentIndex) {
-                0 -> {}
-                1 -> {}
-                2 -> {}
-                3 -> {}
-                4 -> {}
-            }
+                modifier = Modifier.fillMaxWidth(),
+                tabs = tabs
+            )
         }
-    }
-}
 
-@Composable
-private fun NewProjectWizardEmptyScreen() {
-    Text(text = "Failed to load!")
+        TemplatesTabContent(
+            templates = when (tabState.currentIndex) {
+                // Filter out the templates based on the currently selected tab
+                0 -> templates.filter { it.templateCategory == TemplateCategory.Mobile }
+                1 -> templates.filter { it.templateCategory == TemplateCategory.Wear }
+                2 -> templates.filter { it.templateCategory == TemplateCategory.Tv }
+                3 -> templates.filter { it.templateCategory == TemplateCategory.Automotive }
+                4 -> templates.filter { it.templateCategory == TemplateCategory.Lab }
+                else -> templates
+            },
+            onTemplateClick = onTemplateClick,
+            selectedIndex = selectedIndex
+        )
+    }
 }

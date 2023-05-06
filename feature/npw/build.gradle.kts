@@ -25,4 +25,6 @@ android {
 
 dependencies {
     implementation(libs.kotlinx.datetime)
+
+    implementation(project(":platform:wizard:template-impl"))
 }

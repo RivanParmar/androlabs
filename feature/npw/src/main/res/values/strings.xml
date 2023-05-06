@@ -15,9 +15,5 @@
   -->
 
 <resources>
-    <string name="template_phone">Phone and Tablet</string>
-    <string name="template_wear_os">Wear OS</string>
-    <string name="template_android_tv">Android TV</string>
-    <string name="template_automotive">Automotive</string>
-    <string name="template_lab">Lab</string>
+    <string name="templates">Templates</string>
 </resources>
