@@ -42,3 +42,5 @@ include(":build-tools:builder-core")
 include(":build-tools:build-logic")
 
 include(":build-tools:project")*/
+
+include(":platform:wizard:template-api")

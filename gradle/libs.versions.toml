@@ -25,6 +25,7 @@ coil = "2.2.2"
 firebaseBom = "31.2.3"
 firebaseCrashlyticsPlugin = "2.9.4"
 gmsPlugin = "4.3.15"
+guava = "31.1-android"
 hilt = "2.44.2"
 hiltExt = "1.0.0"
 junit4 = "4.13.2"
@@ -83,6 +84,7 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }

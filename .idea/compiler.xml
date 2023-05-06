@@ -1,39 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
-      <module name="Andro_Labs.app" target="17" />
-      <module name="Andro_Labs.build-tools.build-logic" target="11" />
-      <module name="Andro_Labs.build-tools.build-logic.main" target="11" />
-      <module name="Andro_Labs.build-tools.build-logic.test" target="11" />
-      <module name="Andro_Labs.build-tools.builder-core" target="11" />
-      <module name="Andro_Labs.build-tools.builder-core.main" target="11" />
-      <module name="Andro_Labs.build-tools.builder-core.test" target="11" />
-      <module name="Andro_Labs.build-tools.javac" target="11" />
-      <module name="Andro_Labs.build-tools.javac.main" target="11" />
-      <module name="Andro_Labs.build-tools.javac.test" target="11" />
-      <module name="Andro_Labs.build-tools.project" target="11" />
-      <module name="Andro_Labs.build-tools.project.main" target="11" />
-      <module name="Andro_Labs.build-tools.project.test" target="11" />
-      <module name="Andro_Labs.core.common" target="17" />
-      <module name="Andro_Labs.core.data" target="17" />
-      <module name="Andro_Labs.core.database" target="17" />
-      <module name="Andro_Labs.core.datastore" target="17" />
-      <module name="Andro_Labs.core.designsystem" target="17" />
-      <module name="Andro_Labs.core.domain" target="17" />
-      <module name="Andro_Labs.core.model" target="17" />
-      <module name="Andro_Labs.core.model.main" target="17" />
-      <module name="Andro_Labs.core.model.test" target="17" />
-      <module name="Andro_Labs.core.network" target="17" />
-      <module name="Andro_Labs.core.testing" target="17" />
-      <module name="Andro_Labs.core.ui" target="17" />
-      <module name="Andro_Labs.feature.npw" target="17" />
-      <module name="Andro_Labs.feature.recent" target="17" />
-      <module name="Andro_Labs.feature.settings" target="17" />
-      <module name="Andro_Labs.sync.work" target="17" />
-      <module name="build-plugins.convention" target="17" />
-      <module name="build-plugins.convention.main" target="17" />
-      <module name="build-plugins.convention.test" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
