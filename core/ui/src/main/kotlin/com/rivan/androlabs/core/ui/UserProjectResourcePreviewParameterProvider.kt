@@ -10,7 +10,8 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
-class UserProjectResourcePreviewParameterProvider : PreviewParameterProvider<List<UserProjectResource>> {
+class UserProjectResourcePreviewParameterProvider
+    : PreviewParameterProvider<List<UserProjectResource>> {
     override val values: Sequence<List<UserProjectResource>>
         get() {
             val userProjectResourceData: UserProjectResourceData = UserProjectResourceData(

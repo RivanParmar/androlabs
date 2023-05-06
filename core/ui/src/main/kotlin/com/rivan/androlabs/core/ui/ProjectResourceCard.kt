@@ -34,7 +34,7 @@ fun ProjectResourceCard(
     ElevatedCard(
         onClick = onClick,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface),
         modifier = modifier
     ) {
         Row {
@@ -128,7 +128,7 @@ fun ProjectResourceExtraTitle(
     Text(projectResourceExtraTitle, style = MaterialTheme.typography.labelSmall)
 }
 
-@Preview("ProjectResourceCard")
+@Preview(name = "ProjectResourceCard")
 @Composable
 private fun ProjectResourceCardPreview(
     @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)

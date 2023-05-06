@@ -30,7 +30,8 @@ fun SettingsItemTemplate(
     description: @Composable () -> Unit = {},
     startWidget: (@Composable () -> Unit)? = null,
     endWidget: (@Composable () -> Unit)? = null,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    containerColor: Color
 ) {
     if (!enabled) {
         modifier.alpha(0.38f)
@@ -43,7 +44,7 @@ fun SettingsItemTemplate(
         leadingContent = startWidget,
         trailingContent = endWidget,
         colors = ListItemDefaults.colors(
-            containerColor = Color.Transparent
+            containerColor = containerColor
         )
     )
 }
