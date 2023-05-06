@@ -17,8 +17,8 @@
 package com.rivan.androlabs.wizard.template.api
 
 /**
- * Representation of all types of projects we can build. This class is also used in the wizard to
- * show elements in the tabs.
+ * Representation of all types of projects we can build. This class is used in the new project
+ * wizard to populate the tab names.
  */
 enum class TemplateCategory(val displayName: String) {
     Mobile("Phone and Tablet"),

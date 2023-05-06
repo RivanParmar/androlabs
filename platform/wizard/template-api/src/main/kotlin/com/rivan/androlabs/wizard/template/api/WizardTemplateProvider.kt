@@ -16,9 +16,9 @@
 
 package com.rivan.androlabs.wizard.template.api
 
+/**
+ * An abstract class, which a template plugin implements as an extension point.
+ */
 abstract class WizardTemplateProvider {
-    /**
-     * An abstract class, which a template plugin implements as an extension point.
-     */
     abstract fun getTemplates(): List<Template>
 }

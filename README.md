@@ -10,5 +10,6 @@ The Andro Labs project is available under the [Apache-2.0](/LICENSE) license.
 
 ## Special Thanks
 - [NowInAndroid](https://www.github.com/android/nowinandroid)
+- [Android Studio](https://cs.android.com/android-studio)
 
 [^1]: Java is primarily used in compiler code and not in app development.
