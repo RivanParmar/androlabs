@@ -22,6 +22,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -39,9 +40,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.wizard.template.api.Template
-import java.net.URL
 
 @Composable
 fun TemplateCard(
@@ -55,7 +57,7 @@ fun TemplateCard(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .border(
-                width = if (selected) 1.dp else 0.dp,
+                width = if (selected) 2.dp else 0.dp,
                 // TODO: Change this to a better color
                 color = if (selected) Color.Blue else Color.Transparent,
                 shape = RoundedCornerShape(8.dp)
@@ -75,15 +77,21 @@ fun TemplateCard(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 TemplateIcon(
-                    templateIconUrl = template.thumb().path.invoke(),
-                    templateIconContentDesc = template.name
+                    /*templateIconUrl = template.thumb().path.invoke(),
+                    templateIconContentDesc = template.name,
+                    isNoActivity = template == Template.NoActivity*/
+                    template = template
                 )
             }
 
             Box(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Column {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     TemplateTitle(title = template.name)
                 }
             }
@@ -92,18 +100,32 @@ fun TemplateCard(
 }
 
 @Composable
-fun TemplateIcon(templateIconUrl: URL, templateIconContentDesc: String) {
-    val bitmap = BitmapFactory.decodeStream(templateIconUrl.openStream()).asImageBitmap()
-    Image(
-        bitmap = bitmap,
-        contentDescription = templateIconContentDesc,
-        modifier = Modifier
-            .height(140.dp)
-            .width(100.dp)
-            .shadow(elevation = 4.dp, shape = RoundedCornerShape(8.dp), clip = true),
-        alignment = Alignment.Center,
-        contentScale = ContentScale.Fit
-    )
+fun TemplateIcon(template: Template) {
+    if (template == Template.NoActivity) {
+        Image(
+            // TODO: Convert `no_activity` to vector
+            painter = painterResource(id = R.drawable.no_activity),
+            modifier = Modifier
+                .height(140.dp)
+                .width(100.dp),
+            contentDescription = template.name,
+            alignment = Alignment.Center,
+            contentScale = ContentScale.Fit
+        )
+    } else {
+        val bitmap = BitmapFactory.decodeStream(
+            template.thumb().path.invoke().openStream()).asImageBitmap()
+        Image(
+            bitmap = bitmap,
+            contentDescription = template.name,
+            modifier = Modifier
+                .height(140.dp)
+                .width(100.dp)
+                .shadow(elevation = 4.dp, shape = RoundedCornerShape(8.dp), clip = true),
+            alignment = Alignment.Center,
+            contentScale = ContentScale.Fit
+        )
+    }
 }
 
 @Composable
@@ -111,6 +133,7 @@ fun TemplateTitle(title: String) {
     Text(
         text = title,
         maxLines = 1,
-        style = MaterialTheme.typography.titleMedium,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.titleMedium
     )
 }

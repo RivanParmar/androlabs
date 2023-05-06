@@ -35,7 +35,24 @@ class NewProjectWizardViewModel : ViewModel() {
     )
     val tabState: StateFlow<NpwTabState> = _tabState.asStateFlow()
 
-    fun getTemplates(): List<Template> = WizardTemplateProviderImpl().getTemplates()
+    fun getTemplates(): List<Template> {
+        // TODO: Optimize this more if possible
+        val templates = WizardTemplateProviderImpl().getTemplates()
+        val filteredTemplates = when (tabState.value.currentIndex) {
+            0 -> templates.filter { it.templateCategory == TemplateCategory.Mobile }
+            1 -> templates.filter { it.templateCategory == TemplateCategory.Wear }
+            2 -> templates.filter { it.templateCategory == TemplateCategory.Tv }
+            3 -> templates.filter { it.templateCategory == TemplateCategory.Automotive }
+            4 -> templates.filter { it.templateCategory == TemplateCategory.Lab }
+            else -> templates
+        }
+        // If currently selected tab is 'Lab', then do not return `Template.NoActivity`
+        return if (tabState.value.currentIndex != 4) {
+            sequence {
+                yield(Template.NoActivity)
+            }.toList() + filteredTemplates
+        } else filteredTemplates
+    }
 
     fun switchTab(newIndex: Int) {
         if (newIndex != tabState.value.currentIndex) {

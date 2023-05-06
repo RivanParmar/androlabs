@@ -53,7 +53,6 @@ import com.rivan.androlabs.core.designsystem.component.ALScrollableTabRow
 import com.rivan.androlabs.core.designsystem.component.ALTab
 import com.rivan.androlabs.core.designsystem.component.ALTabRow
 import com.rivan.androlabs.wizard.template.api.Template
-import com.rivan.androlabs.wizard.template.api.TemplateCategory
 
 @Composable
 fun NewProjectWizardDialog(
@@ -188,15 +187,7 @@ private fun NewProjectWizardContent(
         }
 
         TemplatesTabContent(
-            templates = when (tabState.currentIndex) {
-                // Filter out the templates based on the currently selected tab
-                0 -> templates.filter { it.templateCategory == TemplateCategory.Mobile }
-                1 -> templates.filter { it.templateCategory == TemplateCategory.Wear }
-                2 -> templates.filter { it.templateCategory == TemplateCategory.Tv }
-                3 -> templates.filter { it.templateCategory == TemplateCategory.Automotive }
-                4 -> templates.filter { it.templateCategory == TemplateCategory.Lab }
-                else -> templates
-            },
+            templates = templates,
             onTemplateClick = onTemplateClick,
             selectedIndex = selectedIndex
         )
