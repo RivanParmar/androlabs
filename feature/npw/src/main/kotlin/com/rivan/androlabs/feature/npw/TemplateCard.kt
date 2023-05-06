@@ -76,12 +76,7 @@ fun TemplateCard(
             Row(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                TemplateIcon(
-                    /*templateIconUrl = template.thumb().path.invoke(),
-                    templateIconContentDesc = template.name,
-                    isNoActivity = template == Template.NoActivity*/
-                    template = template
-                )
+                TemplateIcon(template = template)
             }
 
             Box(
