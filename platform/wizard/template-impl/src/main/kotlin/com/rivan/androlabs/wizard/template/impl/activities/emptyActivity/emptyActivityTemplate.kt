@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// Modified by Rivan Parmar on 06/05/2023
+// Modifications Copyright (C) 2023 Rivan Parmar
 
 package com.rivan.androlabs.wizard.template.impl.activities.emptyActivity
 
