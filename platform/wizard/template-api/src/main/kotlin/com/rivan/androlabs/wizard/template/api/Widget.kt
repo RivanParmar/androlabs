@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// Modifications Copyright (C) 2023 Rivan Parmar
+
 package com.rivan.androlabs.wizard.template.api
 
 /**
@@ -68,6 +70,6 @@ data class CheckBoxWidget(val p: BooleanParameter): ParameterWidget<Boolean>(p)
 data class UrlLinkWidget(val urlName: String, val urlAddress: String): Widget<String>
 
 /**
- * Horizontal separator. Has no functionality.
+ * Horizontal divider. Has no functionality.
  */
-object Separator : Widget<Nothing>
+object Divider : Widget<Nothing>
