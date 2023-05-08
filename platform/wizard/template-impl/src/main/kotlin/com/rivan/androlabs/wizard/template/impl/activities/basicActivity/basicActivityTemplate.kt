@@ -21,10 +21,10 @@ package com.rivan.androlabs.wizard.template.impl.activities.basicActivity
 import com.rivan.androlabs.wizard.template.api.BooleanParameter
 import com.rivan.androlabs.wizard.template.api.Category
 import com.rivan.androlabs.wizard.template.api.CheckBoxWidget
+import com.rivan.androlabs.wizard.template.api.Divider
 import com.rivan.androlabs.wizard.template.api.LanguageWidget
 import com.rivan.androlabs.wizard.template.api.ModuleTemplateData
 import com.rivan.androlabs.wizard.template.api.PackageNameWidget
-import com.rivan.androlabs.wizard.template.api.Separator
 import com.rivan.androlabs.wizard.template.api.StringParameter
 import com.rivan.androlabs.wizard.template.api.TemplateCategory
 import com.rivan.androlabs.wizard.template.api.TemplateConstraint
@@ -116,7 +116,7 @@ val basicActivityTemplate get() = template {
         TextFieldWidget(layoutName),
         TextFieldWidget(menuName),
         CheckBoxWidget(isLauncher),
-        Separator, // for example
+        Divider, // for example
         PackageNameWidget(packageName),
         LanguageWidget(),
 
