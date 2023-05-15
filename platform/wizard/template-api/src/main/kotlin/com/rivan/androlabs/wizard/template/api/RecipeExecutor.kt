@@ -18,6 +18,7 @@
 
 package com.rivan.androlabs.wizard.template.api
 
+import com.rivan.androlabs.openapi.module.Module
 import java.io.File
 
 /** Execution engine for the instructions in a recipe. */

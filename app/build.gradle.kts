@@ -1,3 +1,6 @@
+// Adapted from NowInAndroid app
+// https://github.com/android/nowinandroid/blob/main/app/build.gradle.kts
+
 import com.rivan.androlabs.AndroLabsBuildType
 
 plugins {
@@ -36,7 +39,7 @@ android {
         }
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
@@ -76,11 +79,11 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
+}
 
-    // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
-    configurations.configureEach {
-        resolutionStrategy {
-            force(libs.junit4)
-        }
+// androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
+configurations.configureEach {
+    resolutionStrategy {
+        force(libs.junit4)
     }
 }

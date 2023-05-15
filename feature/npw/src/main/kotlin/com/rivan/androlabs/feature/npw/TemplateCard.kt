@@ -59,7 +59,7 @@ fun TemplateCard(
             .border(
                 width = if (selected) 2.dp else 0.dp,
                 // TODO: Change this to a better color
-                color = if (selected) Color.Blue else Color.Transparent,
+                color = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent,
                 shape = RoundedCornerShape(8.dp)
             )
             .selectable(

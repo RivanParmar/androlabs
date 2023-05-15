@@ -15,7 +15,11 @@
  */
 
 plugins {
-    id("androlabs.java.library")
+    id("androlabs.android.library")
+}
+
+android {
+    namespace = "com.rivan.androlabs.wizard.template.impl"
 }
 
 dependencies {
