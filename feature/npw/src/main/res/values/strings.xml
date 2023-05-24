@@ -16,4 +16,7 @@
 
 <resources>
     <string name="templates">Templates</string>
+
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
 </resources>

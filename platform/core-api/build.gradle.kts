@@ -16,14 +16,20 @@
 
 plugins {
     id("androlabs.android.library")
+    id("androlabs.android.library.compose")
 }
 
 android {
-    namespace = "com.rivan.androlabs.wizard.template.api"
+    namespace = "com.rivan.androlabs"
 }
 
 dependencies {
-    api(libs.guava)
-
-    api(project(":platform:core-api"))
+    api(libs.androidx.compose.foundation)
+    api(libs.androidx.compose.foundation.layout)
+    api(libs.androidx.compose.material.iconsExtended)
+    api(libs.androidx.compose.material3)
+    debugApi(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.compose.runtime)
 }
