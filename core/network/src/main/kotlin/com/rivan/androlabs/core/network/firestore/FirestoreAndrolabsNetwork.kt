@@ -19,19 +19,19 @@ package com.rivan.androlabs.core.network.firestore
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.rivan.androlabs.core.network.AndroLabsNetworkDataSource
+import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.model.FirestoreChangeList
 import com.rivan.androlabs.core.network.model.FirestoreProjectResource
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * [FirebaseFirestore] backed [AndroLabsNetworkDataSource]
+ * [FirebaseFirestore] backed [AndrolabsNetworkDataSource]
  */
 @Singleton
-class FirestoreAndroLabsNetwork @Inject constructor(
+class FirestoreAndrolabsNetwork @Inject constructor(
     database: FirebaseFirestore
-) : AndroLabsNetworkDataSource {
+) : AndrolabsNetworkDataSource {
 
     private val projectResourceFirestoreDb = database.collection("project-resources")
 

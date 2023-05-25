@@ -45,7 +45,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(400.dp, 400.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -63,7 +63,7 @@ class NavigationUiTest {
         composeTestRule.setContent { 
             TestHarness(size = DpSize(610.dp, 400.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -81,7 +81,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(900.dp, 400.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -99,7 +99,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(400.dp, 500.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -117,7 +117,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(610.dp, 500.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -135,7 +135,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(900.dp, 500.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -153,7 +153,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(400.dp, 1000.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -171,7 +171,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(610.dp, 1000.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )
@@ -189,7 +189,7 @@ class NavigationUiTest {
         composeTestRule.setContent {
             TestHarness(size = DpSize(900.dp, 1000.dp)) {
                 BoxWithConstraints {
-                    AndroLabsApp(
+                    AndrolabsApp(
                         windowSizeClass = WindowSizeClass.calculateFromSize(
                             DpSize(maxWidth, maxHeight)
                         )

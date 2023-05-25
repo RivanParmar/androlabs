@@ -5,10 +5,10 @@ import com.rivan.androlabs.sync.initializers.Sync
 import dagger.hilt.android.HiltAndroidApp
 
 /**
- * [Application] class for Andro Labs
+ * [Application] class for Androlabs
  */
 @HiltAndroidApp
-class AndroLabsApplication : Application() {
+class AndrolabsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

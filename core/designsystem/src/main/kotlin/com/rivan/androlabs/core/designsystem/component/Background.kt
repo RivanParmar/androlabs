@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.designsystem.theme.LocalBackgroundTheme
 
 /**
@@ -51,7 +51,7 @@ annotation class ThemePreviews
 @ThemePreviews
 @Composable
 fun BackgroundDefault() {
-    AndroLabsTheme(dynamicColor = false) {
+    AndrolabsTheme(dynamicColor = false) {
         ALBackground(Modifier.size(100.dp), content = {})
     }
 }
@@ -59,7 +59,7 @@ fun BackgroundDefault() {
 @ThemePreviews
 @Composable
 fun BackgroundDynamic() {
-    AndroLabsTheme {
+    AndrolabsTheme {
         ALBackground(Modifier.size(100.dp), content = {})
     }
 }

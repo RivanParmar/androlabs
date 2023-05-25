@@ -17,6 +17,6 @@ import com.rivan.androlabs.core.database.util.ProjectResourceTypeConverter
     InstantConverter::class,
     ProjectResourceTypeConverter::class
 )
-abstract class AndroLabsDatabase : RoomDatabase() {
+abstract class AndrolabsDatabase : RoomDatabase() {
     abstract fun projectResourceDao(): ProjectResourceDao
 }

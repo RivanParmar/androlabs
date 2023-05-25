@@ -1,7 +1,7 @@
 // Adapted from NowInAndroid app
 // https://github.com/android/nowinandroid/blob/main/app/build.gradle.kts
 
-import com.rivan.androlabs.AndroLabsBuildType
+import com.rivan.androlabs.AndrolabsBuildType
 
 plugins {
     id("androlabs.android.application")
@@ -18,7 +18,7 @@ android {
         versionName = "0.0.1" //X.Y.Z; X = Major, Y = Minor, Z = Patch level
 
         // Custom test runner to set up Hilt dependency graph
-        testInstrumentationRunner = "com.rivan.androlabs.core.testing.AndroLabsTestRunner"
+        testInstrumentationRunner = "com.rivan.androlabs.core.testing.AndrolabsTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -26,11 +26,11 @@ android {
 
     buildTypes {
         val debug by getting {
-            applicationIdSuffix = AndroLabsBuildType.DEBUG.applicationIdSuffix
+            applicationIdSuffix = AndrolabsBuildType.DEBUG.applicationIdSuffix
         }
         val release by getting {
             isMinifyEnabled = false
-            applicationIdSuffix = AndroLabsBuildType.RELEASE.applicationIdSuffix
+            applicationIdSuffix = AndrolabsBuildType.RELEASE.applicationIdSuffix
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             // To publish on the Play Store a private signing key is required, but to allow anyone

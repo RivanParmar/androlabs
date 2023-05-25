@@ -8,7 +8,7 @@ import com.rivan.androlabs.core.database.model.ProjectResourceEntity
 import com.rivan.androlabs.core.database.model.asExternalModel
 import com.rivan.androlabs.core.datastore.ChangeListVersions
 import com.rivan.androlabs.core.model.data.ProjectResource
-import com.rivan.androlabs.core.network.AndroLabsNetworkDataSource
+import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.model.FirestoreProjectResource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -24,7 +24,7 @@ private const val SYNC_BATCH_SIZE = 40
  */
 class OfflineFirstProjectRepository @Inject constructor(
     private val projectResourceDao: ProjectResourceDao,
-    private val network: AndroLabsNetworkDataSource
+    private val network: AndrolabsNetworkDataSource
 ) : ProjectRepository {
 
     override fun getProjectResources(

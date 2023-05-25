@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.domain.model.UserProjectResource
 import com.rivan.androlabs.core.ui.DevicePreviews
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
@@ -167,7 +167,7 @@ fun RecentScreenPopulatedFeed(
     userProjectResource: List<UserProjectResource>
 ) {
     BoxWithConstraints {
-        AndroLabsTheme {
+        AndrolabsTheme {
             RecentScreen(
                 isSyncing = false,
                 feedState = ProjectFeedUiState.Success(
@@ -182,7 +182,7 @@ fun RecentScreenPopulatedFeed(
 @Composable
 fun RecentScreenLoading() {
     BoxWithConstraints {
-        AndroLabsTheme {
+        AndrolabsTheme {
             RecentScreen(
                 isSyncing = false,
                 feedState = Loading
@@ -198,7 +198,7 @@ fun RecentScreenPopulatedAndLoading(
     userProjectResource: List<UserProjectResource>
 ) {
     BoxWithConstraints {
-        AndroLabsTheme {
+        AndrolabsTheme {
             RecentScreen(
                 isSyncing = true,
                 feedState = ProjectFeedUiState.Success(

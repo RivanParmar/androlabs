@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.domain.model.UserProjectResource
 
 /**
@@ -61,7 +61,7 @@ sealed interface ProjectFeedUiState {
 @Preview
 @Composable
 private fun ProjectFeedLoadingPreview() {
-    AndroLabsTheme {
+    AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
                 feedState = ProjectFeedUiState.Loading
@@ -77,7 +77,7 @@ private fun ProjectFeedContentPreview(
     @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
     UserProjectResource: List<UserProjectResource>
 ) {
-    AndroLabsTheme {
+    AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
                 feedState = ProjectFeedUiState.Success(UserProjectResource)

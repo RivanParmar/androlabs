@@ -17,7 +17,7 @@ import com.rivan.androlabs.core.designsystem.R.*
 import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
-import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.domain.model.UserProjectResource
 
 // TODO: Not yet completed
@@ -134,7 +134,7 @@ private fun ProjectResourceCardPreview(
     @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
     userProjectResource: List<UserProjectResource>
 ) {
-    AndroLabsTheme {
+    AndrolabsTheme {
         Surface {
             ProjectResourceCard(
                 userProjectResource = userProjectResource[1],

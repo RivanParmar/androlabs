@@ -16,9 +16,9 @@ object DatabaseModule {
     @Singleton
     fun providesProjectResourceDatabase(
         @ApplicationContext context: Context
-    ): AndroLabsDatabase = Room.databaseBuilder(
+    ): AndrolabsDatabase = Room.databaseBuilder(
         context,
-        AndroLabsDatabase::class.java,
+        AndrolabsDatabase::class.java,
         "androlabs-database"
     ).build()
 }

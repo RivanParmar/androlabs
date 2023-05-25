@@ -16,8 +16,8 @@
 
 package com.rivan.androlabs.core.network.di
 
-import com.rivan.androlabs.core.network.AndroLabsNetworkDataSource
-import com.rivan.androlabs.core.network.fake.FakeAndroLabsNetworkDataSource
+import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
+import com.rivan.androlabs.core.network.fake.FakeAndrolabsNetworkDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,5 +28,5 @@ import dagger.hilt.components.SingletonComponent
 interface FlavoredNetworkModule {
 
     @Binds
-    fun FakeAndroLabsNetworkDataSource.binds(): AndroLabsNetworkDataSource
+    fun FakeAndrolabsNetworkDataSource.binds(): AndrolabsNetworkDataSource
 }

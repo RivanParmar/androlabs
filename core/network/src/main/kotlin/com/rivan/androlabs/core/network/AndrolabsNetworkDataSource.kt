@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.core.testing
+package com.rivan.androlabs.core.network
 
-import android.app.Application
-import android.content.Context
-import androidx.test.runner.AndroidJUnitRunner
-import dagger.hilt.android.testing.HiltTestApplication
+import com.rivan.androlabs.core.network.model.FirestoreChangeList
+import com.rivan.androlabs.core.network.model.FirestoreProjectResource
 
 /**
- * A custom runner to set up the instrumented application class for tests.
+ * Interface representing network calls to the backend
  */
-class AndroLabsTestRunner : AndroidJUnitRunner() {
-    override fun newApplication(
-        cl: ClassLoader?,
-        className: String?,
-        context: Context?
-    ): Application {
-        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
-    }
+interface AndrolabsNetworkDataSource {
+    suspend fun getProjectResources(ids: List<String>? = null): List<FirestoreProjectResource>
+
+    suspend fun getProjectResourceChangeList(after: Int? = null): List<FirestoreChangeList>
 }

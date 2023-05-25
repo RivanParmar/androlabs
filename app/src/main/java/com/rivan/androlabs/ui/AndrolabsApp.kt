@@ -59,7 +59,7 @@ import com.rivan.androlabs.navigation.TopLevelDestination
 )
 
 @Composable
-fun AndroLabsApp(
+fun AndrolabsApp(
     windowSizeClass: WindowSizeClass,
     appState: AndroLabsAppState = rememberAndroLabsAppState(
         windowSizeClass = windowSizeClass

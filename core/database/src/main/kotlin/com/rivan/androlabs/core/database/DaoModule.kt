@@ -27,6 +27,6 @@ import dagger.hilt.components.SingletonComponent
 object DaoModule {
     @Provides
     fun providesProjectResourceDao(
-        database: AndroLabsDatabase
+        database: AndrolabsDatabase
     ): ProjectResourceDao = database.projectResourceDao()
 }

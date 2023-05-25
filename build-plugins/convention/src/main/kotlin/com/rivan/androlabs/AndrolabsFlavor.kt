@@ -15,7 +15,7 @@ enum class FlavorDimension {
 // purposes, or from a production backend server which supplies up-to-date, real content.
 // These two product flavors reflect this behaviour.
 @Suppress("EnumEntryName")
-enum class AndroLabsFlavor(
+enum class AndrolabsFlavor(
     val dimension: FlavorDimension,
     val applicationIdSuffix: String? = null
 ) {
@@ -25,12 +25,12 @@ enum class AndroLabsFlavor(
 
 fun Project.configureFlavors(
     commonExtension: CommonExtension<*, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: AndroLabsFlavor) -> Unit = {}
+    flavorConfigurationBlock: ProductFlavor.(flavor: AndrolabsFlavor) -> Unit = {}
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.contentType.name
         productFlavors {
-            AndroLabsFlavor.values().forEach {
+            AndrolabsFlavor.values().forEach {
                 create(it.name) {
                     dimension = it.dimension.name
                     flavorConfigurationBlock(this, it)

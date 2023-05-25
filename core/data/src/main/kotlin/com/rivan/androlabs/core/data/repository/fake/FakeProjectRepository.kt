@@ -9,7 +9,7 @@ import com.rivan.androlabs.core.database.model.asExternalModel
 import com.rivan.androlabs.core.model.data.ProjectResource
 import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
 import com.rivan.androlabs.core.network.Dispatcher
-import com.rivan.androlabs.core.network.fake.FakeAndroLabsNetworkDataSource
+import com.rivan.androlabs.core.network.fake.FakeAndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.model.FirestoreProjectResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +26,7 @@ import javax.inject.Inject
  */
 class FakeProjectRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    private val dataSource: FakeAndroLabsNetworkDataSource
+    private val dataSource: FakeAndrolabsNetworkDataSource
 ) : ProjectRepository {
 
     override fun getProjectResources(query: ProjectResourceQuery): Flow<List<ProjectResource>> =

@@ -2,7 +2,7 @@ package com.rivan.androlabs.core.network.fake
 
 import JvmUnitTestFakeAssetManager
 import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
-import com.rivan.androlabs.core.network.AndroLabsNetworkDataSource
+import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.Dispatcher
 import com.rivan.androlabs.core.network.model.FirestoreChangeList
 import com.rivan.androlabs.core.network.model.FirestoreProjectResource
@@ -14,14 +14,14 @@ import kotlinx.serialization.json.decodeFromStream
 import javax.inject.Inject
 
 /**
- * [AndroLabsNetworkDataSource] implementation that provides static project resources to aid
+ * [AndrolabsNetworkDataSource] implementation that provides static project resources to aid
  * development.
  */
-class FakeAndroLabsNetworkDataSource @Inject constructor(
+class FakeAndrolabsNetworkDataSource @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     private val networkJson: Json,
     private val assets: FakeAssetManager = JvmUnitTestFakeAssetManager
-) : AndroLabsNetworkDataSource {
+) : AndrolabsNetworkDataSource {
 
     companion object {
         private const val PROJECTS_ASSET = "projects.json"

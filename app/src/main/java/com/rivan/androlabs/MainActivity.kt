@@ -18,8 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rivan.androlabs.MainActivityUiState.*
-import com.rivan.androlabs.core.designsystem.theme.AndroLabsTheme
-import com.rivan.androlabs.ui.AndroLabsApp
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
+import com.rivan.androlabs.ui.AndrolabsApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
 
-            AndroLabsTheme(
+            AndrolabsTheme(
                 darkTheme = darkTheme
             ) {
                 AndroLabsApp(windowSizeClass = calculateWindowSizeClass(activity = this))
