@@ -21,7 +21,7 @@ plugins {
 
 android {
     defaultConfig {
-        testInstrumentationRunner = "com.rivan.androlabs.core.testing.AndroLabsTestRunner"
+        testInstrumentationRunner = "com.rivan.androlabs.core.testing.AndrolabsTestRunner"
     }
 
     namespace = "com.rivan.androlabs.sync"

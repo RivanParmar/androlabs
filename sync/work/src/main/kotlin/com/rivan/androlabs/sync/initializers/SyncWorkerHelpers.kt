@@ -28,7 +28,7 @@ import androidx.work.NetworkType
 import com.rivan.androlabs.sync.R
 
 private const val SyncNotificationId = 7
-private const val SyncNotificationChannelID = "AndroLabsSyncNotificationChannel"
+private const val SyncNotificationChannelID = "AndrolabsSyncNotificationChannel"
 
 // All sync work need an internet connection
 val SyncConstraints

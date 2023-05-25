@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="sync_notification_title">Andro Labs</string>
+    <string name="sync_notification_title">Androlabs</string>
     <string name="sync_notification_channel_name">Sync</string>
-    <string name="sync_notification_channel_description">Background tasks for Andro Labs</string>
+    <string name="sync_notification_channel_description">Background tasks for Androlabs</string>
 </resources>
