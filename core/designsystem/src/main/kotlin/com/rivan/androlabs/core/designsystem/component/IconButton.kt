@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 /**
- * Andro Labs toggle button with icon and checked icon content slots. Wraps Material 3
+ * Androlabs toggle button with icon and checked icon content slots. Wraps Material 3
  * [FilledIconToggleButton].
  *
  * @param checked Whether the toggle button is currently checked.
@@ -50,7 +50,7 @@ fun ALIconToggleButton(
 }
 
 /**
- * Andro Labs icon button default values.
+ * Androlabs icon button default values.
  */
 object ALIconButtonDefaults {
     const val DisabledIconButtonContainerAlpha = 0.12f

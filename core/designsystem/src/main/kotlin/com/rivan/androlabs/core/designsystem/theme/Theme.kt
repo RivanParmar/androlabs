@@ -82,7 +82,7 @@ val DarkDefaultColorScheme = darkColorScheme(
 )
 
 /**
- * Andro Labs theme.
+ * Androlabs theme.
  *
  * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
  * @param dynamicColor If `true`, then dynamic theming will be used when supported.

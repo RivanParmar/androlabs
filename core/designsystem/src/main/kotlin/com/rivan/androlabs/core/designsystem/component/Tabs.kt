@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 /**
- * Andro Labs tab with text content slot. Wraps Material 3 [Tab].
+ * Androlabs tab with text content slot. Wraps Material 3 [Tab].
  *
  * @param selected Whether this tab is selected.
  * @param onClick The callback to be invoked when this tab is selected.
@@ -69,7 +69,7 @@ fun ALTab(
 }
 
 /**
- * Andro Labs scrollable tab row with tabs content slot. Wraps Material 3 [ScrollableTabRow].
+ * Androlabs scrollable tab row with tabs content slot. Wraps Material 3 [ScrollableTabRow].
  *
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier Modifier to be applied to this scrollable tab row.
@@ -98,7 +98,7 @@ fun ALScrollableTabRow(
 }
 
 /**
- * Andro Labs tab row with tabs content slot. Wraps Material 3 [TabRow].
+ * Androlabs tab row with tabs content slot. Wraps Material 3 [TabRow].
  *
  * @param selectedTabIndex The index of the currently selected tab.
  * @param modifier Modifier to be applied to this scrollable tab row.

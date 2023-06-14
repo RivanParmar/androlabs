@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 /**
- * Andro Labs floating action button with icon content slot. Wraps Material 3
+ * Androlabs floating action button with icon content slot. Wraps Material 3
  * [FloatingActionButton].
  *
  * @param onClick Will be called when the user clicks the button.

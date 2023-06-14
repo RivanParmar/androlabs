@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 // TODO: Remove colors if not needed
 /**
- * Android Playgrounds colors.
+ * Androlabs colors.
  */
 val Blue10 = Color(0xFF001d36)
 val Blue20 = Color(0xFF003258)

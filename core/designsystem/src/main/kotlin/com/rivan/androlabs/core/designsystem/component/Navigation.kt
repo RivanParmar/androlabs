@@ -2,14 +2,20 @@ package com.rivan.androlabs.core.designsystem.component
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
- * Andro Labs navigation bar with content slot. Wraps Material 3 [NavigationBar].
+ * Androlabs navigation bar with content slot. Wraps Material 3 [NavigationBar].
  *
  * @param modifier Modifier to be applied to the navigation bar.
  * @param content Destinations inside the navigation bar. This should contain multiple
@@ -29,7 +35,7 @@ fun ALNavigationBar(
 }
 
 /**
- * Andro Labs navigation bar item with icon and label content slots. Wraps Material 3
+ * Androlabs navigation bar item with icon and label content slots. Wraps Material 3
  * [NavigationBarItem].
  *
  * @param selected Whether this item is selected.
@@ -73,7 +79,7 @@ fun RowScope.ALNavigationBarItem(
 }
 
 /**
- * Andro Labs navigation rail with header and content slots. Wraps Material 3
+ * Androlabs navigation rail with header and content slots. Wraps Material 3
  * [NavigationRail].
  *
  * @param modifier Modifier to be applied to the navigation rail.
@@ -97,7 +103,7 @@ fun ALNavigationRail(
 }
 
 /**
- * Andro Labs navigation rail item with icon and label content slots. Wraps Material 3
+ * Androlabs navigation rail item with icon and label content slots. Wraps Material 3
  * [NavigationRailItem].
  *
  * @param selected Whether this item is selected.
@@ -141,7 +147,7 @@ fun ALNavigationRailItem(
 }
 
 /**
- * Andro Labs navigation default values.
+ * Androlabs navigation default values.
  */
 object ALNavigationDefaults {
     @Composable
