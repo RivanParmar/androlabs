@@ -18,7 +18,7 @@
     <style name="Theme.AL" parent="PlatformAdjusted.Theme.AL" />
 
     <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
-        <item name="android:windowLightStatusBar" >true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
