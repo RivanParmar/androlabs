@@ -4,8 +4,8 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Dispatcher(val androLabsDispatcher: AndroLabsDispatcher)
+annotation class Dispatcher(val androlabsDispatcher: AndrolabsDispatcher)
 
-enum class AndroLabsDispatcher {
+enum class AndrolabsDispatcher {
     IO
 }

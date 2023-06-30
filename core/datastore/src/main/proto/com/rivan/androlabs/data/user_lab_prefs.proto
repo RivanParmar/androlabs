@@ -19,19 +19,19 @@ syntax = "proto3";
 option java_package = "com.rivan.androlabs.core.datastore";
 option java_multiple_files = true;
 
-message UserProjectResourcePrefs {
+message UserLabPrefs {
   reserved 2;
-  repeated int32 deprecated_int_recent_project_resource_ids = 1;
-  int32 projectResourceChangeListVersion = 3;
+  repeated int32 deprecated_int_recent_lab_ids = 1;
+  int32 labChangeListVersion = 3;
   bool has_done_int_to_string_id_migration = 4;
-  repeated string deprecated_recent_project_resource_ids = 5;
-  repeated string deprecated_favourite_project_resource_ids = 6;
-  repeated string deprecated_completed_project_resource_ids = 7;
+  repeated string deprecated_recent_lab_ids = 5;
+  repeated string deprecated_favourite_lab_ids = 6;
+  repeated string deprecated_completed_lab_ids = 7;
   bool has_done_list_to_map_migration = 8;
 
   // Each map is used to store a set of string IDs. The bool has no meaning, but proto3 doesn't
   // have a Set type so this is the closest we can get to a Set.
-  map<string, bool> recent_project_resource_ids = 9;
-  map<string, bool> favourite_project_resource_ids = 10;
-  map<string, bool> completed_project_resource_ids = 11;
+  map<string, bool> recent_lab_ids = 9;
+  map<string, bool> favourite_lab_ids = 10;
+  map<string, bool> completed_lab_ids = 11;
 }

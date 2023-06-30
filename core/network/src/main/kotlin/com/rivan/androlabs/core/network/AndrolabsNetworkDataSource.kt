@@ -17,13 +17,13 @@
 package com.rivan.androlabs.core.network
 
 import com.rivan.androlabs.core.network.model.FirestoreChangeList
-import com.rivan.androlabs.core.network.model.FirestoreProjectResource
+import com.rivan.androlabs.core.network.model.FirestoreLab
 
 /**
  * Interface representing network calls to the backend
  */
 interface AndrolabsNetworkDataSource {
-    suspend fun getProjectResources(ids: List<String>? = null): List<FirestoreProjectResource>
+    suspend fun getLabs(ids: List<String>? = null): List<FirestoreLab>
 
-    suspend fun getProjectResourceChangeList(after: Int? = null): List<FirestoreChangeList>
+    suspend fun getLabChangeList(after: Int? = null): List<FirestoreChangeList>
 }

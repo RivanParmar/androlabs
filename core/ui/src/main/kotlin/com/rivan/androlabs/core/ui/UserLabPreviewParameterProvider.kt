@@ -1,29 +1,29 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.rivan.androlabs.core.domain.model.UserProjectResource
-import com.rivan.androlabs.core.model.data.ProjectResource
-import com.rivan.androlabs.core.model.data.ProjectResourceType
-import com.rivan.androlabs.core.model.data.UserProjectResourceData
+import com.rivan.androlabs.core.domain.model.UserLabs
+import com.rivan.androlabs.core.model.data.Lab
+import com.rivan.androlabs.core.model.data.LabType
+import com.rivan.androlabs.core.model.data.UserLabData
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 
-class UserProjectResourcePreviewParameterProvider
-    : PreviewParameterProvider<List<UserProjectResource>> {
-    override val values: Sequence<List<UserProjectResource>>
+class UserLabPreviewParameterProvider
+    : PreviewParameterProvider<List<UserLabs>> {
+    override val values: Sequence<List<UserLabs>>
         get() {
-            val userProjectResourceData: UserProjectResourceData = UserProjectResourceData(
-                recentProjectResources = emptySet(),
-                favouriteProjectResources = setOf("1", "3"),
-                completedProjectResources = emptySet(),
+            val userLabData = UserLabData(
+                recentLabs = emptySet(),
+                favouriteLabs = setOf("1", "3"),
+                completedLabs = emptySet(),
             )
 
             return sequenceOf(
                 listOf(
-                    UserProjectResource(
-                        projectResource = ProjectResource(
+                    UserLabs(
+                        lab = Lab(
                             id = "1",
                             title = "Android App 1",
                             extraTitle = "Beginner Project",
@@ -40,37 +40,40 @@ class UserProjectResourcePreviewParameterProvider
                                 nanosecond = 0
                             ).toInstant(TimeZone.UTC),
                             path = "/downloads/",
-                            type = ProjectResourceType.Project
+                            type = LabType.App,
+                            vendor = null
                         ),
-                        userProjectResourceData = userProjectResourceData
+                        userLabData = userLabData
                     ),
-                    UserProjectResource(
-                        projectResource = ProjectResource(
+                    UserLabs(
+                        lab = Lab(
                             id = "2",
-                            title = "Android Lab 1",
+                            title = "Androlab 1",
                             extraTitle = "Beginner Lab",
                             description = "No description provided!",
                             url = null,
                             headerImageUrl = "null",
                             lastEdited = Instant.parse("2022-12-15T00:00:00.00Z"),
                             path = null,
-                            type = ProjectResourceType.Lab
+                            type = LabType.Lab,
+                            vendor = null
                         ),
-                        userProjectResourceData = userProjectResourceData
+                        userLabData = userLabData
                     ),
-                    UserProjectResource(
-                        projectResource = ProjectResource(
+                    UserLabs(
+                        lab = Lab(
                             id = "3",
-                            title = "Android Lab 2",
+                            title = "Androlab 2",
                             extraTitle = "Foundational Lab",
                             description = "No description provided!",
                             url = null,
                             headerImageUrl = "null",
                             lastEdited = Instant.parse("2022-12-09T00:00:00.00Z"),
                             path = null,
-                            type = ProjectResourceType.JetpackCompose
+                            type = LabType.JetpackCompose,
+                            vendor = null
                         ),
-                        userProjectResourceData = userProjectResourceData
+                        userLabData = userLabData
                     )
                 )
             )

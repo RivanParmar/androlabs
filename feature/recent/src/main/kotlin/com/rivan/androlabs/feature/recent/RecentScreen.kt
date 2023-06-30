@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserProjectResource
+import com.rivan.androlabs.core.domain.model.UserLabs
 import com.rivan.androlabs.core.ui.DevicePreviews
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import com.rivan.androlabs.core.ui.ProjectFeedUiState.Loading
 import com.rivan.androlabs.core.ui.ProjectFeedUiState.Success
-import com.rivan.androlabs.core.ui.UserProjectResourcePreviewParameterProvider
+import com.rivan.androlabs.core.ui.UserLabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.projectFeed
 
 @Composable
@@ -163,15 +163,15 @@ private fun EmptyState(modifier: Modifier = Modifier) {
 @DevicePreviews
 @Composable
 fun RecentScreenPopulatedFeed(
-    @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
-    userProjectResource: List<UserProjectResource>
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    userLabs: List<UserLabs>
 ) {
     BoxWithConstraints {
         AndrolabsTheme {
             RecentScreen(
                 isSyncing = false,
                 feedState = ProjectFeedUiState.Success(
-                    feed = userProjectResource
+                    feed = userLabs
                 )
             ) { _, _ -> }
         }
@@ -194,15 +194,15 @@ fun RecentScreenLoading() {
 @DevicePreviews
 @Composable
 fun RecentScreenPopulatedAndLoading(
-    @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
-    userProjectResource: List<UserProjectResource>
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    userLabs: List<UserLabs>
 ) {
     BoxWithConstraints {
         AndrolabsTheme {
             RecentScreen(
                 isSyncing = true,
                 feedState = ProjectFeedUiState.Success(
-                    feed = userProjectResource
+                    feed = userLabs
                 )
             ) { _, _ -> }
         }

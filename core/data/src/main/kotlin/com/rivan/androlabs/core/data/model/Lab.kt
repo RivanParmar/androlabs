@@ -16,10 +16,10 @@
 
 package com.rivan.androlabs.core.data.model
 
-import com.rivan.androlabs.core.database.model.ProjectResourceEntity
-import com.rivan.androlabs.core.network.model.FirestoreProjectResource
+import com.rivan.androlabs.core.database.model.LabEntity
+import com.rivan.androlabs.core.network.model.FirestoreLab
 
-fun FirestoreProjectResource.asEntity() = ProjectResourceEntity(
+fun FirestoreLab.asEntity() = LabEntity(
     id = id,
     title = title,
     extraTitle = extraTitle,
@@ -28,5 +28,6 @@ fun FirestoreProjectResource.asEntity() = ProjectResourceEntity(
     headerImageUrl = headerImageUrl,
     lastEdited = lastEdited,
     path = path,
-    type = type
+    type = type,
+    vendor = vendor
 )

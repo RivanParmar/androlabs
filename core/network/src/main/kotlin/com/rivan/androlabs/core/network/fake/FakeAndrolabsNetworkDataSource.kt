@@ -1,11 +1,11 @@
 package com.rivan.androlabs.core.network.fake
 
 import JvmUnitTestFakeAssetManager
-import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
+import com.rivan.androlabs.core.network.AndrolabsDispatcher.IO
 import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.Dispatcher
 import com.rivan.androlabs.core.network.model.FirestoreChangeList
-import com.rivan.androlabs.core.network.model.FirestoreProjectResource
+import com.rivan.androlabs.core.network.model.FirestoreLab
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -14,8 +14,7 @@ import kotlinx.serialization.json.decodeFromStream
 import javax.inject.Inject
 
 /**
- * [AndrolabsNetworkDataSource] implementation that provides static project resources to aid
- * development.
+ * [AndrolabsNetworkDataSource] implementation that provides static labs to aid development.
  */
 class FakeAndrolabsNetworkDataSource @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
@@ -24,17 +23,17 @@ class FakeAndrolabsNetworkDataSource @Inject constructor(
 ) : AndrolabsNetworkDataSource {
 
     companion object {
-        private const val PROJECTS_ASSET = "projects.json"
+        private const val LABS_ASSET = "labs.json"
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    override suspend fun getProjectResources(ids: List<String>?): List<FirestoreProjectResource> =
+    override suspend fun getLabs(ids: List<String>?): List<FirestoreLab> =
         withContext(ioDispatcher) {
-            assets.open(PROJECTS_ASSET).use(networkJson::decodeFromStream)
+            assets.open(LABS_ASSET).use(networkJson::decodeFromStream)
         }
 
-    override suspend fun getProjectResourceChangeList(after: Int?): List<FirestoreChangeList> =
-        getProjectResources().mapToChangeList(FirestoreProjectResource::id)
+    override suspend fun getLabChangeList(after: Int?): List<FirestoreChangeList> =
+        getLabs().mapToChangeList(FirestoreLab::id)
 
 }
 

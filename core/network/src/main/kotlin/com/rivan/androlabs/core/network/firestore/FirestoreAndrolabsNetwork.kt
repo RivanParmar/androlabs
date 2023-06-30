@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.rivan.androlabs.core.network.AndrolabsNetworkDataSource
 import com.rivan.androlabs.core.network.model.FirestoreChangeList
-import com.rivan.androlabs.core.network.model.FirestoreProjectResource
+import com.rivan.androlabs.core.network.model.FirestoreLab
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,31 +33,31 @@ class FirestoreAndrolabsNetwork @Inject constructor(
     database: FirebaseFirestore
 ) : AndrolabsNetworkDataSource {
 
-    private val projectResourceFirestoreDb = database.collection("project-resources")
+    private val labFirestoreDb = database.collection("labs")
 
     private val changeListFirestoreDb = database.collection(TODO("Not yet created"))
 
-    override suspend fun getProjectResources(ids: List<String>?): List<FirestoreProjectResource> {
-        val projectResources = arrayListOf<FirestoreProjectResource>()
-        projectResourceFirestoreDb
+    override suspend fun getLabs(ids: List<String>?): List<FirestoreLab> {
+        val projectResources = arrayListOf<FirestoreLab>()
+        labFirestoreDb
             .whereEqualTo("id", ids)
             // TODO: Add field for sorting the data with
             .orderBy("", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener {
                 for (document in it) {
-                    val projectResource = document.toObject(FirestoreProjectResource::class.java)
+                    val projectResource = document.toObject(FirestoreLab::class.java)
                     projectResources.add(projectResource)
                 }
             }
             .addOnFailureListener {
-                Log.e("ProjectResourceFirestore", "Could not get project resources!")
+                Log.e("LabFirestore", "Could not get labs!")
             }
 
         return projectResources
     }
 
-    override suspend fun getProjectResourceChangeList(after: Int?): List<FirestoreChangeList> {
+    override suspend fun getLabChangeList(after: Int?): List<FirestoreChangeList> {
         val changeLists = arrayListOf<FirestoreChangeList>()
         changeListFirestoreDb
             .whereEqualTo("after", after)

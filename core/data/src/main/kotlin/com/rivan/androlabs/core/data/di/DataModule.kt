@@ -16,10 +16,10 @@
 
 package com.rivan.androlabs.core.data.di
 
-import com.rivan.androlabs.core.data.repository.OfflineFirstProjectRepository
-import com.rivan.androlabs.core.data.repository.OfflineFirstUserProjectResourceDataRepository
-import com.rivan.androlabs.core.data.repository.ProjectRepository
-import com.rivan.androlabs.core.data.repository.UserProjectResourceDataRepository
+import com.rivan.androlabs.core.data.repository.LabRepository
+import com.rivan.androlabs.core.data.repository.OfflineFirstLabRepository
+import com.rivan.androlabs.core.data.repository.OfflineFirstUserLabDataRepository
+import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.ConnectivityManagerNetworkMonitor
 import com.rivan.androlabs.core.data.util.NetworkMonitor
 import dagger.Binds
@@ -32,14 +32,14 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
 
     @Binds
-    fun bindsProjectResourceRepository(
-        projectRepository: OfflineFirstProjectRepository
-    ): ProjectRepository
+    fun bindsLabRepository(
+        labRepository: OfflineFirstLabRepository
+    ): LabRepository
 
     @Binds
-    fun bindsUserProjectResourceDataRepository(
-        userProjectResourceDataRepository: OfflineFirstUserProjectResourceDataRepository
-    ): UserProjectResourceDataRepository
+    fun bindsUserLabDataRepository(
+        userLabDataRepository: OfflineFirstUserLabDataRepository
+    ): UserLabDataRepository
 
     @Binds
     fun bindsNetworkMonitor(

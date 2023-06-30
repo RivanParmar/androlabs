@@ -21,7 +21,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.rivan.androlabs.core.datastore.*
-import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
+import com.rivan.androlabs.core.network.AndrolabsDispatcher.IO
 import com.rivan.androlabs.core.network.Dispatcher
 import dagger.Module
 import dagger.Provides
@@ -39,19 +39,19 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    fun providesUserProjectResourcePrefsDataStore(
+    fun providesUserLabPrefsDataStore(
         @ApplicationContext context: Context,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
-        userProjectResourcePrefsSerializer: UserProjectResourcePrefsSerializer
-    ): DataStore<UserProjectResourcePrefs> =
+        userLabPrefsSerializer: UserLabPrefsSerializer
+    ): DataStore<UserLabPrefs> =
         DataStoreFactory.create(
-            serializer = userProjectResourcePrefsSerializer,
+            serializer = userLabPrefsSerializer,
             scope = CoroutineScope(ioDispatcher + SupervisorJob()),
             migrations = listOf(
                 IntToStringIdsMigration
             )
         ) {
-            context.dataStoreFile("user_project_resource_prefs.pb")
+            context.dataStoreFile("user_lab_prefs.pb")
         }
 
     @Provides

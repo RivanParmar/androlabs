@@ -14,22 +14,47 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.core.model.data
+package com.rivan.androlabs.core.database.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.rivan.androlabs.core.model.data.Lab
+import com.rivan.androlabs.core.model.data.LabType
 import kotlinx.datetime.Instant
 
 /**
- * External data layer representation of a fully populated Andro Labs project list resource
+ * Defines an Androlabs lab.
  */
-// TODO: Refactor to a better name (maybe) along with other related items
-data class ProjectResource(
+@Entity(
+    tableName = "labs"
+)
+data class LabEntity(
+    @PrimaryKey
     val id: String,
     val title: String,
+    @ColumnInfo(name = "extra_title")
     val extraTitle: String,
     val description: String,
     val url: String?,
+    @ColumnInfo(name = "header_image_url")
     val headerImageUrl: String?,
+    @ColumnInfo(name = "last_edited")
     val lastEdited: Instant?,
     val path: String?,
-    val type: ProjectResourceType
+    val type: LabType,
+    val vendor: String?
+)
+
+fun LabEntity.asExternalModel() = Lab(
+    id = id,
+    title = title,
+    extraTitle = extraTitle,
+    description = description,
+    url = url,
+    headerImageUrl = headerImageUrl,
+    lastEdited = lastEdited,
+    path = path,
+    type = type,
+    vendor = vendor
 )

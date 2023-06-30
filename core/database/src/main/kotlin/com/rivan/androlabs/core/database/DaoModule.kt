@@ -16,7 +16,7 @@
 
 package com.rivan.androlabs.core.database
 
-import com.rivan.androlabs.core.database.dao.ProjectResourceDao
+import com.rivan.androlabs.core.database.dao.LabDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DaoModule {
     @Provides
-    fun providesProjectResourceDao(
+    fun providesLabDao(
         database: AndrolabsDatabase
-    ): ProjectResourceDao = database.projectResourceDao()
+    ): LabDao = database.labDao()
 }

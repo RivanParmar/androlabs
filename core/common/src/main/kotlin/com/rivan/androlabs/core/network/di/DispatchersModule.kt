@@ -1,6 +1,6 @@
 package com.rivan.androlabs.core.network.di
 
-import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
+import com.rivan.androlabs.core.network.AndrolabsDispatcher.IO
 import com.rivan.androlabs.core.network.Dispatcher
 import dagger.Module
 import dagger.Provides

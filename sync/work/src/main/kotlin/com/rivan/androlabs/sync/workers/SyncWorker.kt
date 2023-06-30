@@ -20,10 +20,10 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.*
 import com.rivan.androlabs.core.data.Synchronizer
-import com.rivan.androlabs.core.data.repository.ProjectRepository
+import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.datastore.ChangeListVersions
-import com.rivan.androlabs.core.datastore.UserProjectResourcePrefsDataSource
-import com.rivan.androlabs.core.network.AndroLabsDispatcher.IO
+import com.rivan.androlabs.core.datastore.UserLabPrefsDataSource
+import com.rivan.androlabs.core.network.AndrolabsDispatcher.IO
 import com.rivan.androlabs.core.network.Dispatcher
 import com.rivan.androlabs.sync.initializers.SyncConstraints
 import com.rivan.androlabs.sync.initializers.syncForegroundInfo
@@ -39,8 +39,8 @@ import kotlinx.coroutines.*
 class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val userProjectResourcePrefs: UserProjectResourcePrefsDataSource,
-    private val projectRepository: ProjectRepository,
+    private val userLabPrefs: UserLabPrefsDataSource,
+    private val labRepository: LabRepository,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher
 ) : CoroutineWorker(appContext, workerParams), Synchronizer {
 
@@ -50,7 +50,7 @@ class SyncWorker @AssistedInject constructor(
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         // First sync the repository
         val syncedSuccessfully =
-            withContext(ioDispatcher) { projectRepository.sync() }
+            withContext(ioDispatcher) { labRepository.sync() }
 
         if (syncedSuccessfully) {
             Result.success()
@@ -60,11 +60,11 @@ class SyncWorker @AssistedInject constructor(
     }
 
     override suspend fun getChangeListVersions(): ChangeListVersions =
-        userProjectResourcePrefs.getChangeListVersions()
+        userLabPrefs.getChangeListVersions()
 
     override suspend fun updateChangeListVersions(
         update: ChangeListVersions.() -> ChangeListVersions
-    ) = userProjectResourcePrefs.updateChangeListVersion(update)
+    ) = userLabPrefs.updateChangeListVersion(update)
 
     companion object {
         /**

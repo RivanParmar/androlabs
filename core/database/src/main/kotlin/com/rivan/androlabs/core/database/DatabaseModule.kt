@@ -14,7 +14,7 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun providesProjectResourceDatabase(
+    fun providesLabDatabase(
         @ApplicationContext context: Context
     ): AndrolabsDatabase = Room.databaseBuilder(
         context,

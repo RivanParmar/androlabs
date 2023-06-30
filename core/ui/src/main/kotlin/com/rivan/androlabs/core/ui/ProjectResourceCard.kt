@@ -18,13 +18,13 @@ import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserProjectResource
+import com.rivan.androlabs.core.domain.model.UserLabs
 
 // TODO: Not yet completed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectResourceCard(
-    userProjectResource: UserProjectResource,
+    userLabs: UserLabs,
     isFavourite: Boolean,
     isCompleted: Boolean,
     onToggleFavourite: () -> Unit,
@@ -38,7 +38,7 @@ fun ProjectResourceCard(
         modifier = modifier
     ) {
         Row {
-            ProjectResourceHeaderImage(userProjectResource.headerImageUrl)
+            ProjectResourceHeaderImage(userLabs.headerImageUrl)
         }
 
         Divider()
@@ -47,9 +47,9 @@ fun ProjectResourceCard(
             modifier = Modifier.padding(10.dp)
         ) {
             Column {
-                ProjectResourceTitle(userProjectResource.title)
+                ProjectResourceTitle(userLabs.title)
                 Spacer(modifier = Modifier.height(4.dp))
-                ProjectResourceExtraTitle(userProjectResource.extraTitle)
+                ProjectResourceExtraTitle(userLabs.extraTitle)
             }
         }
     }
@@ -131,13 +131,13 @@ fun ProjectResourceExtraTitle(
 @Preview(name = "ProjectResourceCard")
 @Composable
 private fun ProjectResourceCardPreview(
-    @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
-    userProjectResource: List<UserProjectResource>
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    userLabs: List<UserLabs>
 ) {
     AndrolabsTheme {
         Surface {
             ProjectResourceCard(
-                userProjectResource = userProjectResource[1],
+                userLabs = userLabs[1],
                 isFavourite = false,
                 isCompleted = false,
                 onToggleFavourite = { },

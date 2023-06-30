@@ -18,12 +18,12 @@ package com.rivan.androlabs.feature.recent
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rivan.androlabs.core.data.repository.ProjectResourceQuery
-import com.rivan.androlabs.core.data.repository.UserProjectResourceDataRepository
+import com.rivan.androlabs.core.data.repository.LabQuery
+import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
-import com.rivan.androlabs.core.domain.GetUserProjectResourcesUseCase
-import com.rivan.androlabs.core.domain.model.UserProjectResource
-import com.rivan.androlabs.core.model.data.UserProjectResourceData
+import com.rivan.androlabs.core.domain.GetUserLabsUseCase
+import com.rivan.androlabs.core.domain.model.UserLabs
+import com.rivan.androlabs.core.model.data.UserLabData
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,8 +34,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RecentViewModel @Inject constructor(
     syncStatusMonitor: SyncStatusMonitor,
-    private val userProjectResourceDataRepository: UserProjectResourceDataRepository,
-    getRecentUserProjectResources: GetUserProjectResourcesUseCase
+    private val userLabDataRepository: UserLabDataRepository,
+    getRecentUserProjectResources: GetUserLabsUseCase
 ) : ViewModel() {
 
     val isSyncing = syncStatusMonitor.isSyncing
@@ -46,7 +46,7 @@ class RecentViewModel @Inject constructor(
         )
 
     val feedState: StateFlow<ProjectFeedUiState> =
-        userProjectResourceDataRepository.getRecentProjectResources(getRecentUserProjectResources)
+        userLabDataRepository.getRecentProjectResources(getRecentUserProjectResources)
             .map(ProjectFeedUiState::Success)
             .stateIn(
                 scope = viewModelScope,
@@ -56,7 +56,7 @@ class RecentViewModel @Inject constructor(
 
     fun  updateRecentProjectResource(projectResourceId: String, isRecent: Boolean) {
         viewModelScope.launch {
-            userProjectResourceDataRepository.toggleRecentProjectResourceId(
+            userLabDataRepository.toggleRecentLabId(
                 projectResourceId, isRecent
             )
         }
@@ -64,15 +64,15 @@ class RecentViewModel @Inject constructor(
 
     fun updateProjectResourceFavourited(projectResourceId: String, isChecked: Boolean) {
         viewModelScope.launch {
-            userProjectResourceDataRepository
-                .updateProjectResourceFavourite(projectResourceId, isChecked)
+            userLabDataRepository
+                .updateLabFavourite(projectResourceId, isChecked)
         }
     }
 
     fun updateProjectResourceCompleted(projectResourceId: String, isChecked: Boolean) {
         viewModelScope.launch {
-            userProjectResourceDataRepository
-                .updateProjectResourceCompleted(projectResourceId, isChecked)
+            userLabDataRepository
+                .updateLabCompleted(projectResourceId, isChecked)
         }
     }
 }
@@ -83,16 +83,16 @@ class RecentViewModel @Inject constructor(
  * getUserNewsResources: The `UseCase` used to obtain the flow of user project resources.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-private fun UserProjectResourceDataRepository.getRecentProjectResources(
-    getUserProjectResources: GetUserProjectResourcesUseCase
-): Flow<List<UserProjectResource>> = userProjectResourceData
+private fun UserLabDataRepository.getRecentProjectResources(
+    getUserProjectResources: GetUserLabsUseCase
+): Flow<List<UserLabs>> = userLabData
     // Map the user data into a set of recent project resource IDs or null if we should return an
     // empty list.
     .map { userProjectResourceData ->
         if (userProjectResourceData.shouldShowEmptyFeed()) {
             null
         } else {
-            userProjectResourceData.recentProjectResources
+            userProjectResourceData.recentLabs
         }
     }
     // Only emit a set of recent project resource IDs if it's changed. This avoids calling
@@ -106,8 +106,8 @@ private fun UserProjectResourceDataRepository.getRecentProjectResources(
             flowOf(emptyList())
         } else {
             getUserProjectResources(
-                ProjectResourceQuery(
-                    filterProjectIds = recentProjectResources
+                LabQuery(
+                    filterLabIds = recentProjectResources
                 )
             )
         }
@@ -116,5 +116,5 @@ private fun UserProjectResourceDataRepository.getRecentProjectResources(
 /**
  * If the user hasn't opened any project or lab, then show an empty list.
  */
-private fun UserProjectResourceData.shouldShowEmptyFeed() =
-    recentProjectResources.isEmpty()
+private fun UserLabData.shouldShowEmptyFeed() =
+    recentLabs.isEmpty()

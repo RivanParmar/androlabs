@@ -17,10 +17,10 @@
 package com.rivan.androlabs.core.model.data
 
 /**
- * Class summarizing user's project resource data.
+ * Class summarizing user's lab data.
  */
-data class UserProjectResourceData(
-    val recentProjectResources: Set<String>,
-    val favouriteProjectResources: Set<String>,
-    val completedProjectResources: Set<String>
+data class UserLabData(
+    val recentLabs: Set<String>,
+    val favouriteLabs: Set<String>,
+    val completedLabs: Set<String>
 )

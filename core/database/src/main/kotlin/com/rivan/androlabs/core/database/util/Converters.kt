@@ -17,8 +17,8 @@
 package com.rivan.androlabs.core.database.util
 
 import androidx.room.TypeConverter
-import com.rivan.androlabs.core.model.data.ProjectResourceType
-import com.rivan.androlabs.core.model.data.asProjectResourceType
+import com.rivan.androlabs.core.model.data.LabType
+import com.rivan.androlabs.core.model.data.asLabType
 import kotlinx.datetime.Instant
 
 class InstantConverter {
@@ -31,12 +31,12 @@ class InstantConverter {
         instant?.toEpochMilliseconds()
 }
 
-class ProjectResourceTypeConverter {
+class LabTypeConverter {
     @TypeConverter
-    fun projectResourceTypeToString(value: ProjectResourceType?): String? =
-        value?.let(ProjectResourceType::serializedName)
+    fun labTypeToString(value: LabType?): String? =
+        value?.let(LabType::serializedName)
 
     @TypeConverter
-    fun stringToProjectResourceType(serializedName: String?): ProjectResourceType =
-        serializedName.asProjectResourceType()
+    fun stringToLabType(serializedName: String?): LabType =
+        serializedName.asLabType()
 }

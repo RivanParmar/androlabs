@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.core.network.model
+package com.rivan.androlabs.core.model.data
 
-import com.rivan.androlabs.core.model.data.ProjectResourceType
-import com.rivan.androlabs.core.network.model.util.InstantSerializer
-import com.rivan.androlabs.core.network.model.util.ProjectResourceTypeSerializer
 import kotlinx.datetime.Instant
-import kotlinx.serialization.Serializable
 
 /**
- * Firestore representation of [ProjectResource].
+ * External data layer representation of a fully populated Androlabs lab
  */
-@Serializable
-data class FirestoreProjectResource(
+data class Lab(
     val id: String,
     val title: String,
     val extraTitle: String,
     val description: String,
     val url: String?,
     val headerImageUrl: String?,
-    @Serializable(InstantSerializer::class)
     val lastEdited: Instant?,
     val path: String?,
-    @Serializable(ProjectResourceTypeSerializer::class)
-    val type: ProjectResourceType
+    val type: LabType,
+    val vendor: String?
 )

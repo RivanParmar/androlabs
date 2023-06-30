@@ -5,21 +5,21 @@ import androidx.datastore.core.DataMigration
 /**
  * Migrates saved ids from [Int] to [String] types.
  */
-object IntToStringIdsMigration : DataMigration<UserProjectResourcePrefs> {
+object IntToStringIdsMigration : DataMigration<UserLabPrefs> {
 
     override suspend fun cleanUp() = Unit
 
-    override suspend fun shouldMigrate(currentData: UserProjectResourcePrefs): Boolean =
+    override suspend fun shouldMigrate(currentData: UserLabPrefs): Boolean =
         !currentData.hasDoneIntToStringIdMigration
 
-    override suspend fun migrate(currentData: UserProjectResourcePrefs): UserProjectResourcePrefs =
+    override suspend fun migrate(currentData: UserLabPrefs): UserLabPrefs =
         currentData.copy {
-            // Migrate recent project resource ids
-            deprecatedRecentProjectResourceIds.clear()
-            deprecatedRecentProjectResourceIds.addAll(
-                currentData.deprecatedIntRecentProjectResourceIdsList.map(Int::toString)
+            // Migrate recent lab ids
+            deprecatedRecentLabIds.clear()
+            deprecatedRecentLabIds.addAll(
+                currentData.deprecatedIntRecentLabIdsList.map(Int::toString)
             )
-            deprecatedIntRecentProjectResourceIds.clear()
+            deprecatedIntRecentLabIds.clear()
 
             // Mark migration as complete
             hasDoneIntToStringIdMigration = true

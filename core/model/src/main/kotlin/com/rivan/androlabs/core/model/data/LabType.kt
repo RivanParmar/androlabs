@@ -16,18 +16,23 @@
 
 package com.rivan.androlabs.core.model.data
 
-enum class ProjectResourceType(
+enum class LabType(
     val serializedName: String,
     // TODO: descriptions should probably be string resources
     val description: String
 ) {
     Lab(
         serializedName = "Lab",
-        description = "An Android Lab project."
+        description = "An Androlabs lab."
     ),
-    Project(
-        serializedName = "Project",
-        description = "An Android app project."
+    LabCompanion(
+        serializedName = "Lab Companion",
+        // TODO: Add a proper description here.
+        description = "A companion for a lab."
+    ),
+    App(
+        serializedName = "App",
+        description = "An Android app."
     ),
     // TODO: Remove this if creating libraries won't be supported!
     Library(
@@ -44,9 +49,9 @@ enum class ProjectResourceType(
     )
 }
 
-fun String?.asProjectResourceType() = when (this) {
-    null -> ProjectResourceType.Unknown
-    else -> ProjectResourceType.values()
+fun String?.asLabType() = when (this) {
+    null -> LabType.Unknown
+    else -> LabType.values()
         .firstOrNull { type -> type.serializedName == this}
-        ?: ProjectResourceType.Unknown
+        ?: LabType.Unknown
 }

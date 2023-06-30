@@ -2,30 +2,30 @@ package com.rivan.androlabs.core.datastore
 
 import androidx.datastore.core.DataMigration
 
-object ListToMapMigration : DataMigration<UserProjectResourcePrefs> {
+object ListToMapMigration : DataMigration<UserLabPrefs> {
 
     override suspend fun cleanUp() = Unit
 
-    override suspend fun migrate(currentData: UserProjectResourcePrefs): UserProjectResourcePrefs =
+    override suspend fun migrate(currentData: UserLabPrefs): UserLabPrefs =
         currentData.copy {
             // Migrate favourites
-            favouriteProjectResourceIds.clear()
-            favouriteProjectResourceIds.putAll(
-                currentData.deprecatedFavouriteProjectResourceIdsList.associateWith { true }
+            favouriteLabIds.clear()
+            favouriteLabIds.putAll(
+                currentData.deprecatedFavouriteLabIdsList.associateWith { true }
             )
-            deprecatedFavouriteProjectResourceIds.clear()
+            deprecatedFavouriteLabIds.clear()
 
             // Migrate completed
-            completedProjectResourceIds.clear()
-            completedProjectResourceIds.putAll(
-                currentData.deprecatedFavouriteProjectResourceIdsList.associateWith { true }
+            completedLabIds.clear()
+            completedLabIds.putAll(
+                currentData.deprecatedFavouriteLabIdsList.associateWith { true }
             )
-            deprecatedCompletedProjectResourceIds.clear()
+            deprecatedCompletedLabIds.clear()
 
             // Mark migration as complete
             hasDoneListToMapMigration = true
         }
 
-    override suspend fun shouldMigrate(currentData: UserProjectResourcePrefs): Boolean =
+    override suspend fun shouldMigrate(currentData: UserLabPrefs): Boolean =
         !currentData.hasDoneListToMapMigration
 }

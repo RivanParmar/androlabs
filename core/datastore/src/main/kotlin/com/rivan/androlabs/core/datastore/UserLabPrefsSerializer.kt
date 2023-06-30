@@ -8,24 +8,24 @@ import java.io.OutputStream
 import javax.inject.Inject
 
 /**
- * A [Serializer] for the [UserProjectResourcePrefs] proto.
+ * A [Serializer] for the [UserLabPrefs] proto.
  */
-class UserProjectResourcePrefsSerializer @Inject constructor() :
-    Serializer<UserProjectResourcePrefs> {
+class UserLabPrefsSerializer @Inject constructor() :
+    Serializer<UserLabPrefs> {
 
-    override val defaultValue: UserProjectResourcePrefs =
-        UserProjectResourcePrefs.getDefaultInstance()
+    override val defaultValue: UserLabPrefs =
+        UserLabPrefs.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): UserProjectResourcePrefs =
+    override suspend fun readFrom(input: InputStream): UserLabPrefs =
         try {
             // readFrom is already called on the data store background thread
             @Suppress("BlockingMethodInNonBlockingContext")
-            UserProjectResourcePrefs.parseFrom(input)
+            UserLabPrefs.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
 
-    override suspend fun writeTo(t: UserProjectResourcePrefs, output: OutputStream) =
+    override suspend fun writeTo(t: UserLabPrefs, output: OutputStream) =
         // writeTo is already called on the data store background thread
         @Suppress("BlockingMethodInNonBlockingContext")
         t.writeTo(output)
