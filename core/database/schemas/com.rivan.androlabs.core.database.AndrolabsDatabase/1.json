@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9dae77f762e93761d57e731d33025a35",
+    "identityHash": "24e55ea18fb956155f58eb96eddfff2b",
     "entities": [
       {
-        "tableName": "project_resources",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `extra_title` TEXT NOT NULL, `description` TEXT NOT NULL, `url` TEXT, `header_image_url` TEXT, `last_edited` INTEGER, `path` TEXT, `type` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "tableName": "labs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `extra_title` TEXT NOT NULL, `description` TEXT NOT NULL, `url` TEXT, `header_image_url` TEXT, `last_edited` INTEGER, `path` TEXT, `type` TEXT NOT NULL, `vendor` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -61,6 +61,12 @@
             "columnName": "type",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "vendor",
+            "columnName": "vendor",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -76,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9dae77f762e93761d57e731d33025a35')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '24e55ea18fb956155f58eb96eddfff2b')"
     ]
   }
 }

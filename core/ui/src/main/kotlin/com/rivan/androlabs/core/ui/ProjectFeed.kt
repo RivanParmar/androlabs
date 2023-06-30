@@ -1,18 +1,21 @@
 package com.rivan.androlabs.core.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserProjectResource
+import com.rivan.androlabs.core.domain.model.UserLabs
 
 /**
  * An extension on [LazyGridScope] defining a feed with project resources.
  * Depending on the [feedState], this might emit no items.
  */
+@OptIn(ExperimentalFoundationApi::class)
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
     onProjectResourcesCheckedChanged: (String, Boolean) -> Unit
@@ -20,18 +23,19 @@ fun LazyGridScope.projectFeed(
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
         is ProjectFeedUiState.Success -> {
-            items(feedState.feed, key = { it.id }) { userProjectResource ->
+            items(feedState.feed, key = { it.id }) { userLabs ->
                 ProjectResourceCard(
-                    userProjectResource = userProjectResource,
-                    isFavourite = userProjectResource.isFavourite,
-                    isCompleted = userProjectResource.isCompleted,
+                    userLabs = userLabs,
+                    isFavourite = userLabs.isFavourite,
+                    isCompleted = userLabs.isCompleted,
                     onToggleFavourite = {
                         onProjectResourcesCheckedChanged(
-                            userProjectResource.id,
-                            !userProjectResource.isFavourite
+                            userLabs.id,
+                            !userLabs.isFavourite
                         )
                     },
-                    onClick = { /*TODO*/ }
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.animateItemPlacement()
                 )
             }
         }
@@ -54,7 +58,7 @@ sealed interface ProjectFeedUiState {
         /**
          * The list of project resources contained in this feed.
          */
-        val feed: List<UserProjectResource>
+        val feed: List<UserLabs>
     ) : ProjectFeedUiState
 }
 
@@ -74,14 +78,38 @@ private fun ProjectFeedLoadingPreview() {
 @Preview(device = Devices.TABLET)
 @Composable
 private fun ProjectFeedContentPreview(
-    @PreviewParameter(UserProjectResourcePreviewParameterProvider::class)
-    UserProjectResource: List<UserProjectResource>
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    UserLabs: List<UserLabs>
 ) {
     AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
-                feedState = ProjectFeedUiState.Success(UserProjectResource)
+                feedState = ProjectFeedUiState.Success(UserLabs)
             ) { _, _ -> }
         }
     }
 }
+
+fun LazyGridScope.labFeed(
+    labFeedUIState: LabFeedUIState,
+) {
+    //if (!labFeedUIState.loading) {
+        items(labFeedUIState.labs, key = { it.id }) { userLabResource ->
+            ProjectResourceCard(
+                userLabs = userLabResource,
+                isFavourite = userLabResource.isFavourite,
+                isCompleted = userLabResource.isCompleted,
+                onToggleFavourite = { /*TODO*/ },
+                onClick = { /*TODO*/ }
+            )
+        }
+    //}
+}
+
+data class LabFeedUIState(
+    val labs: List<UserLabs> = emptyList(),
+    val selectedLab: UserLabs? = null,
+    val isDetailOnlyOpen: Boolean = false,
+    val loading: Boolean = false,
+    val error: String? = null
+)
