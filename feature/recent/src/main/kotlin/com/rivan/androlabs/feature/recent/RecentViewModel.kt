@@ -54,7 +54,7 @@ class RecentViewModel @Inject constructor(
                 initialValue = ProjectFeedUiState.Loading
             )
 
-    fun  updateRecentProjectResource(projectResourceId: String, isRecent: Boolean) {
+    fun updateRecentProjectResource(projectResourceId: String, isRecent: Boolean) {
         viewModelScope.launch {
             userLabDataRepository.toggleRecentLabId(
                 projectResourceId, isRecent

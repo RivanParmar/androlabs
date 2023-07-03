@@ -10,5 +10,17 @@
     "path": "/downloads/",
     "type": "App",
     "vendor": null
+  },
+  {
+    "id": "2",
+    "title": "Android App 2",
+    "extraTitle": "Beginner Project",
+    "description": "No description provided!",
+    "url": null,
+    "headerImageUrl": null,
+    "lastEdited": null,
+    "path": "/downloads/",
+    "type": "Lab",
+    "vendor": null
   }
 ]

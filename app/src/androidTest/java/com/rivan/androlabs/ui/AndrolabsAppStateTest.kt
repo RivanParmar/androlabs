@@ -23,13 +23,13 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-class AndroLabsAppStateTest {
+class AndrolabsAppStateTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     // Subject under test
-    private lateinit var state: AndroLabsAppState
+    private lateinit var state: AndrolabsAppState
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -39,7 +39,7 @@ class AndroLabsAppStateTest {
         composeTestRule.setContent {
             val navController = rememberTestNavController()
             state = remember(navController) {
-                AndroLabsAppState(
+                AndrolabsAppState(
                     windowSizeClass = getCompactWindowClass(),
                     navController = navController
                 )
@@ -60,7 +60,7 @@ class AndroLabsAppStateTest {
     @Test
     fun androLabsAppState_destination() = runTest {
         composeTestRule.setContent {
-            state = rememberAndroLabsAppState(
+            state = rememberAndrolabsAppState(
                 windowSizeClass = getCompactWindowClass()
             )
         }
@@ -73,7 +73,7 @@ class AndroLabsAppStateTest {
     @Test
     fun androLabsAppState_showBottomBar_compact() = runTest {
         composeTestRule.setContent {
-            state = AndroLabsAppState(
+            state = AndrolabsAppState(
                 windowSizeClass = getCompactWindowClass(),
                 navController = NavHostController(LocalContext.current)
             )
@@ -86,7 +86,7 @@ class AndroLabsAppStateTest {
     @Test
     fun androLabsAppState_showNavRail_medium() = runTest {
         composeTestRule.setContent {
-            state = AndroLabsAppState(
+            state = AndrolabsAppState(
                 windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(800.dp, 800.dp)),
                 navController = NavHostController(LocalContext.current)
             )
@@ -100,7 +100,7 @@ class AndroLabsAppStateTest {
     fun androLabsAppState_showNavRail_large() = runTest {
 
         composeTestRule.setContent {
-            state = AndroLabsAppState(
+            state = AndrolabsAppState(
                 windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(900.dp, 1200.dp)),
                 navController = NavHostController(LocalContext.current)
             )

@@ -13,7 +13,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
-// TODO: Maybe use a Medium or Large Top App Bar
+/**
+ * Androlabs top app bar with content slots. Wraps Material 3 [TopAppBar].
+ */
 @Composable
 fun ALTopAppBar(
     @StringRes titleRes: Int,
@@ -22,11 +24,11 @@ fun ALTopAppBar(
     actionIcon: ImageVector,
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
-    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
 ) {
-    CenterAlignedTopAppBar(
+    TopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
@@ -52,19 +54,68 @@ fun ALTopAppBar(
 }
 
 /**
- * Top app bar with action, displayed on the right.
+ * Androlabs large top app bar with content slots. Wraps Material 3 [LargeTopAppBar].
  */
 @Composable
-fun ALTopAppBar(
+fun ALTopAppBarLarge(
     @StringRes titleRes: Int,
+    navigationIcon: ImageVector,
+    navigationIconContentDescription: String?,
     actionIcon: ImageVector,
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
-    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
+    onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
 ) {
-    CenterAlignedTopAppBar(
+    LargeTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
+        navigationIcon = {
+            IconButton(onClick = onNavigationClick) {
+                Icon(
+                    imageVector = navigationIcon,
+                    contentDescription = navigationIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = onActionClick) {
+                Icon(
+                    imageVector = actionIcon,
+                    contentDescription = actionIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
+        colors = colors,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun ALTopAppBarLarge(
+    title: String,
+    navigationIcon: ImageVector,
+    navigationIconContentDescription: String?,
+    actionIcon: ImageVector,
+    actionIconContentDescription: String?,
+    modifier: Modifier = Modifier,
+    colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
+    onNavigationClick: () -> Unit = {},
+    onActionClick: () -> Unit = {}
+) {
+    LargeTopAppBar(
+        title = { Text(text = title) },
+        navigationIcon = {
+            IconButton(onClick = onNavigationClick) {
+                Icon(
+                    imageVector = navigationIcon,
+                    contentDescription = navigationIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
         actions = {
             IconButton(onClick = onActionClick) {
                 Icon(
@@ -81,7 +132,7 @@ fun ALTopAppBar(
 
 @Preview("Top App Bar")
 @Composable
-fun ALTopAppBarPreview() {
+private fun ALTopAppBarPreview() {
     ALTopAppBar(
         titleRes = android.R.string.untitled,
         navigationIcon = Icons.Outlined.Menu,
