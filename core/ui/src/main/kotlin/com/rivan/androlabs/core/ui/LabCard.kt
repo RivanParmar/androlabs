@@ -23,7 +23,7 @@ import com.rivan.androlabs.core.domain.model.UserLabs
 // TODO: Not yet completed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProjectResourceCard(
+fun LabCard(
     userLabs: UserLabs,
     isFavourite: Boolean,
     isCompleted: Boolean,
@@ -38,7 +38,7 @@ fun ProjectResourceCard(
         modifier = modifier
     ) {
         Row {
-            ProjectResourceHeaderImage(userLabs.headerImageUrl)
+            LabHeaderImage(userLabs.headerImageUrl)
         }
 
         Divider()
@@ -47,16 +47,16 @@ fun ProjectResourceCard(
             modifier = Modifier.padding(10.dp)
         ) {
             Column {
-                ProjectResourceTitle(userLabs.title)
+                LabTitle(userLabs.title)
                 Spacer(modifier = Modifier.height(4.dp))
-                ProjectResourceExtraTitle(userLabs.extraTitle)
+                LabExtraTitle(userLabs.extraTitle)
             }
         }
     }
 }
 
 @Composable
-fun ProjectResourceHeaderImage(
+private fun LabHeaderImage(
     headerImageUrl: String?
 ) {
     if (!headerImageUrl.isNullOrEmpty()) {
@@ -89,7 +89,7 @@ fun ProjectResourceHeaderImage(
 }
 
 @Composable
-fun ProjectResourceTitle(
+private fun LabTitle(
     projectResourceTitle: String,
     modifier: Modifier = Modifier
 ) {
@@ -97,7 +97,7 @@ fun ProjectResourceTitle(
 }
 
 @Composable
-fun FavouriteButton(
+private fun FavouriteButton(
     isFavourite: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -122,7 +122,7 @@ fun FavouriteButton(
 }
 
 @Composable
-fun ProjectResourceExtraTitle(
+private fun LabExtraTitle(
     projectResourceExtraTitle: String
 ) {
     Text(projectResourceExtraTitle, style = MaterialTheme.typography.labelSmall)
@@ -136,7 +136,7 @@ private fun ProjectResourceCardPreview(
 ) {
     AndrolabsTheme {
         Surface {
-            ProjectResourceCard(
+            LabCard(
                 userLabs = userLabs[1],
                 isFavourite = false,
                 isCompleted = false,

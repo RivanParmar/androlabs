@@ -38,6 +38,7 @@
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/npw" />
             <option value="$PROJECT_DIR$/feature/recent" />
             <option value="$PROJECT_DIR$/feature/settings" />
