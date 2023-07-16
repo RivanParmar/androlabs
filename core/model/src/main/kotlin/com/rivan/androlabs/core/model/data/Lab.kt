@@ -28,6 +28,7 @@ data class Lab(
     val description: String,
     val url: String?,
     val headerImageUrl: String?,
+    val iconPath: String?,
     val lastEdited: Instant?,
     val path: String?,
     val type: LabType,

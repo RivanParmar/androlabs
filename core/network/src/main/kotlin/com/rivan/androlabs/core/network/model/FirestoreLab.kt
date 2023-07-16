@@ -33,6 +33,7 @@ data class FirestoreLab(
     val description: String,
     val url: String?,
     val headerImageUrl: String?,
+    val iconPath: String?,
     @Serializable(InstantSerializer::class)
     val lastEdited: Instant?,
     val path: String?,

@@ -39,6 +39,8 @@ data class LabEntity(
     val url: String?,
     @ColumnInfo(name = "header_image_url")
     val headerImageUrl: String?,
+    @ColumnInfo(name = "icon_path")
+    val iconPath: String?,
     @ColumnInfo(name = "last_edited")
     val lastEdited: Instant?,
     val path: String?,
@@ -53,6 +55,7 @@ fun LabEntity.asExternalModel() = Lab(
     description = description,
     url = url,
     headerImageUrl = headerImageUrl,
+    iconPath = iconPath,
     lastEdited = lastEdited,
     path = path,
     type = type,

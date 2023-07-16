@@ -26,6 +26,7 @@ fun FirestoreLab.asEntity() = LabEntity(
     description = description,
     url = url,
     headerImageUrl = headerImageUrl,
+    iconPath = iconPath,
     lastEdited = lastEdited,
     path = path,
     type = type,

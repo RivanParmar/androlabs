@@ -20,6 +20,8 @@ import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.data.repository.OfflineFirstLabRepository
 import com.rivan.androlabs.core.data.repository.OfflineFirstUserLabDataRepository
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
+import com.rivan.androlabs.core.data.repository.UserSettingsRepository
+import com.rivan.androlabs.core.data.repository.UserSettingsRepositoryImpl
 import com.rivan.androlabs.core.data.util.ConnectivityManagerNetworkMonitor
 import com.rivan.androlabs.core.data.util.NetworkMonitor
 import dagger.Binds
@@ -40,6 +42,11 @@ interface DataModule {
     fun bindsUserLabDataRepository(
         userLabDataRepository: OfflineFirstUserLabDataRepository
     ): UserLabDataRepository
+
+    @Binds
+    fun bindsUserSettingsRepository(
+        userSettingsRepository: UserSettingsRepositoryImpl
+    ): UserSettingsRepository
 
     @Binds
     fun bindsNetworkMonitor(
