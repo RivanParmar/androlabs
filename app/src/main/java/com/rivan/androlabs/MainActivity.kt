@@ -77,8 +77,20 @@ class MainActivity : ComponentActivity() {
             AndrolabsTheme(
                 darkTheme = darkTheme
             ) {
-                AndroLabsApp(windowSizeClass = calculateWindowSizeClass(activity = this))
+                AndrolabsApp(windowSizeClass = calculateWindowSizeClass(activity = this))
             }
         }
+    }
+}
+
+@Composable
+private fun shouldUseDarkTheme(
+    uiState: MainActivityUiState
+): Boolean = when (uiState) {
+    Loading -> isSystemInDarkTheme()
+    is Success -> when (uiState.userSettings.darkThemeConfig) {
+        DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        DarkThemeConfig.LIGHT -> false
+        DarkThemeConfig.DARK -> true
     }
 }
