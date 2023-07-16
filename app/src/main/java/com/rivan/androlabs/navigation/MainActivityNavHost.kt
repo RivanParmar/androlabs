@@ -15,7 +15,7 @@ import com.rivan.androlabs.feature.settings.navigation.createSettingsGraph
  * within each route is handled using state and Back Handlers.
  */
 @Composable
-fun ALNavHost(
+fun MainActivityNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String = recentNavigationRoute
