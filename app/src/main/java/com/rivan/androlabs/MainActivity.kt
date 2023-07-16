@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +20,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rivan.androlabs.MainActivityUiState.*
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
+import com.rivan.androlabs.core.model.data.DarkThemeConfig
 import com.rivan.androlabs.ui.AndrolabsApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -65,8 +67,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val systemUiController = rememberSystemUiController()
-            // TODO: Use system independent dark theme
-            val darkTheme = isSystemInDarkTheme()
+            val darkTheme = shouldUseDarkTheme(uiState)
 
             DisposableEffect(systemUiController, darkTheme) {
                 systemUiController.statusBarDarkContentEnabled = !darkTheme

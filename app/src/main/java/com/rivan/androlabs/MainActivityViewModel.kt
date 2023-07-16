@@ -20,22 +20,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.MainActivityUiState.Loading
 import com.rivan.androlabs.MainActivityUiState.Success
-import com.rivan.androlabs.core.data.repository.UserProjectResourceDataRepository
-import com.rivan.androlabs.core.model.data.UserProjectResourceData
+import com.rivan.androlabs.core.data.repository.UserLabDataRepository
+import com.rivan.androlabs.core.data.repository.UserSettingsRepository
+import com.rivan.androlabs.core.model.data.UserLabData
+import com.rivan.androlabs.core.model.data.UserSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    userProjectResourceDataRepository: UserProjectResourceDataRepository
+    userLabDataRepository: UserLabDataRepository,
+    userSettingsRepository: UserSettingsRepository
 ) : ViewModel() {
+
     val uiState: StateFlow<MainActivityUiState> =
-        userProjectResourceDataRepository.userProjectResourceData.map {
-            Success(it)
+        combine(
+            userLabDataRepository.userLabData,
+            userSettingsRepository.userSettings
+        ) { userLabData, userSettings ->
+            Success(userLabData, userSettings)
         }.stateIn(
             scope = viewModelScope,
             initialValue = Loading,
@@ -45,5 +52,8 @@ class MainActivityViewModel @Inject constructor(
 
 sealed interface MainActivityUiState {
     object Loading: MainActivityUiState
-    data class Success(val userProjectResourceData: UserProjectResourceData) : MainActivityUiState
+    data class Success(
+        val userLabData: UserLabData,
+        val userSettings: UserSettings
+    ) : MainActivityUiState
 }
