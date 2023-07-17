@@ -63,6 +63,7 @@ fun ALTopAppBarLarge(
     navigationIconContentDescription: String?,
     actionIcon: ImageVector,
     actionIconContentDescription: String?,
+    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
@@ -89,7 +90,8 @@ fun ALTopAppBarLarge(
             }
         },
         colors = colors,
-        modifier = modifier
+        modifier = modifier,
+        scrollBehavior = scrollBehavior
     )
 }
 
@@ -100,6 +102,7 @@ fun ALTopAppBarLarge(
     navigationIconContentDescription: String?,
     actionIcon: ImageVector,
     actionIconContentDescription: String?,
+    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
@@ -126,7 +129,8 @@ fun ALTopAppBarLarge(
             }
         },
         colors = colors,
-        modifier = modifier
+        modifier = modifier,
+        scrollBehavior = scrollBehavior
     )
 }
 
