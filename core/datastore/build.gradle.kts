@@ -35,14 +35,21 @@ protobuf {
     generateProtoTasks {
         all().forEach { task ->
             task.builtins {
-                val java by registering {
+                register("java") {
                     option("lite")
                 }
-                val kotlin by registering {
+                register("kotlin") {
                     option("lite")
                 }
             }
         }
+    }
+}
+
+androidComponents.beforeVariants {
+    android.sourceSets.register(it.name) {
+        java.srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
+        kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
     }
 }
 
