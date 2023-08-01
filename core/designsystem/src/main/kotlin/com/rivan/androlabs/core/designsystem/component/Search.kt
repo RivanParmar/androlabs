@@ -70,7 +70,8 @@ fun ALSearchBar(
             0.dp
         } else {
             16.dp
-        }
+        },
+        label = "SearchBar Horizontal Padding Animation"
     )
 
     Box(
