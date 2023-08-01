@@ -18,9 +18,9 @@ import com.rivan.androlabs.feature.home.utils.isSeparating
 
 @Stable
 class AndrolabsAppState(
-    val navController: NavHostController,
     val windowSizeClass: WindowSizeClass,
-    val displayFeatures: List<DisplayFeature>
+    val displayFeatures: List<DisplayFeature>,
+    val navController: NavHostController,
 ) {
     private val foldingFeature = displayFeatures.filterIsInstance<FoldingFeature>().firstOrNull()
 
@@ -58,9 +58,9 @@ class AndrolabsAppState(
 fun rememberAndrolabsAppState(
     windowSizeClass: WindowSizeClass,
     displayFeatures: List<DisplayFeature>,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ): AndrolabsAppState {
     return remember(navController, windowSizeClass) {
-        AndrolabsAppState(navController, windowSizeClass, displayFeatures)
+        AndrolabsAppState(windowSizeClass, displayFeatures, navController)
     }
 }

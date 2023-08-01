@@ -19,12 +19,12 @@ fun MainActivityNavHost(
     appState: AndrolabsAppState,
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = homeNavigationRoute
+    startDestination: String = homeNavigationRoute,
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
     ) {
         homeScreen(
             contentType = appState.contentType,
