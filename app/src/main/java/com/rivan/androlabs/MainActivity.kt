@@ -17,6 +17,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.accompanist.adaptive.calculateDisplayFeatures
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rivan.androlabs.MainActivityUiState.*
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
@@ -77,7 +78,10 @@ class MainActivity : ComponentActivity() {
             AndrolabsTheme(
                 darkTheme = darkTheme
             ) {
-                AndrolabsApp(windowSizeClass = calculateWindowSizeClass(activity = this))
+                AndrolabsApp(
+                    windowSizeClass = calculateWindowSizeClass(activity = this),
+                    displayFeatures = calculateDisplayFeatures(activity = this)
+                )
             }
         }
     }

@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.rivan.androlabs.feature.recent.navigation.recentNavigationRoute
-import com.rivan.androlabs.feature.recent.navigation.recentScreen
-import com.rivan.androlabs.feature.settings.navigation.createSettingsGraph
+import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
+import com.rivan.androlabs.feature.home.navigation.homeScreen
+import com.rivan.androlabs.ui.AndrolabsAppState
 
 /**
  * Top-level navigation graph.
@@ -16,20 +16,20 @@ import com.rivan.androlabs.feature.settings.navigation.createSettingsGraph
  */
 @Composable
 fun MainActivityNavHost(
+    appState: AndrolabsAppState,
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = recentNavigationRoute
+    startDestination: String = homeNavigationRoute
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        recentScreen()
-        createSettingsGraph(
-            onSettingsCategoryItemClick = { settingsCategoryRoute ->
-                navController.navigate("settings_graph/$settingsCategoryRoute/")
-            }
+        homeScreen(
+            contentType = appState.contentType,
+            listType = appState.listType,
+            displayFeatures = appState.displayFeatures,
         )
     }
 }

@@ -1,106 +1,66 @@
 package com.rivan.androlabs.ui
 
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navOptions
-import com.rivan.androlabs.feature.recent.navigation.navigateToRecent
-import com.rivan.androlabs.feature.recent.navigation.recentNavigationRoute
-import com.rivan.androlabs.feature.settings.navigation.navigateToSettingsGraph
-import com.rivan.androlabs.feature.settings.navigation.settingsRoute
-import com.rivan.androlabs.navigation.TopLevelDestination
-import com.rivan.androlabs.navigation.TopLevelDestination.RECENT
-import com.rivan.androlabs.navigation.TopLevelDestination.SETTINGS
-import com.rivan.androlabs.navigation.TopLevelDestination.values
+import androidx.window.layout.DisplayFeature
+import androidx.window.layout.FoldingFeature
+import com.rivan.androlabs.core.model.data.ContentType
+import com.rivan.androlabs.core.model.data.ListType
+import com.rivan.androlabs.feature.home.utils.DevicePosture
+import com.rivan.androlabs.feature.home.utils.isBookPosture
+import com.rivan.androlabs.feature.home.utils.isSeparating
 
 @Stable
-class AndroLabsAppState(
+class AndrolabsAppState(
     val navController: NavHostController,
-    val windowSizeClass: WindowSizeClass
+    val windowSizeClass: WindowSizeClass,
+    val displayFeatures: List<DisplayFeature>
 ) {
-    val currentDestination: NavDestination?
-        @Composable get() = navController
-            .currentBackStackEntryAsState().value?.destination
+    private val foldingFeature = displayFeatures.filterIsInstance<FoldingFeature>().firstOrNull()
 
-    val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = when (currentDestination?.route) {
-            recentNavigationRoute -> RECENT
-            settingsRoute -> SETTINGS
-            else -> null
-        }
-
-    var shouldShowNpwDialog by mutableStateOf(false)
-        private set
-
-    /**
-     * Show Bottom Navigation Bar instead of Navigation Rail on small screen devices.
-     */
-    val shouldShowBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
-
-    /**
-     * Show Navigation Rail on large screen devices.
-     */
-    val shouldShowNavRail: Boolean
-        get() = !shouldShowBottomBar
-
-    /**
-     * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
-     * route.
-     */
-    val topLevelDestinations: List<TopLevelDestination> = values().asList()
-
-    /**
-     * UI logic for navigating to a top level destination in the app. Top level destinations have
-     * only one copy of the destination of the back stack, and save and restore state whenever you
-     * navigate to and from it.
-     *
-     * @param topLevelDestination: The destination the app needs to navigate to.
-     */
-    fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
-        val topLevelNavOptions = navOptions {
-            // Pop up to the start destination of the graph to
-            // avoid building up a large stack of destinations
-            // on the back stack as users select items
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
-            }
-            // Avoid multiple copies of the same destination when
-            // reselecting the same item
-            launchSingleTop = true
-            // Restore state when reselecting a previously selected item
-            restoreState = true
-        }
-
-        when (topLevelDestination) {
-            RECENT -> navController.navigateToRecent(topLevelNavOptions)
-            SETTINGS -> navController.navigateToSettingsGraph(topLevelNavOptions)
-        }
+    private val foldingDevicePosture = when {
+        isBookPosture(foldingFeature) ->
+            DevicePosture.BookPosture(foldingFeature.bounds)
+        isSeparating(foldingFeature) ->
+            DevicePosture.Separating(foldingFeature.bounds, foldingFeature.orientation)
+        else -> DevicePosture.NormalPosture
     }
 
-    fun setShowNpwDialog(shouldShow: Boolean) {
-        shouldShowNpwDialog = shouldShow
-    }
+    val contentType: ContentType
+        get() = when (windowSizeClass.widthSizeClass) {
+            WindowWidthSizeClass.Compact -> ContentType.SINGLE_PANE
+            WindowWidthSizeClass.Medium ->
+                if (foldingDevicePosture != DevicePosture.NormalPosture) {
+                    ContentType.DUAL_PANE
+                } else {
+                    ContentType.SINGLE_PANE
+                }
+            WindowWidthSizeClass.Expanded -> ContentType.DUAL_PANE
+            else -> ContentType.SINGLE_PANE
+        }
 
-    fun onBackClick() = navController.popBackStack()
+    val listType: ListType
+        get() = if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+            || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact) {
+            ListType.COLUMN
+        } else {
+            ListType.GRID
+        }
 }
 
 @Composable
-fun rememberAndroLabsAppState(
+fun rememberAndrolabsAppState(
     windowSizeClass: WindowSizeClass,
+    displayFeatures: List<DisplayFeature>,
     navController: NavHostController = rememberNavController()
-): AndroLabsAppState {
+): AndrolabsAppState {
     return remember(navController, windowSizeClass) {
-        AndroLabsAppState(navController, windowSizeClass)
+        AndrolabsAppState(navController, windowSizeClass, displayFeatures)
     }
 }

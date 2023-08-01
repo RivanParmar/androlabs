@@ -3,24 +3,16 @@ package com.rivan.androlabs.ui
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import androidx.navigation.testing.TestNavHostController
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
 import org.junit.Rule
-import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class AndrolabsAppStateTest {
@@ -31,7 +23,7 @@ class AndrolabsAppStateTest {
     // Subject under test
     private lateinit var state: AndrolabsAppState
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+    /*@OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun androLabsAppState_currentDestination() = runTest {
         var currentDestination: String? = null
@@ -108,7 +100,7 @@ class AndrolabsAppStateTest {
 
         assertTrue(state.shouldShowNavRail)
         assertFalse(state.shouldShowBottomBar)
-    }
+    }*/
 
 
     private fun getCompactWindowClass() = WindowSizeClass.calculateFromSize(DpSize(500.dp, 300.dp))

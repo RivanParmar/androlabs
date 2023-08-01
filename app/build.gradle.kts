@@ -52,7 +52,6 @@ dependencies {
 
     implementation(project(":feature:home"))
     implementation(project(":feature:npw"))
-    implementation(project(":feature:recent"))
     implementation(project(":feature:settings"))
 
     implementation(project(":core:data"))

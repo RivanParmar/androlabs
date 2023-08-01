@@ -29,7 +29,6 @@ include(":core:ui")
 
 include(":feature:home")
 include(":feature:npw")
-include(":feature:recent")
 include(":feature:settings")
 
 include(":sync:work")
