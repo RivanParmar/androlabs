@@ -37,7 +37,7 @@ fun SettingsCategory(
     icon: ImageVectorIcon,
     onClick: () -> Unit
 ) {
-    SettingsItemTemplate(
+    PreferenceTemplate(
         modifier = Modifier.clickable(onClick = onClick),
         title = {
             Text(
