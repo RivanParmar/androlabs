@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
 import com.rivan.androlabs.feature.home.navigation.homeScreen
+import com.rivan.androlabs.feature.settings.navigation.settingsScreen
 import com.rivan.androlabs.ui.AndrolabsAppState
 
 /**
@@ -31,5 +32,9 @@ fun MainActivityNavHost(
             listType = appState.listType,
             displayFeatures = appState.displayFeatures,
         )
+
+        settingsScreen(appState.contentType, appState.displayFeatures) { settingsCategoryRoute ->
+            navController.navigate(settingsCategoryRoute)
+        }
     }
 }

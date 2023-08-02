@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.rivan.androlabs.feature.settings"
 }
+
+dependencies {
+    implementation(libs.accompanist.adaptive)
+}
