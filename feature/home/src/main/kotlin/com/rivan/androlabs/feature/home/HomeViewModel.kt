@@ -45,8 +45,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     syncStatusMonitor: SyncStatusMonitor,
     private val userLabDataRepository: UserLabDataRepository,
-    getRecentUserProjectResources: GetUserLabsUseCase
+    getRecentUserLabs: GetUserLabsUseCase
 ) : ViewModel() {
+
     val isSyncing = syncStatusMonitor.isSyncing
         .stateIn(
             scope = viewModelScope,
@@ -59,7 +60,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            userLabDataRepository.getRecentLabs(getRecentUserProjectResources)
+            userLabDataRepository.getRecentLabs(getRecentUserLabs)
                 .catch { ex ->
                     _uiState.value = LabFeedUIState(error = ex.message)
                 }

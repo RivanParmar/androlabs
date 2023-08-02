@@ -31,6 +31,7 @@ fun MainActivityNavHost(
             contentType = appState.contentType,
             listType = appState.listType,
             displayFeatures = appState.displayFeatures,
+            onFABClick = { /*TODO*/ },
         )
 
         settingsScreen(appState.contentType, appState.displayFeatures) { settingsCategoryRoute ->

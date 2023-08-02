@@ -16,17 +16,6 @@
 
 package com.rivan.androlabs.feature.home
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,16 +26,16 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -55,14 +44,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -73,13 +62,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.component.ALDockedSearchBar
+import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.component.ALSearchBar
 import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
@@ -88,47 +73,36 @@ import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.core.ui.LabFeedUIState
 import com.rivan.androlabs.core.ui.labFeed
-import com.rivan.androlabs.feature.home.utils.isScrollingUp
 
 // TODO: Cleanup the code if possible
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeScreenLabsGrid(
+internal fun HomeScreenLabsGrid(
     contentType: ContentType,
     listType: ListType,
     labFeedUIState: LabFeedUIState,
     modifier: Modifier = Modifier,
+    lazyGridState: LazyGridState = rememberLazyGridState(),
+    lazyListState: LazyListState = rememberLazyListState(),
     isSyncing: Boolean = false,
-    navigateToDetail: (String, ContentType) -> Unit
+    onFloatingActionButtonClick: () -> Unit,
+    navigateToDetail: (String, ContentType) -> Unit,
 ) {
     var text by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
-
-    val lazyGridState = rememberLazyGridState()
-    val lazyListState = rememberLazyListState()
 
     // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
     Scaffold(
         contentColor = MaterialTheme.colorScheme.onBackground,
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         floatingActionButton = {
-            AnimatedVisibility(
-                visible = (!active && contentType == ContentType.SINGLE_PANE
-                        && (lazyGridState.isScrollingUp() || lazyListState.isScrollingUp()))
-                        || (contentType == ContentType.DUAL_PANE
-                        && (lazyGridState.isScrollingUp() || lazyListState.isScrollingUp())),
-                // TODO: Tweak this animation more
-                enter = slideIn(tween(100, easing = LinearOutSlowInEasing)) {
-                    IntOffset(it.width / 2, 100)
-                } + fadeIn(),
-                exit = slideOut(tween(100, easing = FastOutSlowInEasing)) {
-                    IntOffset(it.width / 2, 100)
-                } + fadeOut(),
-            ) {
-                FloatingActionButton(
-                    onClick = { /*TODO*/ },
+            // TODO: Animate this!
+            if ((!active && contentType == ContentType.SINGLE_PANE)
+                || (contentType == ContentType.DUAL_PANE)) {
+                ALFloatingActionButton(
+                    onClick = onFloatingActionButtonClick,
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    elevation = FloatingActionButtonDefaults.elevation(),
                 ) {
                     Icon(
                         imageVector = ALIcons.Add,
@@ -136,7 +110,7 @@ fun HomeScreenLabsGrid(
                     )
                 }
             }
-        }
+        },
     ) { padding ->
 
         Box(
@@ -166,7 +140,7 @@ fun HomeScreenLabsGrid(
                         IconButton(onClick = { /*TODO*/ }) {
                             Icon(imageVector = ALIcons.Account, contentDescription = null)
                         }
-                    }
+                    },
                 ) {
 
                 }
@@ -185,7 +159,7 @@ fun HomeScreenLabsGrid(
                             Icon(imageVector = ALIcons.Account, contentDescription = null)
                         }
                     },
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(12.dp),
                 ) {
 
                 }
@@ -208,19 +182,21 @@ fun HomeScreenLabsGrid(
                         modifier = modifier
                             .fillMaxSize()
                             .padding(
-                                top =
-                                if (contentType == ContentType.SINGLE_PANE) {
+                                top = if (contentType == ContentType.SINGLE_PANE) {
                                     96.dp
                                 } else {
                                     // TODO: Tweak this padding as per required
                                     72.dp
                                 }
-                            )
+                            ),
                     ) {
                         labFeed(
                             labFeedUIState = labFeedUIState,
                             contentType = contentType,
-                            onClick = navigateToDetail
+                            onClick = { labId, screenContentType ->
+                                active = false
+                                navigateToDetail(labId, screenContentType)
+                            },
                         )
                         item(span = { GridItemSpan(maxLineSpan) }) {
                             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
@@ -242,14 +218,17 @@ fun HomeScreenLabsGrid(
                                 end = 16.dp,
                                 // TODO: Add bottom padding as per required
                             )
-                            .clip(RoundedCornerShape(20.dp))
+                            .clip(RoundedCornerShape(20.dp)),
                             // TODO: Change this color as per required
                             //.background(MaterialTheme.colorScheme.primaryContainer)
                     ) {
                         labFeed(
                             labFeedUIState = labFeedUIState,
                             contentType = contentType,
-                            onClick = navigateToDetail
+                            onClick = { labId, screenContentType ->
+                                active = false
+                                navigateToDetail(labId, screenContentType)
+                            },
                         )
                     }
                 }
@@ -260,13 +239,14 @@ fun HomeScreenLabsGrid(
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenLabsDetail(
+internal fun HomeScreenLabsDetail(
     lab: UserLabs?,
     closeDetailScreen: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    topAppBarState: TopAppBarState = rememberTopAppBarState(),
 ) {
     val scrollBehavior = TopAppBarDefaults
-        .exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        .exitUntilCollapsedScrollBehavior(topAppBarState)
 
     Scaffold(
         modifier = modifier
@@ -281,10 +261,10 @@ fun HomeScreenLabsDetail(
                     actionIcon = Icons.Outlined.MoreVert,
                     actionIconContentDescription = null,
                     onNavigationClick = closeDetailScreen,
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
                 )
             }
-        }
+        },
     ) { padding ->
 
         Column(
@@ -306,48 +286,5 @@ fun HomeScreenLabsDetail(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun LoadingState(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize()) {
-        LinearProgressIndicator(
-            modifier = Modifier
-                .align(Alignment.Center)
-        )
-    }
-}
-
-@Composable
-private fun EmptyState(
-    @StringRes titleRes: Int,
-    modifier: Modifier = Modifier,
-    @DrawableRes imageRes: Int = com.rivan.androlabs.core.designsystem.R.drawable.ic_settings_border
-) {
-    Column(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // TODO: Maybe add gradient tint to the icon
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            // TODO: Use a proper icon here
-            painter = painterResource(id = imageRes),
-            contentDescription = null
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = stringResource(id = titleRes),
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
-        )
     }
 }

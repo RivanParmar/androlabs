@@ -34,10 +34,15 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
     listType: ListType,
-    displayFeatures: List<DisplayFeature>
+    displayFeatures: List<DisplayFeature>,
+    onFABClick: () -> Unit,
 ) {
     composable(route = homeNavigationRoute) {
         HomeRoute(
-            contentType = contentType, listType = listType, displayFeatures = displayFeatures)
+            contentType = contentType,
+            listType = listType,
+            displayFeatures = displayFeatures,
+            onFABClick = onFABClick,
+        )
     }
 }

@@ -17,10 +17,22 @@
 package com.rivan.androlabs.feature.home
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarState
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,8 +48,9 @@ internal fun HomeRoute(
     contentType: ContentType,
     listType: ListType,
     displayFeatures: List<DisplayFeature>,
+    onFABClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
@@ -50,10 +63,12 @@ internal fun HomeRoute(
         labFeedUIState = uiState,
         isSyncing = isSyncing,
         navigateToDetail = viewModel::setSelectedLab,
-        modifier = modifier
+        onFABClick = onFABClick,
+        modifier = modifier,
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
     contentType: ContentType,
@@ -62,14 +77,20 @@ internal fun HomeScreen(
     displayFeatures: List<DisplayFeature>,
     labFeedUIState: LabFeedUIState,
     isSyncing: Boolean,
+    onFABClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    LaunchedEffect(key1 = contentType) {
-        if (contentType == ContentType.SINGLE_PANE) {
-            closeDetailScreen()
+    val lazyGridState: LazyGridState = rememberLazyGridState()
+    val lazyListState: LazyListState = rememberLazyListState()
+    val labDetailTopAppBarStates =
+        labFeedUIState.labs.ifEmpty {
+            emptyList()
+        }.associate { lab ->
+            key(lab.id) {
+                lab.id to rememberTopAppBarState()
+            }
         }
-    }
 
     if (contentType == ContentType.DUAL_PANE) {
         TwoPane(
@@ -79,20 +100,32 @@ internal fun HomeScreen(
                     listType = listType,
                     labFeedUIState = labFeedUIState,
                     modifier = modifier,
+                    lazyGridState = lazyGridState,
+                    lazyListState = lazyListState,
                     isSyncing = isSyncing,
-                    navigateToDetail = navigateToDetail
+                    onFloatingActionButtonClick = onFABClick,
+                    navigateToDetail = navigateToDetail,
                 )
             },
             second = {
-                HomeScreenLabsDetail(
-                    lab = labFeedUIState.selectedLab,
-                    closeDetailScreen = closeDetailScreen,
-                    modifier = modifier
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 12.dp, top = 12.dp, end = 12.dp)
+                ) {
+                    HomeScreenLabsDetail(
+                        lab = labFeedUIState.selectedLab,
+                        closeDetailScreen = closeDetailScreen,
+                        modifier = modifier.clip(RoundedCornerShape(20.dp)),
+                        topAppBarState = labDetailTopAppBarStates.getValue(
+                            labFeedUIState.selectedLab!!.id
+                        ),
+                    )
+                }
             },
             // TODO: Maybe reduce the gap width and set split fraction to .5f
-            strategy = HorizontalTwoPaneStrategy(splitFraction = 0.7f, gapWidth = 16.dp),
-            displayFeatures = displayFeatures
+            strategy = HorizontalTwoPaneStrategy(splitFraction = 0.5f, gapWidth = 16.dp),
+            displayFeatures = displayFeatures,
         )
     } else {
         HomeScreenSinglePaneContent(
@@ -102,20 +135,33 @@ internal fun HomeScreen(
             isSyncing = isSyncing,
             closeDetailScreen = closeDetailScreen,
             navigateToDetail = navigateToDetail,
-            modifier = modifier
+            onFABClick = onFABClick,
+            modifier = modifier,
+            lazyGridState = lazyGridState,
+            lazyListState = lazyListState,
+            topAppBarState = if (labFeedUIState.selectedLab != null) {
+                labDetailTopAppBarStates.getValue(labFeedUIState.selectedLab!!.id)
+            } else {
+                rememberTopAppBarState()
+            },
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenSinglePaneContent(
     contentType: ContentType,
     listType: ListType,
     labFeedUIState: LabFeedUIState,
     isSyncing: Boolean,
+    onFABClick: () -> Unit,
     closeDetailScreen: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    lazyGridState: LazyGridState,
+    lazyListState: LazyListState,
+    topAppBarState: TopAppBarState,
 ) {
     if (labFeedUIState.selectedLab != null && labFeedUIState.isDetailOnlyOpen) {
         BackHandler {
@@ -124,7 +170,8 @@ fun HomeScreenSinglePaneContent(
         HomeScreenLabsDetail(
             lab = labFeedUIState.selectedLab,
             closeDetailScreen = closeDetailScreen,
-            modifier = modifier
+            modifier = modifier,
+            topAppBarState = topAppBarState,
         )
     } else {
         HomeScreenLabsGrid(
@@ -132,8 +179,11 @@ fun HomeScreenSinglePaneContent(
             listType = listType,
             labFeedUIState = labFeedUIState,
             modifier = modifier,
+            lazyGridState = lazyGridState,
+            lazyListState = lazyListState,
             isSyncing = isSyncing,
-            navigateToDetail = navigateToDetail
+            onFloatingActionButtonClick = onFABClick,
+            navigateToDetail = navigateToDetail,
         )
     }
 }
