@@ -19,7 +19,6 @@ class UserLabPrefsSerializer @Inject constructor() :
     override suspend fun readFrom(input: InputStream): UserLabPrefs =
         try {
             // readFrom is already called on the data store background thread
-            @Suppress("BlockingMethodInNonBlockingContext")
             UserLabPrefs.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
@@ -27,6 +26,5 @@ class UserLabPrefsSerializer @Inject constructor() :
 
     override suspend fun writeTo(t: UserLabPrefs, output: OutputStream) =
         // writeTo is already called on the data store background thread
-        @Suppress("BlockingMethodInNonBlockingContext")
         t.writeTo(output)
 }

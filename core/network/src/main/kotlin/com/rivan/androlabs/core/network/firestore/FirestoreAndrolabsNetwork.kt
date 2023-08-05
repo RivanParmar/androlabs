@@ -35,7 +35,7 @@ class FirestoreAndrolabsNetwork @Inject constructor(
 
     private val labFirestoreDb = database.collection("labs")
 
-    private val changeListFirestoreDb = database.collection(TODO("Not yet created"))
+    private val changeListFirestoreDb = database.collection("changelist")
 
     override suspend fun getLabs(ids: List<String>?): List<FirestoreLab> {
         val projectResources = arrayListOf<FirestoreLab>()

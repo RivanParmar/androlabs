@@ -47,9 +47,6 @@ object DataStoreModule {
         DataStoreFactory.create(
             serializer = userLabPrefsSerializer,
             scope = CoroutineScope(ioDispatcher + SupervisorJob()),
-            migrations = listOf(
-                IntToStringIdsMigration
-            )
         ) {
             context.dataStoreFile("user_lab_prefs.pb")
         }
