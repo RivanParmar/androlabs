@@ -25,5 +25,5 @@ android {
 dependencies {
     api(libs.guava)
 
-    api(project(":platform:core-api"))
+    api(project(":platform:project-api"))
 }
