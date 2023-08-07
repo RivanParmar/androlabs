@@ -1,7 +1,10 @@
 package com.rivan.androlabs.openapi.project
 
-// TODO: Move this and other project-related classes to a separate module maybe
 interface Project {
+
+    companion object {
+        const val DIRECTORY_STORE_FOLDER = ".idea"
+    }
 
     fun getName(): String
 
@@ -21,6 +24,4 @@ interface Project {
     fun isOpen(): Boolean
 
     fun isInitialized(): Boolean
-
-    fun isDefault(): Boolean = false
 }

@@ -47,3 +47,5 @@ include(":platform:wizard:template-api")
 include(":platform:wizard:template-impl")
 
 include(":platform:core-api")
+
+include(":platform:project-api")
