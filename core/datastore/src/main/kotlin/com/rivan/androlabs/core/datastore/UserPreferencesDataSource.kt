@@ -48,7 +48,9 @@ class UserPreferencesDataSource @Inject constructor(
                         DarkThemeConfig.LIGHT
                     DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
                 },
-                useDynamicColor = it.useDynamicColor
+                useDynamicColor = it.useDynamicColor,
+
+                savePath = it.savePath
             )
         }
 
@@ -80,6 +82,14 @@ class UserPreferencesDataSource @Inject constructor(
                     DarkThemeConfig.LIGHT -> DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT
                     DarkThemeConfig.DARK -> DarkThemeConfigProto.DARK_THEME_CONFIG_DARK
                 }
+            }
+        }
+    }
+
+    suspend fun setSavePath(savePath: String) {
+        userPreferences.updateData {
+            it.copy {
+                this.savePath = savePath
             }
         }
     }

@@ -13,4 +13,6 @@ message UserPreferences {
   DarkThemeConfigProto dark_theme_config = 3;
 
   bool use_dynamic_color = 4;
+
+  string save_path = 5;
 }
