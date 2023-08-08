@@ -42,11 +42,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -63,9 +61,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import com.rivan.androlabs.core.designsystem.component.ALDockedSearchBar
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
-import com.rivan.androlabs.core.designsystem.component.ALSearchBar
 import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.domain.model.UserLabs
@@ -126,44 +122,13 @@ internal fun HomeScreenLabsGrid(
         ) {
             // TODO: For now the search bar is static at the top but we need to hide/show it
             //  based on scrolling of content similar to the FAB.
-            if (contentType == ContentType.SINGLE_PANE) {
-                ALSearchBar(
-                    placeholderRes = R.string.search_bar_placeholder_text,
-                    text = text,
-                    active = active,
-                    onTextChange = { text = it },
-                    onActiveChange = { active = it },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-                    },
-                    trailingIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = ALIcons.Account, contentDescription = null)
-                        }
-                    },
-                ) {
-
-                }
-            } else {
-                ALDockedSearchBar(
-                    placeholderRes = R.string.search_bar_placeholder_text,
-                    text = text,
-                    active = active,
-                    onTextChange = { text = it },
-                    onActiveChange = { active = it },
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-                    },
-                    trailingIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = ALIcons.Account, contentDescription = null)
-                        }
-                    },
-                    modifier = Modifier.padding(12.dp),
-                ) {
-
-                }
-            }
+            HomeScreenSearchBar(
+                contentType = contentType,
+                text = text,
+                active = active,
+                onTextChange = { text = it },
+                onActiveChange = { active = it },
+            )
 
             if (isSyncing || labFeedUIState.loading) {
                 LoadingState()
