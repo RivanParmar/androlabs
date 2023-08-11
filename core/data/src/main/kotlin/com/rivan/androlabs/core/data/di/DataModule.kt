@@ -16,9 +16,11 @@
 
 package com.rivan.androlabs.core.data.di
 
+import com.rivan.androlabs.core.data.repository.DefaultRecentSearchRepository
 import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.data.repository.OfflineFirstLabRepository
 import com.rivan.androlabs.core.data.repository.OfflineFirstUserLabDataRepository
+import com.rivan.androlabs.core.data.repository.RecentSearchRepository
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.repository.UserSettingsRepository
 import com.rivan.androlabs.core.data.repository.UserSettingsRepositoryImpl
@@ -35,21 +37,26 @@ interface DataModule {
 
     @Binds
     fun bindsLabRepository(
-        labRepository: OfflineFirstLabRepository
+        labRepository: OfflineFirstLabRepository,
     ): LabRepository
 
     @Binds
     fun bindsUserLabDataRepository(
-        userLabDataRepository: OfflineFirstUserLabDataRepository
+        userLabDataRepository: OfflineFirstUserLabDataRepository,
     ): UserLabDataRepository
 
     @Binds
     fun bindsUserSettingsRepository(
-        userSettingsRepository: UserSettingsRepositoryImpl
+        userSettingsRepository: UserSettingsRepositoryImpl,
     ): UserSettingsRepository
 
     @Binds
+    fun bindsRecentSearchRepository(
+        recentSearchRepository: DefaultRecentSearchRepository,
+    ): RecentSearchRepository
+
+    @Binds
     fun bindsNetworkMonitor(
-        networkMonitor: ConnectivityManagerNetworkMonitor
+        networkMonitor: ConnectivityManagerNetworkMonitor,
     ): NetworkMonitor
 }
