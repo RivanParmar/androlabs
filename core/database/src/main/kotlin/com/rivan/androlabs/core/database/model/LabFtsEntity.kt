@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.core.database
+package com.rivan.androlabs.core.database.model
 
-import com.rivan.androlabs.core.database.dao.LabDao
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Fts4
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DaoModule {
-    @Provides
-    fun providesLabDao(
-        database: AndrolabsDatabase
-    ): LabDao = database.labDao()
-}
+/**
+ * Fts entity for the labs. See https://developer.android.com/reference/androidx/room/Fts4.
+ */
+@Entity(tableName = "labsFts")
+@Fts4
+data class LabFtsEntity(
+    @ColumnInfo(name = "labId")
+    val labId: String,
+
+    @ColumnInfo(name = "title")
+    val title: String,
+
+    @ColumnInfo(name = "extraTitle")
+    val extraTitle: String,
+
+    @ColumnInfo(name = "description")
+    val description: String,
+)
