@@ -18,6 +18,7 @@ package com.rivan.androlabs.core.database
 
 import com.rivan.androlabs.core.database.dao.LabDao
 import com.rivan.androlabs.core.database.dao.LabsFtsDao
+import com.rivan.androlabs.core.database.dao.RecentSearchQueryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +33,12 @@ object DaosModule {
     ): LabDao = database.labDao()
 
     @Provides
-    fun labFtsDao(
+    fun providesLabFtsDao(
         database: AndrolabsDatabase,
     ): LabsFtsDao = database.labFtsDao()
+
+    @Provides
+    fun providesRecentSearchQueryDao(
+        database: AndrolabsDatabase,
+    ): RecentSearchQueryDao = database.recentSearchQueryDao()
 }
