@@ -3,10 +3,10 @@ package com.rivan.androlabs.core.domain
 import com.rivan.androlabs.core.data.repository.LabQuery
 import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
-import com.rivan.androlabs.core.domain.model.UserLabs
-import com.rivan.androlabs.core.domain.model.mapToUserLabs
 import com.rivan.androlabs.core.model.data.Lab
 import com.rivan.androlabs.core.model.data.UserLabData
+import com.rivan.androlabs.core.model.data.UserLabs
+import com.rivan.androlabs.core.model.data.mapToUserLabs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNot

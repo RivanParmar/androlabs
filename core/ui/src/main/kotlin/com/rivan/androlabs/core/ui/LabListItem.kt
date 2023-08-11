@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserLabs
+import com.rivan.androlabs.core.model.data.UserLabs
 
 @Composable
 fun LabListItem(

@@ -13,8 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserLabs
 import com.rivan.androlabs.core.model.data.ContentType
+import com.rivan.androlabs.core.model.data.UserLabs
 
 /**
  * An extension on [LazyGridScope] defining a feed with project resources.

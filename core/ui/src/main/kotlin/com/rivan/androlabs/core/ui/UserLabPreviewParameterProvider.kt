@@ -1,10 +1,10 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.rivan.androlabs.core.domain.model.UserLabs
 import com.rivan.androlabs.core.model.data.Lab
 import com.rivan.androlabs.core.model.data.LabType
 import com.rivan.androlabs.core.model.data.UserLabData
+import com.rivan.androlabs.core.model.data.UserLabs
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

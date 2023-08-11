@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.core.domain.model
+package com.rivan.androlabs.core.model.data
 
-import com.rivan.androlabs.core.model.data.Lab
-import com.rivan.androlabs.core.model.data.LabType
-import com.rivan.androlabs.core.model.data.UserLabData
 import kotlinx.datetime.Instant
 
 /**

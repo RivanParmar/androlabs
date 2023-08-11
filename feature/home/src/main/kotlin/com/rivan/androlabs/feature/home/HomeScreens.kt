@@ -64,9 +64,9 @@ import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
-import com.rivan.androlabs.core.domain.model.UserLabs
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.ListType
+import com.rivan.androlabs.core.model.data.UserLabs
 import com.rivan.androlabs.core.ui.LabFeedUIState
 import com.rivan.androlabs.core.ui.labFeed
 

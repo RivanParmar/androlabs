@@ -18,7 +18,7 @@ import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.domain.model.UserLabs
+import com.rivan.androlabs.core.model.data.UserLabs
 
 // TODO: Not yet completed
 @OptIn(ExperimentalMaterial3Api::class)

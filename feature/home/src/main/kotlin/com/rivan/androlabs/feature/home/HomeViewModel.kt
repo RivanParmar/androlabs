@@ -22,9 +22,9 @@ import com.rivan.androlabs.core.data.repository.LabQuery
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
 import com.rivan.androlabs.core.domain.GetUserLabsUseCase
-import com.rivan.androlabs.core.domain.model.UserLabs
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.UserLabData
+import com.rivan.androlabs.core.model.data.UserLabs
 import com.rivan.androlabs.core.ui.LabFeedUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
