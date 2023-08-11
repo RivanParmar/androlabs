@@ -17,8 +17,6 @@
 package com.rivan.androlabs.feature.home
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -37,6 +35,24 @@ internal fun HomeScreenSearchBar(
     onTextChange: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
 ) {
+    val leadingIcon = @Composable {
+        if (!active) {
+            Icon(imageVector = ALIcons.Search, contentDescription = null)
+        } else {
+            IconButton(onClick = { onActiveChange(false) }) {
+                Icon(imageVector = ALIcons.Back, contentDescription = null)
+            }
+        }
+    }
+
+    val trailingIcon = @Composable {
+        if (!active) {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = ALIcons.Account, contentDescription = null)
+            }
+        }
+    }
+
     if (contentType == ContentType.SINGLE_PANE) {
         ALSearchBar(
             placeholderRes = R.string.search_bar_placeholder_text,
@@ -44,14 +60,8 @@ internal fun HomeScreenSearchBar(
             active = active,
             onTextChange = onTextChange,
             onActiveChange = onActiveChange,
-            leadingIcon = {
-                Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-            },
-            trailingIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = ALIcons.Account, contentDescription = null)
-                }
-            },
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
         ) {
 
         }
@@ -62,14 +72,8 @@ internal fun HomeScreenSearchBar(
             active = active,
             onTextChange = onTextChange,
             onActiveChange = onActiveChange,
-            leadingIcon = {
-                Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
-            },
-            trailingIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = ALIcons.Account, contentDescription = null)
-                }
-            },
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
             modifier = Modifier.padding(12.dp),
         ) {
 

@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.rivan.androlabs.core.designsystem.R
@@ -20,6 +21,7 @@ object ALIcons {
     val GeneralSettings = Icons.Outlined.Tune
     val Recent = R.drawable.ic_access_time_filled
     val RecentBorder = R.drawable.ic_access_time
+    val Search = Icons.Outlined.Search
     val Settings = R.drawable.ic_settings
     val SettingsBorder = R.drawable.ic_settings_border
 }
