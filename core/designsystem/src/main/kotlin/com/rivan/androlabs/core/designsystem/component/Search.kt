@@ -59,6 +59,7 @@ fun ALSearchBar(
     modifier: Modifier = Modifier,
     text: String = "",
     active: Boolean = false,
+    onSearch: (String) -> Unit,
     onTextChange: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
     leadingIcon: @Composable () -> Unit = {},
@@ -86,7 +87,10 @@ fun ALSearchBar(
                 .padding(horizontal = horizontalPadding),
             query = text,
             onQueryChange = { onTextChange(it) },
-            onSearch = { onActiveChange(false) },
+            onSearch = {
+                onSearch(it)
+                onActiveChange(false)
+            },
             active = active,
             onActiveChange = { onActiveChange(it) },
             placeholder = { Text(text = stringResource(id = placeholderRes)) },
@@ -119,6 +123,7 @@ fun ALDockedSearchBar(
     modifier: Modifier = Modifier,
     text: String = "",
     active: Boolean = false,
+    onSearch: (String) -> Unit,
     onTextChange: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
     leadingIcon: @Composable () -> Unit = {},
@@ -135,7 +140,10 @@ fun ALDockedSearchBar(
             modifier = modifier.align(Alignment.TopEnd),
             query = text,
             onQueryChange = { onTextChange(it) },
-            onSearch = { onActiveChange(false) },
+            onSearch = {
+                onSearch(it)
+                onActiveChange(false)
+            },
             active = active,
             onActiveChange = { onActiveChange(it) },
             placeholder = { Text(text = stringResource(id = placeholderRes)) },
