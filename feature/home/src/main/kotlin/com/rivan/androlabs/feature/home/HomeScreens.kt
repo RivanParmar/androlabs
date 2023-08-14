@@ -77,10 +77,12 @@ internal fun HomeScreenLabsGrid(
     contentType: ContentType,
     listType: ListType,
     labFeedUIState: LabFeedUIState,
+    recentSearchQueriesUiState: RecentSearchQueriesUiState,
     modifier: Modifier = Modifier,
     lazyGridState: LazyGridState = rememberLazyGridState(),
     lazyListState: LazyListState = rememberLazyListState(),
     isSyncing: Boolean = false,
+    onSearch: (String) -> Unit,
     onFloatingActionButtonClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
 ) {
@@ -126,6 +128,8 @@ internal fun HomeScreenLabsGrid(
                 contentType = contentType,
                 text = text,
                 active = active,
+                recentSearchQueriesUiState = recentSearchQueriesUiState,
+                onSearch = onSearch,
                 onTextChange = { text = it },
                 onActiveChange = { active = it },
             )

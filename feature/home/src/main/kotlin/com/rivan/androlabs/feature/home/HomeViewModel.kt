@@ -19,8 +19,10 @@ package com.rivan.androlabs.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.core.data.repository.LabQuery
+import com.rivan.androlabs.core.data.repository.RecentSearchRepository
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
+import com.rivan.androlabs.core.domain.GetRecentSearchQueriesUseCase
 import com.rivan.androlabs.core.domain.GetUserLabsUseCase
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.UserLabData
@@ -44,48 +46,58 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     syncStatusMonitor: SyncStatusMonitor,
+    getRecentUserLabs: GetUserLabsUseCase,
+    recentSearchQueriesUseCase: GetRecentSearchQueriesUseCase,
     private val userLabDataRepository: UserLabDataRepository,
-    getRecentUserLabs: GetUserLabsUseCase
+    private val recentSearchRepository: RecentSearchRepository,
 ) : ViewModel() {
 
     val isSyncing = syncStatusMonitor.isSyncing
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false
+            initialValue = false,
         )
 
-    private val _uiState = MutableStateFlow(LabFeedUIState(loading = true))
-    val uiState: StateFlow<LabFeedUIState> = _uiState
+    private val _labFeedUiState = MutableStateFlow(LabFeedUIState(loading = true))
+    val labFeedUiState: StateFlow<LabFeedUIState> = _labFeedUiState
+
+    val recentSearchQueriesUiState: StateFlow<RecentSearchQueriesUiState> =
+        recentSearchQueriesUseCase().map(RecentSearchQueriesUiState::Success)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = RecentSearchQueriesUiState.Loading,
+            )
 
     init {
         viewModelScope.launch {
             userLabDataRepository.getRecentLabs(getRecentUserLabs)
                 .catch { ex ->
-                    _uiState.value = LabFeedUIState(error = ex.message)
+                    _labFeedUiState.value = LabFeedUIState(error = ex.message)
                 }
                 .collect { labs ->
-                    _uiState.value = LabFeedUIState(
+                    _labFeedUiState.value = LabFeedUIState(
                         labs = labs,
-                        selectedLab = null
+                        selectedLab = null,
                     )
                 }
         }
     }
 
     fun setSelectedLab(labId: String, contentType: ContentType) {
-        val lab = uiState.value.labs.find { it.id == labId }
-        _uiState.value = _uiState.value.copy(
+        val lab = labFeedUiState.value.labs.find { it.id == labId }
+        _labFeedUiState.value = _labFeedUiState.value.copy(
             selectedLab = lab,
-            isDetailOnlyOpen = contentType == ContentType.SINGLE_PANE
+            isDetailOnlyOpen = contentType == ContentType.SINGLE_PANE,
         )
     }
 
     fun closeDetailScreen() {
-        _uiState.value = _uiState
+        _labFeedUiState.value = _labFeedUiState
             .value.copy(
                 isDetailOnlyOpen = false,
-                selectedLab = null
+                selectedLab = null,
             )
     }
 
@@ -110,11 +122,17 @@ class HomeViewModel @Inject constructor(
                 .updateLabCompleted(labId, isChecked)
         }
     }
+
+    fun onSearchTriggered(query: String) {
+        viewModelScope.launch {
+            recentSearchRepository.insertOrReplaceRecentSearch(query)
+        }
+    }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
 private fun UserLabDataRepository.getRecentLabs(
-    getUserLabs: GetUserLabsUseCase
+    getUserLabs: GetUserLabsUseCase,
 ): Flow<List<UserLabs>> = userLabData
     // Map the user data into a set of recent lab IDs or null if we should return an
     // empty list.
@@ -137,7 +155,7 @@ private fun UserLabDataRepository.getRecentLabs(
         } else {
             getUserLabs(
                 LabQuery(
-                    filterLabIds = recentLabs
+                    filterLabIds = recentLabs,
                 )
             )
         }

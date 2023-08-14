@@ -52,7 +52,8 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val labFeedUIState by viewModel.labFeedUiState.collectAsStateWithLifecycle()
+    val recentSearchQueriesUiState by viewModel.recentSearchQueriesUiState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
 
     HomeScreen(
@@ -60,8 +61,10 @@ internal fun HomeRoute(
         listType = listType,
         closeDetailScreen = viewModel::closeDetailScreen,
         displayFeatures = displayFeatures,
-        labFeedUIState = uiState,
+        labFeedUIState = labFeedUIState,
         isSyncing = isSyncing,
+        recentSearchQueriesUiState = recentSearchQueriesUiState,
+        onSearch = viewModel::onSearchTriggered,
         navigateToDetail = viewModel::setSelectedLab,
         onFABClick = onFABClick,
         modifier = modifier,
@@ -76,7 +79,9 @@ internal fun HomeScreen(
     closeDetailScreen: () -> Unit,
     displayFeatures: List<DisplayFeature>,
     labFeedUIState: LabFeedUIState,
+    recentSearchQueriesUiState: RecentSearchQueriesUiState,
     isSyncing: Boolean,
+    onSearch: (String) -> Unit,
     onFABClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
     modifier: Modifier = Modifier,
@@ -99,10 +104,12 @@ internal fun HomeScreen(
                     contentType = contentType,
                     listType = listType,
                     labFeedUIState = labFeedUIState,
+                    recentSearchQueriesUiState = recentSearchQueriesUiState,
                     modifier = modifier,
                     lazyGridState = lazyGridState,
                     lazyListState = lazyListState,
                     isSyncing = isSyncing,
+                    onSearch = onSearch,
                     onFloatingActionButtonClick = onFABClick,
                     navigateToDetail = navigateToDetail,
                 )
@@ -132,7 +139,9 @@ internal fun HomeScreen(
             contentType = contentType,
             listType = listType,
             labFeedUIState = labFeedUIState,
+            recentSearchQueriesUiState = recentSearchQueriesUiState,
             isSyncing = isSyncing,
+            onSearch = onSearch,
             closeDetailScreen = closeDetailScreen,
             navigateToDetail = navigateToDetail,
             onFABClick = onFABClick,
@@ -150,11 +159,13 @@ internal fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenSinglePaneContent(
+internal fun HomeScreenSinglePaneContent(
     contentType: ContentType,
     listType: ListType,
     labFeedUIState: LabFeedUIState,
+    recentSearchQueriesUiState: RecentSearchQueriesUiState,
     isSyncing: Boolean,
+    onSearch: (String) -> Unit,
     onFABClick: () -> Unit,
     closeDetailScreen: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
@@ -178,10 +189,12 @@ fun HomeScreenSinglePaneContent(
             contentType = contentType,
             listType = listType,
             labFeedUIState = labFeedUIState,
+            recentSearchQueriesUiState = recentSearchQueriesUiState,
             modifier = modifier,
             lazyGridState = lazyGridState,
             lazyListState = lazyListState,
             isSyncing = isSyncing,
+            onSearch = onSearch,
             onFloatingActionButtonClick = onFABClick,
             navigateToDetail = navigateToDetail,
         )

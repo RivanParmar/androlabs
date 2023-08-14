@@ -16,7 +16,8 @@
   -->
 
 <resources>
-    <string name="search_bar_placeholder_text">Search for labs</string>
+    <string name="search_bar_placeholder_text">Search in labs</string>
+    <string name="search_bar_recent_searches">Recent searches</string>
 
     <string name="labs_grid_empty">No recent labs</string>
     <string name="labs_detail_empty">No lab selected</string>
