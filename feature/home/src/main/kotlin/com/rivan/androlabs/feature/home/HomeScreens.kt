@@ -16,6 +16,7 @@
 
 package com.rivan.androlabs.feature.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -187,9 +188,9 @@ internal fun HomeScreenLabsGrid(
                                 end = 16.dp,
                                 // TODO: Add bottom padding as per required
                             )
-                            .clip(RoundedCornerShape(20.dp)),
+                            .clip(RoundedCornerShape(20.dp))
                             // TODO: Change this color as per required
-                            //.background(MaterialTheme.colorScheme.primaryContainer)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
                     ) {
                         labFeed(
                             labFeedUIState = labFeedUIState,

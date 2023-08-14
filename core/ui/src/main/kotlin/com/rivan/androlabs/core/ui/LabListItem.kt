@@ -16,7 +16,6 @@
 
 package com.rivan.androlabs.core.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -25,6 +24,7 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.rivan.androlabs.core.designsystem.R.drawable.*
@@ -63,7 +63,7 @@ fun LabListItem(
         },
         colors = ListItemDefaults.colors(
             // TODO: Use a proper color here for background
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = Color.Transparent
         )
     )
 }
