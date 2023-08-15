@@ -86,7 +86,8 @@ internal fun HomeScreenSearchBar(
             if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
                 RecentSearchesPanel(
                     recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
-                ) {}
+                    onRecentSearchClicked = onTextChange,
+                )
             }
         }
     } else {
@@ -104,7 +105,8 @@ internal fun HomeScreenSearchBar(
             if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
                 RecentSearchesPanel(
                     recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
-                ) {}
+                    onRecentSearchClicked = onTextChange,
+                )
             }
         }
     }

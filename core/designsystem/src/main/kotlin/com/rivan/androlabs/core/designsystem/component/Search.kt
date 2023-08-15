@@ -64,7 +64,7 @@ fun ALSearchBar(
     onActiveChange: (Boolean) -> Unit,
     leadingIcon: @Composable () -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     val horizontalPadding: Dp by animateDpAsState(
         if (active) {
@@ -128,7 +128,7 @@ fun ALDockedSearchBar(
     onActiveChange: (Boolean) -> Unit,
     leadingIcon: @Composable () -> Unit = {},
     trailingIcon: @Composable () -> Unit = {},
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     Box(
         modifier = Modifier
