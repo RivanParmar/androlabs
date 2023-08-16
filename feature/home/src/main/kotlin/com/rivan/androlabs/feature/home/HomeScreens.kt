@@ -63,6 +63,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
+import com.rivan.androlabs.core.designsystem.component.ALScaffold
 import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.model.data.ContentType
@@ -91,9 +92,7 @@ internal fun HomeScreenLabsGrid(
     var active by remember { mutableStateOf(false) }
 
     // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
-    Scaffold(
-        contentColor = MaterialTheme.colorScheme.onBackground,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+    ALScaffold(
         floatingActionButton = {
             // TODO: Animate this!
             if ((!active && contentType == ContentType.SINGLE_PANE)

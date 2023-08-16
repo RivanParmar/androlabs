@@ -73,7 +73,7 @@ internal fun HomeRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeScreen(
+private fun HomeScreen(
     contentType: ContentType,
     listType: ListType,
     closeDetailScreen: () -> Unit,
@@ -159,7 +159,7 @@ internal fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeScreenSinglePaneContent(
+private fun HomeScreenSinglePaneContent(
     contentType: ContentType,
     listType: ListType,
     labFeedUIState: LabFeedUIState,
