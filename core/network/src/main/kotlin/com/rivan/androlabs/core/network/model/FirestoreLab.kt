@@ -17,7 +17,6 @@
 package com.rivan.androlabs.core.network.model
 
 import com.rivan.androlabs.core.model.data.LabType
-import com.rivan.androlabs.core.network.model.util.InstantSerializer
 import com.rivan.androlabs.core.network.model.util.LabTypeSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
@@ -34,7 +33,6 @@ data class FirestoreLab(
     val url: String?,
     val headerImageUrl: String?,
     val iconPath: String?,
-    @Serializable(InstantSerializer::class)
     val lastEdited: Instant?,
     val path: String?,
     @Serializable(LabTypeSerializer::class)
