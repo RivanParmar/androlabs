@@ -50,6 +50,7 @@ android {
 
 dependencies {
 
+    implementation(project(":feature:editor"))
     implementation(project(":feature:home"))
     implementation(project(":feature:npw"))
     implementation(project(":feature:settings"))
