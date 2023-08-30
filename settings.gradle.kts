@@ -29,6 +29,7 @@ include(":core:ui")
 
 include(":feature:editor")
 include(":feature:home")
+include(":feature:nlw")
 include(":feature:npw")
 include(":feature:settings")
 
