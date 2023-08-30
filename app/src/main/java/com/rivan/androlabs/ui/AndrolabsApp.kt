@@ -12,7 +12,14 @@ fun AndrolabsApp(
     appState: AndrolabsAppState = rememberAndrolabsAppState(
         windowSizeClass = windowSizeClass,
         displayFeatures = displayFeatures
-    )
+    ),
+    askToSelectSavePath: Boolean,
+    updateSavePath: (String) -> Unit,
 ) {
-    MainActivityNavHost(appState = appState, navController = appState.navController)
+    MainActivityNavHost(
+        appState = appState,
+        navController = appState.navController,
+        askToSelectSavePath = askToSelectSavePath,
+        updateSavePath = updateSavePath,
+    )
 }

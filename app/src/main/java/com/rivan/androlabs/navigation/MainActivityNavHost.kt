@@ -1,5 +1,7 @@
 package com.rivan.androlabs.navigation
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -21,7 +23,15 @@ fun MainActivityNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
+    askToSelectSavePath: Boolean = false,
+    updateSavePath: (String) -> Unit,
 ) {
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree()
+    ) {
+
+    }
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -31,7 +41,14 @@ fun MainActivityNavHost(
             contentType = appState.contentType,
             listType = appState.listType,
             displayFeatures = appState.displayFeatures,
-            onFABClick = { /*TODO*/ },
+            onFABClick = {
+                // Ask the user to select a common path for saving the labs
+                if (askToSelectSavePath) {
+                    launcher.launch(null)
+                } else {
+                    TODO()
+                }
+            },
         )
 
         settingsScreen(appState.contentType, appState.displayFeatures) { settingsCategoryRoute ->

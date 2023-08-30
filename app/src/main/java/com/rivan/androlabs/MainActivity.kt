@@ -33,7 +33,7 @@ import java.util.*
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -80,7 +80,9 @@ class MainActivity : ComponentActivity() {
             ) {
                 AndrolabsApp(
                     windowSizeClass = calculateWindowSizeClass(activity = this),
-                    displayFeatures = calculateDisplayFeatures(activity = this)
+                    displayFeatures = calculateDisplayFeatures(activity = this),
+                    askToSelectSavePath = askToSelectSavePath(uiState),
+                    updateSavePath = viewModel::updateSavePath,
                 )
             }
         }
@@ -97,4 +99,11 @@ private fun shouldUseDarkTheme(
         DarkThemeConfig.LIGHT -> false
         DarkThemeConfig.DARK -> true
     }
+}
+
+private fun askToSelectSavePath(
+    uiState: MainActivityUiState
+): Boolean = when (uiState) {
+    Loading -> false
+    is Success -> uiState.userSettings.savePath.isEmpty()
 }

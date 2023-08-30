@@ -42,4 +42,9 @@ interface UserSettingsRepository {
      * Sets the preferred dynamic color config.
      */
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean)
+
+    /**
+     * Sets the common path for saving the labs.
+     */
+    suspend fun setSavePath(savePath: String)
 }
