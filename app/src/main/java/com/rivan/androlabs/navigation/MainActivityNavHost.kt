@@ -8,6 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
 import com.rivan.androlabs.feature.home.navigation.homeScreen
+import com.rivan.androlabs.feature.nlw.navigation.navigateToNlw
+import com.rivan.androlabs.feature.nlw.navigation.nlwScreen
 import com.rivan.androlabs.feature.settings.navigation.settingsScreen
 import com.rivan.androlabs.ui.AndrolabsAppState
 
@@ -46,10 +48,12 @@ fun MainActivityNavHost(
                 if (askToSelectSavePath) {
                     launcher.launch(null)
                 } else {
-                    TODO()
+                    navController.navigateToNlw()
                 }
             },
         )
+
+        nlwScreen()
 
         settingsScreen(appState.contentType, appState.displayFeatures) { settingsCategoryRoute ->
             navController.navigate(settingsCategoryRoute)
