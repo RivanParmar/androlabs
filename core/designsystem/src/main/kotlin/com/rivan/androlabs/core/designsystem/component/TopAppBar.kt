@@ -20,6 +20,7 @@ fun ALTopAppBar(
     actionIcon: ImageVector,
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
@@ -45,7 +46,8 @@ fun ALTopAppBar(
             }
         },
         colors = colors,
-        modifier = modifier
+        modifier = modifier,
+        scrollBehavior = scrollBehavior,
     )
 }
 
@@ -54,19 +56,19 @@ fun ALTopAppBar(
  */
 @Composable
 fun ALTopAppBarLarge(
-    @StringRes titleRes: Int,
+    title: @Composable () -> Unit,
     navigationIcon: ImageVector,
     navigationIconContentDescription: String?,
     actionIcon: ImageVector?,
     actionIconContentDescription: String?,
-    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
 ) {
     LargeTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = title,
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
@@ -100,8 +102,8 @@ fun ALTopAppBarLarge(
     navigationIconContentDescription: String?,
     actionIcon: ImageVector?,
     actionIconContentDescription: String?,
-    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
@@ -141,8 +143,8 @@ fun ALTopAppBarMedium(
     navigationIconContentDescription: String?,
     actionIcon: ImageVector?,
     actionIconContentDescription: String?,
-    scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     colors: TopAppBarColors = TopAppBarDefaults.mediumTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {}
