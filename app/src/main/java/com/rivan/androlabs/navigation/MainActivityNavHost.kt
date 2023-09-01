@@ -1,9 +1,12 @@
 package com.rivan.androlabs.navigation
 
+import android.content.Context
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
@@ -26,12 +29,15 @@ fun MainActivityNavHost(
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
     askToSelectSavePath: Boolean = false,
+    context: Context = LocalContext.current,
     updateSavePath: (String) -> Unit,
 ) {
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree()
     ) {
-
+        context.contentResolver.takePersistableUriPermission(
+            it!!, (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        )
     }
 
     NavHost(
