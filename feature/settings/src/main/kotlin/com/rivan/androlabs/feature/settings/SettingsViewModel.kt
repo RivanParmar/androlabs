@@ -66,7 +66,7 @@ data class Preferences(
 )
 
 sealed interface SettingsUiState {
-    object Loading : SettingsUiState
+    data object Loading : SettingsUiState
 
     data class Success(val preferences: Preferences) : SettingsUiState
 }
