@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.rivan.androlabs.buildplugins"
+group = "com.rivan.androlabs.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

@@ -7,10 +7,10 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="$PROJECT_DIR$/build-plugins" name="build-plugins">
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
                 <projects>
-                  <project path="$PROJECT_DIR$/build-plugins" />
-                  <project path="$PROJECT_DIR$/build-plugins/convention" />
+                  <project path="$PROJECT_DIR$/build-logic" />
+                  <project path="$PROJECT_DIR$/build-logic/convention" />
                 </projects>
               </build>
             </builds>
@@ -24,8 +24,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/build-plugins" />
-            <option value="$PROJECT_DIR$/build-plugins/convention" />
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/build-logic/convention" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/data" />

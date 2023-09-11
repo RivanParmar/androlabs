@@ -1,5 +1,5 @@
 # Convention Plugins
-The `build-plugins` folder defines project specific convention plugins, used to keep a single 
+The `build-logic` folder defines project specific convention plugins, used to keep a single 
 source of truth for common module configurations.
 
 This approach is heavily based on
@@ -8,13 +8,13 @@ This approach is heavily based on
 By setting up convention plugins, we can avoid duplicated build script setup, messy `subproject` 
 configurations, without the pitfalls of the `buildSrc` directory.
 
-`build-plugins` is included in the builds, as configured in the root 
+`build-logic` is included in the builds, as configured in the root 
 [`settings.gradle.kts`](../settings.gradle.kts).
 
-Inside `build-plugins` is a `convention` module, which defines a set of plugins that all modules 
+Inside `build-logic` is a `convention` module, which defines a set of plugins that all modules 
 can use to configure themselves.
 
-`build-plugins` also includes a set of `Kotlin` files used to share logic between plugins 
+`build-logic` also includes a set of `Kotlin` files used to share logic between plugins 
 themselves, which is most useful for configuring Android components (libraries vs application) 
 with shared code.
 
