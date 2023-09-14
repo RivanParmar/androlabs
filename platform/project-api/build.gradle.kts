@@ -15,5 +15,5 @@
  */
 
 plugins {
-    id("androlabs.java.library")
+    id("androlabs.jvm.library")
 }

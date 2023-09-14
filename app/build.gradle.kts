@@ -81,11 +81,11 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
-}
 
-// androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
-configurations.configureEach {
-    resolutionStrategy {
-        force(libs.junit4)
-    }
+    testImplementation(project(":core:testing"))
+    testImplementation(project(":core:network"))
+    testImplementation(libs.androidx.navigation.testing)
+    testImplementation(libs.accompanist.testharness)
+    testImplementation(kotlin("test"))
+    kaptTest(libs.hilt.compiler)
 }

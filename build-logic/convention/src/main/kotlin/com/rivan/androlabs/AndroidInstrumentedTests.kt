@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-import com.rivan.androlabs.configureJavaLibrary
-import org.gradle.api.Plugin
+package com.rivan.androlabs
+
+import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.kotlin.dsl.configure
 
-class JavaLibraryConventionPlugin : Plugin<Project> {
-
-    override fun apply(target: Project) {
-        with(target) {
-            with(pluginManager) {
-                apply("java-library")
-                apply("kotlin")
-            }
-
-            extensions.configure<JavaPluginExtension> {
-                configureJavaLibrary(this)
-            }
-        }
-    }
+internal fun LibraryAndroidComponentsExtension.disableUnnecessaryAndroidTests(
+    project: Project,
+) = beforeVariants {
+    it.enableAndroidTest = it.enableAndroidTest
+            && project.projectDir.resolve("src/androidTest").exists()
 }

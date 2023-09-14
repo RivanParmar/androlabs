@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     `kotlin-dsl`
 }
@@ -7,6 +9,11 @@ group = "com.rivan.androlabs.buildlogic"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
 }
 
 dependencies {
@@ -54,9 +61,9 @@ gradlePlugin {
             id = "androlabs.android.application.flavors"
             implementationClass = "AndroidAppFlavorsConventionPlugin"
         }
-        register("javaLibrary") {
-            id = "androlabs.java.library"
-            implementationClass = "JavaLibraryConventionPlugin"
+        register("jvmLibrary") {
+            id = "androlabs.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
         }
     }
 }
