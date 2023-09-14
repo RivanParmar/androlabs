@@ -51,3 +51,5 @@ include(":platform:wizard:template-impl")
 include(":platform:core-api")
 
 include(":platform:project-api")
+
+include(":platform:language-api")
