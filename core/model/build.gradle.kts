@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("kotlin")
+    id("androlabs.jvm.library")
 }
 
 dependencies {
