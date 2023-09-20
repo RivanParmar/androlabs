@@ -55,7 +55,7 @@ import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 // TODO: Optimize if possible
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun EditorTab(
+internal fun EditorTab(
     selected: Boolean,
     fileIcon: ImageVector,
     enabled: Boolean = true,
