@@ -46,4 +46,7 @@ class UserSettingsRepositoryImpl @Inject constructor(
         userPreferencesDataSource.setSavePath(savePath)
     }
 
+    override suspend fun setLiteModePreference(liteModeEnabled: Boolean) {
+        userPreferencesDataSource.setLiteModePreference(liteModeEnabled)
+    }
 }

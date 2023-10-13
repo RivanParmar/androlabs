@@ -15,4 +15,5 @@ message UserPreferences {
   bool use_dynamic_color = 4;
 
   string save_path = 5;
+  bool lite_mode_enabled = 6;
 }

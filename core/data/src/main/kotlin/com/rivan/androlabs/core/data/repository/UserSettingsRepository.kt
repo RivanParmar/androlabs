@@ -47,4 +47,9 @@ interface UserSettingsRepository {
      * Sets the common path for saving the labs.
      */
     suspend fun setSavePath(savePath: String)
+
+    /**
+     * Sets the preferred lite mode config.
+     */
+    suspend fun setLiteModePreference(liteModeEnabled: Boolean)
 }

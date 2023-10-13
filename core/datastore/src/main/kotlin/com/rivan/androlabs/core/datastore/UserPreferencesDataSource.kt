@@ -50,7 +50,8 @@ class UserPreferencesDataSource @Inject constructor(
                 },
                 useDynamicColor = it.useDynamicColor,
 
-                savePath = it.savePath
+                savePath = it.savePath,
+                liteModeEnabled = it.liteModeEnabled
             )
         }
 
@@ -90,6 +91,14 @@ class UserPreferencesDataSource @Inject constructor(
         userPreferences.updateData {
             it.copy {
                 this.savePath = savePath
+            }
+        }
+    }
+
+    suspend fun setLiteModePreference(liteModeEnabled: Boolean) {
+        userPreferences.updateData {
+            it.copy {
+                this.liteModeEnabled = liteModeEnabled
             }
         }
     }

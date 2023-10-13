@@ -9,4 +9,5 @@ data class UserSettings(
     val useDynamicColor: Boolean,
 
     val savePath: String,
+    val liteModeEnabled: Boolean,
 )
