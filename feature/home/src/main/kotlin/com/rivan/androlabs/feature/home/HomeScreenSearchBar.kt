@@ -50,6 +50,7 @@ internal fun HomeScreenSearchBar(
     text: String,
     active: Boolean,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
+    onAccountButtonClick: () -> Unit,
     onSearch: (String) -> Unit,
     onTextChange: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
@@ -66,7 +67,7 @@ internal fun HomeScreenSearchBar(
 
     val trailingIcon = @Composable {
         if (!active) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onAccountButtonClick) {
                 Icon(imageVector = ALIcons.Account, contentDescription = null)
             }
         }

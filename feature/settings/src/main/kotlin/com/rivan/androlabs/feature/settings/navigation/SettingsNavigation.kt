@@ -15,7 +15,7 @@ private const val settingsGraphRoutePattern = "settings_graph"
 const val settingsRoute = "settings_route"
 
 fun NavController.navigateToSettingsGraph(navOptions: NavOptions? = null) {
-    this.navigate(settingsGraphRoutePattern, navOptions)
+    this.navigate(settingsRoute, navOptions)
 }
 
 fun NavGraphBuilder.settingsScreen(

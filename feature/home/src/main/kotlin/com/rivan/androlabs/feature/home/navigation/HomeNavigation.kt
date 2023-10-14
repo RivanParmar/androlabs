@@ -35,6 +35,7 @@ fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
     listType: ListType,
     displayFeatures: List<DisplayFeature>,
+    onSearchBarTrailingIconClick: () -> Unit,
     onFABClick: () -> Unit,
 ) {
     composable(route = homeNavigationRoute) {
@@ -42,6 +43,7 @@ fun NavGraphBuilder.homeScreen(
             contentType = contentType,
             listType = listType,
             displayFeatures = displayFeatures,
+            onAccountButtonClick = onSearchBarTrailingIconClick,
             onFABClick = onFABClick,
         )
     }

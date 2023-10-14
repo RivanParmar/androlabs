@@ -13,6 +13,7 @@ import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
 import com.rivan.androlabs.feature.home.navigation.homeScreen
 import com.rivan.androlabs.feature.nlw.navigation.navigateToNlw
 import com.rivan.androlabs.feature.nlw.navigation.nlwScreen
+import com.rivan.androlabs.feature.settings.navigation.navigateToSettingsGraph
 import com.rivan.androlabs.feature.settings.navigation.settingsScreen
 import com.rivan.androlabs.ui.AndrolabsAppState
 
@@ -55,6 +56,10 @@ fun MainActivityNavHost(
             contentType = appState.contentType,
             listType = appState.listType,
             displayFeatures = appState.displayFeatures,
+            onSearchBarTrailingIconClick = {
+                // TODO: This is only for now until the UI has been completed
+                navController.navigateToSettingsGraph()
+            },
             onFABClick = {
                 // Ask the user to select a common path for saving the labs
                 if (askToSelectSavePath) {
