@@ -41,7 +41,7 @@ include(":build-tools:jaxp:xml")
 include(":build-tools:kotlinc")
 
 include(":build-tools:builder-core")
-include(":build-tools:build-logic")
+include(":build-tools:build-logic")*/
 
 include(":build-tools:project")*/
 
