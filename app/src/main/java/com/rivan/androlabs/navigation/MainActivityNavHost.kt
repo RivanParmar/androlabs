@@ -30,14 +30,20 @@ fun MainActivityNavHost(
     startDestination: String = homeNavigationRoute,
     askToSelectSavePath: Boolean = false,
     context: Context = LocalContext.current,
+    // TODO: Save the path to the folder once the user has selected it
     updateSavePath: (String) -> Unit,
 ) {
+    // TODO: Handle use case when user does not select anything
+    //  In such a case we could either show an AlertDialog or a Snackbar
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree()
     ) {
-        context.contentResolver.takePersistableUriPermission(
-            it!!, (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        )
+        if (it != null) {
+            context.contentResolver.takePersistableUriPermission(
+                it,
+                (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            )
+        }
     }
 
     NavHost(

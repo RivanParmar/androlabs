@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun ALScaffold(
     modifier: Modifier = Modifier,
+    snackbarHost: @Composable () -> Unit = {},
     // TODO: Set this color to `Color.Transparent` and wrap the Scaffold with ALBackground once
     //  the final theme has been selected
     containerColor: Color = MaterialTheme.colorScheme.background,
@@ -37,6 +38,7 @@ fun ALScaffold(
 ) {
     Scaffold(
         modifier = modifier,
+        snackbarHost = snackbarHost,
         containerColor = containerColor,
         contentColor = contentColor,
         contentWindowInsets = WindowInsets(0, 0, 0, 0),

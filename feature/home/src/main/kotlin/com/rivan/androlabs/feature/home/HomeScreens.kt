@@ -48,7 +48,6 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
@@ -88,14 +87,15 @@ internal fun HomeScreenLabsGrid(
     onFloatingActionButtonClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
 ) {
-    var text by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
+    var searchBarIsActive by remember { mutableStateOf(false) }
 
     // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
     ALScaffold(
         floatingActionButton = {
+            // Hide the FAB in case the search bar is active and the screen size is small
             // TODO: Animate this!
-            if ((!active && contentType == ContentType.SINGLE_PANE)
+            if ((!searchBarIsActive && contentType == ContentType.SINGLE_PANE)
                 || (contentType == ContentType.DUAL_PANE)) {
                 ALFloatingActionButton(
                     onClick = onFloatingActionButtonClick,
@@ -126,12 +126,12 @@ internal fun HomeScreenLabsGrid(
             //  based on scrolling of content similar to the FAB.
             HomeScreenSearchBar(
                 contentType = contentType,
-                text = text,
-                active = active,
+                text = searchQuery,
+                active = searchBarIsActive,
                 recentSearchQueriesUiState = recentSearchQueriesUiState,
                 onSearch = onSearch,
-                onTextChange = { text = it },
-                onActiveChange = { active = it },
+                onTextChange = { searchQuery = it },
+                onActiveChange = { searchBarIsActive = it },
             )
 
             if (isSyncing || labFeedUIState.loading) {
@@ -163,7 +163,7 @@ internal fun HomeScreenLabsGrid(
                             labFeedUIState = labFeedUIState,
                             contentType = contentType,
                             onClick = { labId, screenContentType ->
-                                active = false
+                                searchBarIsActive = false
                                 navigateToDetail(labId, screenContentType)
                             },
                         )
@@ -195,7 +195,7 @@ internal fun HomeScreenLabsGrid(
                             labFeedUIState = labFeedUIState,
                             contentType = contentType,
                             onClick = { labId, screenContentType ->
-                                active = false
+                                searchBarIsActive = false
                                 navigateToDetail(labId, screenContentType)
                             },
                         )
