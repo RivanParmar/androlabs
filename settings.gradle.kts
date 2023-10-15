@@ -36,6 +36,7 @@ include(":feature:settings")
 include(":sync:work")
 
 include(":build-tools:core-runtime:base-annotations")
+include(":build-tools:core-runtime:build-options")
 include(":build-tools:core-runtime:cli")
 include(":build-tools:core-runtime:messaging")
 
