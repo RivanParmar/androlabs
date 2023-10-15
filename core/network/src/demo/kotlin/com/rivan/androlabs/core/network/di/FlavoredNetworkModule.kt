@@ -28,5 +28,5 @@ import dagger.hilt.components.SingletonComponent
 interface FlavoredNetworkModule {
 
     @Binds
-    fun FakeAndrolabsNetworkDataSource.binds(): AndrolabsNetworkDataSource
+    fun binds(impl: FakeAndrolabsNetworkDataSource): AndrolabsNetworkDataSource
 }
