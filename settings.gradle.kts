@@ -35,6 +35,8 @@ include(":feature:settings")
 
 include(":sync:work")
 
+include(":build-tools:core-runtime:cli")
+
 /*include(":build-tools:javac")
 include(":build-tools:jaxp:internal")
 include(":build-tools:jaxp:xml")
