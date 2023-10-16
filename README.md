@@ -11,5 +11,6 @@ The Androlabs project is available under the [Apache-2.0](/LICENSE) license.
 ## Special Thanks
 - [NowInAndroid](https://www.github.com/android/nowinandroid)
 - [Android Studio](https://cs.android.com/android-studio)
+- [Gradle](https://www.github.com/gradle/gradle)
 
 [^1]: Kotlin is the main language used in app development, while Java is used in compiler code.
