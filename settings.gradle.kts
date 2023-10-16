@@ -35,6 +35,7 @@ include(":feature:settings")
 
 include(":sync:work")
 
+include(":build-tools:gradle-base-services-groovy")
 include(":build-tools:gradle-build-operations")
 include(":build-tools:gradle-core-runtime:base-annotations")
 include(":build-tools:gradle-core-runtime:base-services")
