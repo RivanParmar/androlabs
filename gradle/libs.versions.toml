@@ -13,7 +13,6 @@ androidxEspresso = "3.5.1"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle = "2.6.2"
 androidxNavigation = "2.7.4"
-#androidxSavedState = "1.2.1"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxTestRunner = "1.5.2"
@@ -38,6 +37,7 @@ ksp = "1.9.10-1.0.13"
 protobuf = "3.24.4"
 protobufPlugin = "0.9.4"
 room = "2.5.2"
+slf4j = "2.0.9"
 
 [libraries]
 accompanist-adaptive = { group = "com.google.accompanist", name = "accompanist-adaptive", version.ref = "accompanist" }
@@ -106,6 +106,7 @@ protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref 
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
 # Dependencies of the included build-plugins
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
