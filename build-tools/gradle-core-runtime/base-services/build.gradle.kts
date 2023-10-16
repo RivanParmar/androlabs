@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":build-tools:core-runtime:base-annotations"))
+    implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
 
     implementation(libs.guava)
 }

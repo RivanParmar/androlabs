@@ -19,9 +19,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":build-tools:core-runtime:base-annotations"))
-    implementation(project(":build-tools:core-runtime:cli"))
-    implementation(project(":build-tools:core-runtime:messaging"))
+    implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
+    implementation(project(":build-tools:gradle-core-runtime:cli"))
+    implementation(project(":build-tools:gradle-core-runtime:messaging"))
 
     implementation(libs.apache.commons.lang)
 }
