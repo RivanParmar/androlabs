@@ -5,5 +5,5 @@ plugins {
 dependencies {
     implementation(project(":build-tools:core-runtime:base-annotations"))
     implementation(project(":build-tools:core-runtime:base-services"))
-    implementation(project(":build-tools:build-operations"))
+    implementation(project(":build-tools:gradle-build-operations"))
 }
