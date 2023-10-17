@@ -41,6 +41,7 @@ include(":build-tools:gradle-core-runtime:base-annotations")
 include(":build-tools:gradle-core-runtime:base-services")
 include(":build-tools:gradle-core-runtime:build-option")
 include(":build-tools:gradle-core-runtime:cli")
+include(":build-tools:gradle-core-runtime:file-temp")
 include(":build-tools:gradle-core-runtime:files")
 include(":build-tools:gradle-core-runtime:messaging")
 
