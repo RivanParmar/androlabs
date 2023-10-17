@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":build-tools:gradle-build-operations"))
     implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
 
     implementation("commons-io:commons-io:2.14.0")
