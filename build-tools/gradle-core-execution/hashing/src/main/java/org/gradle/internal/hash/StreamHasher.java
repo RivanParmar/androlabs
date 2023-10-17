@@ -13,14 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.gradle.internal.hash;
 
-package org.gradle.internal.classloader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import org.gradle.internal.hash.HashCode;
+public interface StreamHasher {
+    /**
+     * Returns the hash of the given input stream. The stream will not be closed by the method.
+     */
+    HashCode hash(InputStream inputStream);
 
-/**
- * Mixed into a ClassLoader implementation to allow the implementation hash of a  ClassLoader to be queried
- */
-public interface ImplementationHashAware {
-    HashCode getImplementationHash();
+    /**
+     * Returns the hash of the given input stream while copying the data to the output stream.
+     * The method will not close either stream.
+     */
+    HashCode hashCopy(InputStream inputStream, OutputStream outputStream) throws IOException;
 }

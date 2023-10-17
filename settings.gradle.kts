@@ -38,19 +38,20 @@ include(":sync:work")
 include(":build-tools:gradle-base-services-groovy")
 include(":build-tools:gradle-build-operations")
 
-include(":build-tools:gradle-core-runtime:base-annotations")
-include(":build-tools:gradle-core-runtime:base-services")
-include(":build-tools:gradle-core-runtime:build-option")
-include(":build-tools:gradle-core-runtime:cli")
-include(":build-tools:gradle-core-runtime:file-temp")
-include(":build-tools:gradle-core-runtime:files")
-include(":build-tools:gradle-core-runtime:functional")
-include(":build-tools:gradle-core-runtime:messaging")
+buildTool("gradle-core-execution") {
+    subproject("hashing")
+}
 
-/*include(":build-tools:javac")
-include(":build-tools:jaxp:internal")
-include(":build-tools:jaxp:xml")
-include(":build-tools:kotlinc")
+buildTool("gradle-core-runtime") {
+    subproject("base-annotations")
+    subproject("base-services")
+    subproject("build-option")
+    subproject("cli")
+    subproject("file-temp")
+    subproject("files")
+    subproject("functional")
+    subproject("messaging")
+}
 
 include(":build-tools:builder-core")
 include(":build-tools:build-logic")*/
@@ -65,3 +66,22 @@ include(":platform:core-api")
 include(":platform:project-api")
 
 include(":platform:language-api")
+
+// region build-tools include DSL
+
+fun buildTool(buildToolName: String, buildToolConfiguration: BuildToolsScope.() -> Unit) =
+    BuildToolsScope("build-tools/$buildToolName").buildToolConfiguration()
+
+fun unassigned(buildToolConfiguration: BuildToolsScope.() -> Unit) =
+    BuildToolsScope("build-tools").buildToolConfiguration()
+
+class BuildToolsScope(
+    private val basePath: String
+) {
+    fun subproject(projectName: String) {
+        include(":build-tools:$projectName")
+        project(":build-tools:$projectName").projectDir = file("$basePath/$projectName")
+    }
+}
+
+// endregion

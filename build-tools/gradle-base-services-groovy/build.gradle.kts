@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
-    implementation(project(":build-tools:gradle-core-runtime:base-services"))
+    implementation(project(":build-tools:base-annotations"))
+    implementation(project(":build-tools:base-services"))
 
     implementation("org.codehaus.groovy:groovy:3.0.19")
 

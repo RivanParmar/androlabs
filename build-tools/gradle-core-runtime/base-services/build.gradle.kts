@@ -4,7 +4,8 @@ plugins {
 
 dependencies {
     implementation(project(":build-tools:gradle-build-operations"))
-    implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
+    implementation(project(":build-tools:hashing"))
+    implementation(project(":build-tools:base-annotations"))
 
     implementation("commons-io:commons-io:2.14.0")
     implementation("org.ow2.asm:asm:9.6")

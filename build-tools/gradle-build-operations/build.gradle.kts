@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":build-tools:gradle-core-runtime:base-annotations"))
+    implementation(project(":build-tools:base-annotations"))
 
     implementation(libs.slf4j)
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2023 Rivan Parmar
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.gradle.internal.hash;
 
-plugins {
-    id("androlabs.jvm.library")
-}
+import org.gradle.internal.service.scopes.Scopes;
+import org.gradle.internal.service.scopes.ServiceScope;
 
-dependencies {
-    implementation(project(":build-tools:base-annotations"))
-    implementation(project(":build-tools:cli"))
-    implementation(project(":build-tools:messaging"))
+import java.io.File;
 
-    implementation(libs.apache.commons.lang)
+@ServiceScope(Scopes.BuildSession.class)
+public interface ChecksumService {
+    HashCode md5(File file);
+
+    HashCode sha1(File file);
+
+    HashCode sha256(File file);
+
+    HashCode sha512(File file);
+
+    HashCode hash(File src, String algorithm);
 }

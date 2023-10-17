@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.gradle.internal.hash;
 
-package org.gradle.internal.classloader;
+import java.io.File;
 
-import org.gradle.internal.classpath.ClassPath;
-import org.gradle.internal.hash.HashCode;
-
-public interface ClasspathHasher {
+public interface FileHasher {
     /**
-     * Returns a strong hash for a given classpath.
+     * Returns the hash of the current content of the given file. The provided file must exist and be a file (rather than, say, a directory).
      */
-    HashCode hash(ClassPath classpath);
+    HashCode hash(File file);
+
+    /**
+     * Returns the hash of the current content of the given file, assuming the given file metadata. The provided file must exist and be a file (rather than, say, a directory).
+     */
+    HashCode hash(File file, long length, long lastModified);
 }
