@@ -37,12 +37,14 @@ include(":sync:work")
 
 include(":build-tools:gradle-base-services-groovy")
 include(":build-tools:gradle-build-operations")
+
 include(":build-tools:gradle-core-runtime:base-annotations")
 include(":build-tools:gradle-core-runtime:base-services")
 include(":build-tools:gradle-core-runtime:build-option")
 include(":build-tools:gradle-core-runtime:cli")
 include(":build-tools:gradle-core-runtime:file-temp")
 include(":build-tools:gradle-core-runtime:files")
+include(":build-tools:gradle-core-runtime:functional")
 include(":build-tools:gradle-core-runtime:messaging")
 
 /*include(":build-tools:javac")
