@@ -17,3 +17,9 @@
 plugins {
     id("androlabs.jvm.library")
 }
+
+description = "Common shared annotations"
+
+dependencies {
+    api(libs.jsr305)
+}

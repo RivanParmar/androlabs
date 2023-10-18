@@ -17,3 +17,5 @@
 plugins {
     id("androlabs.jvm.library")
 }
+
+description = "Utilities for parsing command line arguments"

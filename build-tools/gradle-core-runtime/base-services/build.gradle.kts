@@ -2,15 +2,16 @@ plugins {
     id("androlabs.jvm.library")
 }
 
+description = "A set of generic services and utilities."
+
 dependencies {
-    implementation(project(":build-tools:gradle-build-operations"))
-    implementation(project(":build-tools:hashing"))
-    implementation(project(":build-tools:base-annotations"))
+    api(project(":build-tools:base-annotations"))
+    api(project(":build-tools:hashing"))
+    api(project(":build-tools:gradle-build-operations"))
 
-    implementation("commons-io:commons-io:2.14.0")
-    implementation("org.ow2.asm:asm:9.6")
-
-    implementation(libs.apache.commons.lang)
+    implementation(libs.apache.commons.lang3)
+    implementation(libs.asm)
+    implementation(libs.commons.io)
     implementation(libs.guava)
     implementation(libs.javax.inject)
     implementation(libs.slf4j)

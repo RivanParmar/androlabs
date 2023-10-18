@@ -2,8 +2,8 @@ plugins {
     id("androlabs.jvm.library")
 }
 
+description = "Tools to work with functional code, including data structures"
+
 dependencies {
-    // TODO: The guava library isn't necessary here. It has to be added only because of
-    //  `javax.annotation.CheckReturnValue` and other annotations.
-    implementation(libs.guava)
+    implementation(project(":build-tools:base-annotations"))
 }

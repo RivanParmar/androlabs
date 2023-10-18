@@ -2,11 +2,10 @@ plugins {
     id("androlabs.jvm.library")
 }
 
+description = "Implementation of messaging between Gradle processes"
+
 dependencies {
-    implementation(project(":build-tools:base-annotations"))
     implementation(project(":build-tools:base-services"))
-    implementation(project(":build-tools:gradle-build-operations"))
-    implementation(project(":build-tools:hashing"))
 
     implementation(libs.guava)
     implementation(libs.slf4j)

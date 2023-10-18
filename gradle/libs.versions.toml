@@ -19,8 +19,10 @@ androidxTestRunner = "1.5.2"
 androidxTestRules = "1.5.0"
 androidxWindowManager = "1.1.0"
 androidxWork = "2.9.0-beta01"
-apacheCommonsLang = "3.13.0"
+apacheCommonsLang3 = "3.13.0"
+asm = "9.6"
 coil = "2.4.0"
+commonsIo = "2.14.0"
 firebaseBom = "32.3.1"
 firebaseCrashlyticsPlugin = "2.9.9"
 gmsPlugin = "4.4.0"
@@ -30,6 +32,7 @@ hilt = "2.48.1"
 hiltExt = "1.0.0"
 javaxInject = "1"
 junit4 = "4.13.2"
+jsr305 = "3.0.2"
 kotlin = "1.9.10"
 kotlinxCoroutines = "1.7.3"
 kotlinxDatetime = "0.4.1"
@@ -79,10 +82,12 @@ androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "
 androidx-window-manager = {module = "androidx.window:window", version.ref = "androidxWindowManager"}
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
-apache-commons-lang = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apacheCommonsLang" }
+apache-commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apacheCommonsLang3" }
+asm = { group = "org.ow2.asm", name = "asm", version.ref = "asm" }
 coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref="firebaseBom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
@@ -97,6 +102,7 @@ hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.r
 hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
+jsr305 = { group = "com.google.code.findbugs", name = "jsr305", version.ref = "jsr305" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }

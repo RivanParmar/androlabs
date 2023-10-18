@@ -22,6 +22,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.meta.TypeQualifierDefault;
+
 /**
  * Marks a type or a whole package as providing a non-null API by default.
  *
@@ -33,6 +37,8 @@ import java.lang.annotation.Target;
  * @since 4.2
  */
 @Target({ElementType.TYPE, ElementType.PACKAGE})
+@Nonnull
+@TypeQualifierDefault({ElementType.METHOD, ElementType.PARAMETER})
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NonNullApi {

@@ -2,12 +2,11 @@ plugins {
     id("androlabs.jvm.library")
 }
 
+description = "Utilities for working with temporary files & directories"
+
 dependencies {
     implementation(project(":build-tools:base-annotations"))
     implementation(project(":build-tools:base-services"))
 
-    // TODO: The guava library isn't necessary here. It has to be added only because of
-    //  `javax.annotation.CheckReturnValue`.
-    implementation(libs.guava)
     implementation(libs.javax.inject)
 }
