@@ -50,6 +50,7 @@ unassigned {
 buildTool("gradle-core-configuration") {
     subproject("base-services-groovy")
     subproject("model-core")
+    subproject("model-groovy")
 }
 
 buildTool("gradle-core-execution") {
