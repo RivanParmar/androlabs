@@ -61,6 +61,7 @@ buildTool("gradle-core-runtime") {
     subproject("messaging")
     subproject("native")
     subproject("process-services")
+    subproject("wrapper-shared")
 }
 
 include(":build-tools:builder-core")
