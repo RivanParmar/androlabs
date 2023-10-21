@@ -55,6 +55,7 @@ buildTool("gradle-core-configuration") {
 }
 
 buildTool("gradle-core-execution") {
+    subproject("build-cache")
     subproject("build-cache-base")
     subproject("file-watching")
     subproject("hashing")
