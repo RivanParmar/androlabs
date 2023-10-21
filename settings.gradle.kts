@@ -76,6 +76,10 @@ buildTool("gradle-ide") {
     subproject("problems")
 }
 
+buildTool("gradle-software") {
+    subproject("resources")
+}
+
 include(":platform:wizard:template-api")
 include(":platform:wizard:template-impl")
 
