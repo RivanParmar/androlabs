@@ -10,6 +10,13 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        maven {
+            name = "Gradle public repository"
+            url = uri("https://repo.gradle.org/gradle/public")
+        }
+        maven {
+            url = uri("https://releases.usethesource.io/maven/")
+        }
         mavenCentral()
     }
 }
@@ -50,6 +57,7 @@ buildTool("gradle-core-runtime") {
     subproject("file-temp")
     subproject("files")
     subproject("functional")
+    subproject("logging-api")
     subproject("messaging")
 }
 
