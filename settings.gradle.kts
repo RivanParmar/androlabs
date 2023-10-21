@@ -69,7 +69,9 @@ buildTool("gradle-enterprise") {
     subproject("enterprise-workers")
 }
 
-include(":build-tools:project")*/
+buildTool("gradle-ide") {
+    subproject("problems")
+}
 
 include(":platform:wizard:template-api")
 include(":platform:wizard:template-impl")
