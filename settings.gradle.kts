@@ -108,6 +108,7 @@ buildTool("gradle-software") {
     subproject("resources")
     subproject("resources-http")
     subproject("security")
+    subproject("testing-base")
 }
 
 include(":platform:wizard:template-api")
