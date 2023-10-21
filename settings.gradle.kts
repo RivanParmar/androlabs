@@ -76,6 +76,10 @@ buildTool("gradle-ide") {
     subproject("problems")
 }
 
+buildTool("gradle-jvm") {
+    subproject("normalization-java")
+}
+
 buildTool("gradle-software") {
     subproject("resources")
 }
