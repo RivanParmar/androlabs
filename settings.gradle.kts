@@ -65,6 +65,7 @@ buildTool("gradle-core-runtime") {
 }
 
 buildTool("gradle-enterprise") {
+    subproject("enterprise-operations")
     subproject("enterprise-workers")
 }
 
