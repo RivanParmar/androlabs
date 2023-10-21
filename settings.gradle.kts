@@ -47,6 +47,7 @@ unassigned {
     subproject("gradle-build-operations")
     subproject("gradle-core")
     subproject("gradle-core-api")
+    subproject("gradle-plugin-use")
 }
 
 buildTool("gradle-core-configuration") {
