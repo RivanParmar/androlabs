@@ -59,6 +59,7 @@ buildTool("gradle-core-runtime") {
     subproject("functional")
     subproject("logging-api")
     subproject("messaging")
+    subproject("native")
 }
 
 include(":build-tools:builder-core")
