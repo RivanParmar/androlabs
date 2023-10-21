@@ -93,6 +93,7 @@ buildTool("gradle-enterprise") {
 
 buildTool("gradle-ide") {
     subproject("problems")
+    subproject("tooling-api")
 }
 
 buildTool("gradle-jvm") {
