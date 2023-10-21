@@ -98,6 +98,7 @@ buildTool("gradle-jvm") {
 
 buildTool("gradle-software") {
     subproject("resources")
+    subproject("security")
 }
 
 include(":platform:wizard:template-api")
