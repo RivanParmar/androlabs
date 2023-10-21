@@ -73,6 +73,7 @@ buildTool("gradle-core-runtime") {
     subproject("file-temp")
     subproject("files")
     subproject("functional")
+    subproject("internal-instrumentation-api")
     subproject("logging")
     subproject("logging-api")
     subproject("messaging")
