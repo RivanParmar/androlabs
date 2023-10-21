@@ -44,6 +44,7 @@ include(":sync:work")
 
 unassigned {
     subproject("gradle-build-operations")
+    subproject("gradle-core")
     subproject("gradle-core-api")
 }
 
