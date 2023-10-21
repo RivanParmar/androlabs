@@ -100,6 +100,7 @@ buildTool("gradle-jvm") {
 }
 
 buildTool("gradle-software") {
+    subproject("reporting")
     subproject("resources")
     subproject("resources-http")
     subproject("security")
