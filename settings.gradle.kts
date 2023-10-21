@@ -92,6 +92,7 @@ buildTool("gradle-ide") {
 }
 
 buildTool("gradle-jvm") {
+    subproject("jvm-services")
     subproject("normalization-java")
 }
 
