@@ -60,6 +60,7 @@ buildTool("gradle-core-runtime") {
     subproject("logging-api")
     subproject("messaging")
     subproject("native")
+    subproject("process-services")
 }
 
 include(":build-tools:builder-core")
