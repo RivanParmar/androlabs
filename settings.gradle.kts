@@ -64,8 +64,9 @@ buildTool("gradle-core-runtime") {
     subproject("wrapper-shared")
 }
 
-include(":build-tools:builder-core")
-include(":build-tools:build-logic")*/
+buildTool("gradle-enterprise") {
+    subproject("enterprise-workers")
+}
 
 include(":build-tools:project")*/
 
