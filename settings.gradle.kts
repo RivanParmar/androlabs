@@ -48,6 +48,7 @@ include(":build-tools:gradle-build-operations")
 buildTool("gradle-core-execution") {
     subproject("build-cache-base")
     subproject("hashing")
+    subproject("snapshots")
 }
 
 buildTool("gradle-core-runtime") {
