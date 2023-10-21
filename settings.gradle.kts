@@ -66,6 +66,7 @@ buildTool("gradle-core-execution") {
     subproject("persistent-cache")
     subproject("snapshots")
     subproject("worker-processes")
+    subproject("workers")
 }
 
 buildTool("gradle-core-runtime") {
