@@ -42,8 +42,14 @@ include(":feature:settings")
 
 include(":sync:work")
 
-include(":build-tools:gradle-base-services-groovy")
-include(":build-tools:gradle-build-operations")
+unassigned {
+    subproject("gradle-build-operations")
+    subproject("gradle-core-api")
+}
+
+buildTool("gradle-core-configuration") {
+    subproject("base-services-groovy")
+}
 
 buildTool("gradle-core-execution") {
     subproject("build-cache-base")
