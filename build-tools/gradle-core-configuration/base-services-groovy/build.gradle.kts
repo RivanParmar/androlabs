@@ -2,11 +2,11 @@ plugins {
     id("androlabs.jvm.library")
 }
 
+description = "A set of generic services and utilities specific for Groovy."
+
 dependencies {
-    implementation(project(":build-tools:base-annotations"))
     implementation(project(":build-tools:base-services"))
 
-    implementation("org.codehaus.groovy:groovy:3.0.19")
-
+    implementation(libs.groovy)
     implementation(libs.guava)
 }

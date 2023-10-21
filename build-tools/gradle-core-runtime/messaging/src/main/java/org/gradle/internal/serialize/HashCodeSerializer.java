@@ -1,6 +1,6 @@
 package org.gradle.internal.serialize;
 
-import com.google.common.hash.HashCode;
+import org.gradle.internal.hash.HashCode;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class HashCodeSerializer extends AbstractSerializer<HashCode> {
 
     @Override
     public void write(Encoder encoder, HashCode value) throws IOException {
-        byte[] hash = value.asBytes();
+        byte[] hash = value.toByteArray();
         encoder.writeByte((byte) hash.length);
         encoder.writeBytes(hash);
     }
