@@ -46,6 +46,7 @@ include(":build-tools:gradle-base-services-groovy")
 include(":build-tools:gradle-build-operations")
 
 buildTool("gradle-core-execution") {
+    subproject("build-cache-base")
     subproject("hashing")
 }
 
