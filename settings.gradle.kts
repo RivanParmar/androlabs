@@ -108,6 +108,7 @@ buildTool("gradle-jvm") {
     subproject("normalization-java")
     subproject("platform-jvm")
     subproject("plugins-java-base")
+    subproject("plugins-jvm-test-suite")
     subproject("testing-jvm")
     subproject("testing-jvm-infrastructure")
     subproject("toolchains-jvm")
