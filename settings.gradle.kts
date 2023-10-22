@@ -101,6 +101,7 @@ buildTool("gradle-ide") {
 
 buildTool("gradle-jvm") {
     subproject("jvm-services")
+    subproject("language-java")
     subproject("language-jvm")
     subproject("normalization-java")
     subproject("platform-jvm")
