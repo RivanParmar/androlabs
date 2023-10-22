@@ -50,6 +50,7 @@ unassigned {
     subproject("gradle-core-api")
     subproject("gradle-diagnostics")
     subproject("gradle-plugin-use")
+    subproject("gradle-plugins")
 }
 
 buildTool("gradle-core-configuration") {
