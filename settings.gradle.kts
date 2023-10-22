@@ -53,6 +53,7 @@ unassigned {
 
 buildTool("gradle-core-configuration") {
     subproject("base-services-groovy")
+    subproject("configuration-cache")
     subproject("file-collections")
     subproject("model-core")
     subproject("model-groovy")
