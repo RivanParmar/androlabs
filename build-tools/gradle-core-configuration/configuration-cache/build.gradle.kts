@@ -1,13 +1,5 @@
-/*repositories {
-    maven {
-        name = "Use the Source"
-        url = uri("https://releases.usethesource.io/maven")
-    }
-}*/
-
 plugins {
     id("androlabs.jvm.library")
-    id("kotlin")
 }
 
 description = "Configuration cache implementation"
