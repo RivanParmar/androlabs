@@ -136,6 +136,8 @@ include(":build-tools:agp-gradle-api")
 include(":build-tools:agp-gradle-core")
 include(":build-tools:agp-test-api")
 
+include(":build-tools:manifest-merger")
+
 include(":platform:wizard:template-api")
 include(":platform:wizard:template-impl")
 
