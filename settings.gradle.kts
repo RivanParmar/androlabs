@@ -131,6 +131,7 @@ buildTool("gradle-software") {
 }
 
 include(":build-tools:aaptcompiler")
+include(":build-tools:agp")
 include(":build-tools:agp-test-api")
 
 include(":platform:wizard:template-api")
