@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+option java_package = "com.android.build.gradle.internal.cxx.caching";
+option java_multiple_files = true;
+
+/**
+ * This is exactly the information we know from compile_commands.json before
+ * clang has been called to determine #include dependencies. This is the key
+ * needed to cache #include dependencies.
+ */
+message DependenciesKey {
+    // Path to the source file being compiled
+    string source_file = 1;
+    // The compiler flags
+    repeated string compiler_flags = 2;
+}
+
+/**
+ * String-table-encoded version of [DependenciesKey]
+ */
+message EncodedDependenciesKey {
+    // String ID of source file
+    int32 source_file_id = 1;
+    // List ID of compiler flags
+    int32 compiler_flags_id = 2;
+}
+
+/**
+ * This is the information available after clang has been called to
+ * compute the #include dependencies. This is the key needed to cache
+ * .cpp to .o translations.
+ */
+message ObjectFileKey {
+    //
+    DependenciesKey dependency_key = 1;
+    // Dependencies of an object file. Typically a .cpp followed by several .h
+    repeated string dependencies = 2;
+}
+
+/**
+ * String-table-encoded version of [ObjectFileKey]
+ */
+message EncodedObjectFileKey {
+    EncodedDependenciesKey dependency_key= 1;
+    repeated int32 dependency_ids = 2;
+}
+
+/**
+ * Information about the inputs and outputs of a particular source-to-object
+ * translation.
+ * Mainly, it contains the name of the [object_file] which is *not* part of
+ * the cache key.
+ */
+message Compilation {
+    // Working directory of the build (base folder when [object_file] is relative)
+    string working_directory = 1;
+    // Cache key for this source-to-object translation
+    ObjectFileKey object_file_key = 2;
+    // Location of the object file to produce
+    string object_file = 3;
+}
+
+/**
+ * String-table-encoded version of [Compilation]
+ */
+message EncodedCompilation {
+    int32 working_directory_id = 1;
+    EncodedObjectFileKey object_file_key = 2;
+    int32 object_file_id = 3;
+}
+
+/**
+ * Represents caching events for C/C++ source file to object file.
+ */
+message ObjectFileCacheEvent {
+    enum Outcome {
+        UNKNOWN = 0;
+
+        // An object file was loaded from cache
+        LOADED = 100;
+        // A load was attempted but the cache key didn't exist in the cache
+        NOT_LOADED_KEY_DIDNT_EXIST = 101;
+        // A load was attempted but the same object file already existed locally
+        NOT_LOADED_SAME_OBJECT_FILE_LOCALLY = 102;
+        // A load was attempted but we couldn't determine the #include dependencies
+        NOT_LOADED_DEPENDENCIES_NOT_KNOWN = 103;
+
+        // An object file was stored in the cache
+        STORED = 200;
+        // A store was attempted but the same value already existed in the cache
+        NOT_STORED_CACHE_ENTRY_ALREADY_EXISTED = 201;
+        // A store was attempted but clang didn't produce a .o file
+        NOT_STORED_COMPILER_DIDNT_PRODUCE_OBJECT_FILE = 202;
+        // A store was attempted but #include dependencies were not known
+        NOT_STORED_DEPENDENCIES_NOT_KNOWN = 203;
+        // A store was attempted but there was a dependency last-modified timestamp
+        // that was newer than the object file.
+        NOT_STORED_OBJECT_OLDER_THAN_DEPENDENCIES = 204;
+        // A store was attempted but the build failed.
+        NOT_STORED_BUILD_FAILED = 205;
+    }
+    // Load or store attempt outcome
+    Outcome outcome = 1;
+    // Human readable display like "hello-jni.c to hello-jni.c.o"
+    string key_display_name = 2;
+    // A hash code of the cache key. Looks like:
+    //   cxx/hello-jni.o/object/armv7-androideabi16/-O0/995113ff
+    string key_hash_code = 3;
+    // Information about the source-to-object compilation
+    Compilation compilation = 4;
+    // Same as [compilation] but file names have been replaced by
+    // the hashes of the corresponding files.
+    Compilation hashed_compilation = 5;
+}
+
+/**
+ * String-table-encoded version of [ObjectFileCacheEvent]
+ */
+message EncodedObjectFileCacheEvent {
+    ObjectFileCacheEvent.Outcome outcome = 1;
+    int32 key_display_name_id = 2;
+    int32 key_hash_code_id = 3;
+    EncodedCompilation compilation = 4;
+    EncodedCompilation hashed_compilation = 5;
+}
+
+
+

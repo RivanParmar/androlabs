@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_package = "com.android.build.gradle.internal.cxx.process";
+option java_multiple_files = true;
+
+/**
+ The C/C++ structured log record for recording process execution.
+
+ Note: This protobuf encodes the environment as two separate string lists,
+ one for keys and one for values. The reason for doing this rather than
+ having a distinct key-value protobuf is because the string encoder can
+ encode list of string as a single int but it can't do the same for
+ arbitrary types.
+ */
+message ExecuteProcess {
+    // The executable invoked to run the process
+    string executable = 1;
+    // The args passed to [executable]
+    repeated string args = 2;
+    // Context-defined description of the process
+    string description = 3;
+    // List of key names for the environment
+    repeated string environment_keys = 4;
+    // 1-to-1 list of values corresponding to key names
+    repeated string environment_values = 5;
+    // For JVM processes, the class path
+    string jvm_class_path = 6;
+    // For JVM processes, the entry point
+    string jvm_main_class = 7;
+    // For JVM processes, the arguments passed to JVM
+    repeated string jvm_args = 8;
+    // Result code from the process when it completed
+    int32 exit_code = 9;
+}
+
+/**
+ String and string list encoded version of [ExecuteProcess].
+ */
+message EncodedExecuteProcess {
+    int32 executable_id = 1;
+    int32 args_id = 2;
+    int32 description_id = 3;
+    int32 environment_keys_id = 4;
+    int32 environment_values_id = 5;
+    int32 jvm_class_path_id = 6;
+    int32 jvm_main_class_id = 7;
+    int32 jvm_args_id = 8;
+    int32 exit_code = 9;
+}

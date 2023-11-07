@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+option java_package = "com.android.tools.idea.insights.proto";
+option java_multiple_files = true;
+
+
+// The VCS software used.
+enum VersionControlSystem {
+  // Unknown
+  VERSION_CONTROL_SYSTEM_UNSPECIFIED = 0;
+  // Git SCM
+  GIT = 1;
+  // Subversion revision
+  SVN = 2;
+  // Mercurial
+  HG = 3;
+  // Perforce
+  PERFORCE = 4;
+}
+
+// Describes the location, status and the HEAD revision of an app's source code
+// repository.
+message RepositoryInfo {
+  // Status of the working tree.
+  enum WorktreeStatus {
+    WORKTREE_STATUS_UNSPECIFIED = 0;
+    // Clean. No uncommitted modifications or files.
+    WORKTREE_STATUS_CLEAN = 1;
+    // Dirty. One or more uncommitted modifications or files.
+    WORKTREE_STATUS_DIRTY = 2;
+  }
+  // VC system used by the app.
+  optional VersionControlSystem system = 1;
+  // The local repository path starts with the “$PROJECT_DIR” or “$ABOVE_PROJECT_DIR” placeholder.
+  optional string local_root_path = 2;
+  // The revision identifier, e.g. the SHA1 git commit id
+  optional string revision = 3;
+  // Status of the working tree this app was built from.
+  optional WorktreeStatus worktree_status = 4;
+}
+
+// Describes the general build info from the building process.
+message BuildInfo {
+  // ID of the build job which created this bundle.
+  optional string job_id = 1;
+  // URL to the build job which created this bundle. Does not need to be public,
+  // and probably will not be.
+  optional string job_url = 2;
+  // ID for the specific build, e.g. a UUID.
+  optional string build_id = 3;
+  // Build label: an arbitrary string set by the build system. May be used to
+  // embed a release label.
+  optional string label = 4;
+  // Time at which the build was started.
+  optional google.protobuf.Timestamp build_timestamp = 5;
+}
+
+// Describes the version control system used by the app and extra build info from the
+// building process.
+message BuildStamp {
+  enum GenerateErrorReason {
+    UNSPECIFIED = 0;
+    NO_SUPPORTED_VCS_FOUND = 1;
+    NO_VALID_GIT_FOUND = 2;
+  }
+  // Info for all the VCS repositories included in the app.
+  repeated RepositoryInfo repositories = 1;
+  // Build system data.
+  optional BuildInfo build_info = 2;
+  // Extra debug info which will help users identify issues
+  optional GenerateErrorReason generate_error_reason = 3;
+}

@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+option java_package = "com.android.build.gradle.internal.cxx.configure";
+option java_multiple_files = true;
+
+// Records information about the decision to re-run C++ configuration.
+message ConfigureInvalidationState {
+    // ------------------------------------------------------------------------
+    // Inputs
+    // ------------------------------------------------------------------------
+    // Whether a forced-regeneration of C++ configuration phase was requested.
+    bool force_configure = 1;
+    // File that contains finger print of files as they were after the last
+    // configure phase.
+    string finger_print_file = 2;
+    // Inputs to the C++ configuration phase.
+    repeated string input_files = 3;
+    // Required outputs of the C++ configuration phase.
+    repeated string required_output_files = 4;
+    // Optional outputs of the C++ configuration phase.
+    repeated string optional_output_files = 5;
+    // Files that, when changed, will cause a complete re-run of C++
+    // configuration starting with the deletion of the configuration folder.
+    repeated string hard_configure_files = 6;
+    // ------------------------------------------------------------------------
+    // Derived from inputs on local file system before configure
+    // ------------------------------------------------------------------------
+    // Whether the finger print file existed (and was valid).
+    bool finger_print_file_existed = 7;
+    // Files that were listed in fingerprints file last time but not this time.
+    repeated string removed_since_finger_prints_files = 8;
+    // Files that were not listed in fingerprints file last time but are present
+    // this time.
+    repeated string added_since_finger_prints_files = 9;
+    repeated ChangedFile changes_to_finger_print_files = 10;
+    repeated string unchanged_finger_print_files = 11;
+    // ------------------------------------------------------------------------
+    // Reasons for configure and whether that configure is hard (delete folder)
+    // ------------------------------------------------------------------------
+    // Whether to configure C/C++ and what type of configure it should be.
+    ConfigureType configure_type = 12;
+    // List of reasons to rerun configure C++.
+    repeated ChangedFile soft_configure_reasons = 13;
+    // List of reasons that it should be a hard configure.
+    repeated ChangedFile hard_configure_reasons = 14;
+}
+
+// Whether to configure C/C++ and what type of configure it should be.
+enum ConfigureType {
+    UNKNOWN_CONFIGURE_TYPE = 0;
+    // No configure is needed.
+    NO_CONFIGURE = 1;
+    // Okay to run C/C++ configure without first deleting the configure
+    // output folder.
+    SOFT_CONFIGURE = 2;
+    // Configure also requires first deleting the configure output folder.
+    HARD_CONFIGURE = 3;
+}
+
+message EncodedConfigureInvalidationState {
+    bool force_configure = 1;
+    int32 finger_print_file = 2;
+    int32 input_files = 3;
+    int32 required_output_files = 4;
+    int32 optional_output_files = 5;
+    int32 hard_configure_files = 6;
+    bool finger_print_file_existed = 7;
+    int32 removed_since_finger_prints_files = 8;
+    int32 added_since_finger_prints_files = 9;
+    repeated EncodedChangedFile changes_to_finger_print_files = 10;
+    int32 unchanged_finger_print_files = 11;
+    ConfigureType configure_type = 12;
+    repeated EncodedChangedFile soft_configure_reasons = 13;
+    repeated EncodedChangedFile hard_configure_reasons = 14;
+}
+
+message ChangedFile {
+    enum Type {
+        UNKNOWN = 0;
+        CREATED = 1;
+        DELETED = 2;
+        LAST_MODIFIED_CHANGED = 3;
+        LENGTH_CHANGED = 4;
+    }
+    string file_name = 1;
+    Type type = 2;
+}
+
+message EncodedChangedFile {
+    int32 file_name = 1;
+    ChangedFile.Type type = 2;
+}
+
+// Records the request and outcome for Native V2 sync model
+message NativeModelBuilderOutcome {
+    enum Outcome {
+        UNKNOWN = 0;
+        SUCCESS = 1;
+        FAILED_DURING_GENERATE = 2;
+        NO_CONFIGURATION_MODELS = 3;
+    }
+    // Outcome code
+    NativeModelBuilderOutcome.Outcome outcome = 1;
+    // The gradle project path (like :lib)
+    string gradle_path = 2;
+    // The ABIs that Android Studio requested
+    repeated string requested_abis = 3;
+    // The variants that Android Studio requested
+    repeated string requested_variants = 4;
+    // The variant-abis separated by colons that were available to configure (ex debug:x86)
+    repeated string available_variant_abis = 5;
+    // The variant-abis separated by colons that were successfully configured (ex debug:x86)
+    repeated string successfully_configured_variant_abis = 6;
+    // The variant-abis separated by colons that failed to configure  (ex debug:x86)
+    repeated string failed_configure_variant_abis = 7;
+    // For each element of [failed_configure_variant_abis], the failure error message
+    repeated string failed_configure_messages = 8;
+}
+
+message EncodedNativeModelBuilderOutcome {
+    NativeModelBuilderOutcome.Outcome outcome = 1;
+    int32 gradle_path = 2;
+    int32 requested_abis = 3;
+    int32 requested_variants = 4;
+    int32 available_variant_abis = 5;
+    int32 successfully_configured_variant_abis = 6;
+    int32 failed_configure_variant_abis = 7;
+    int32 failed_configure_messages = 8;
+}
+
+// Records creation of C/C++ model
+message CreateCxxModel {
+    string gradle_path = 1;
+    string variant_name = 2;
+}
+
+message EncodedCreateCxxModel {
+    int32 gradle_path = 1;
+    int32 variant_name = 2;
+}
+

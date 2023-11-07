@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+option java_package = "com.android.build.gradle.internal.cxx.logging";
+option java_multiple_files = true;
+
+/**
+ The C\C++ structured log file format is a series of self-delimited
+ [StructuredLogRecord] message.
+
+ The [NewString] message creates a new string with ID equal to one
+ plus the prior ID. The ID itself is not embedded in the message
+ and the caller must keep track of the IDs as they arrive and
+ increment a counter.
+
+ The [NewList] message creates a new list with ID equal to one
+ plus the prior ID. The ID itself is not embedded in the message
+ and the caller must keep track of the IDs as they arrive and
+ increment a counter.
+
+ The [PayloadHeader] message indicates that a user-defined, delimited payload
+ message is arriving next in the stream.
+ */
+message StructuredLogRecord {
+    oneof Record {
+        NewString new_string = 1;
+        NewList new_list = 2;
+        PayloadHeader payload_header = 3;
+    }
+}
+
+/**
+ Message that indicates a new string is seen in the stream.
+ */
+message NewString {
+    string data = 1;
+}
+
+/**
+ Message that indicates a new string list is seen in the stream.
+ */
+message NewList {
+    repeated int32 data = 1;
+}
+
+/**
+ Message that indicates a user-define message is arriving next.
+ The type of that message is encoded in type_id which should be
+ a string usable by a JVM class loader to instantiate the coming
+ message.
+ */
+message PayloadHeader {
+    int64 time_stamp_ms = 1;
+    int32 type_id = 2;
+}
+
+/**
+  If PayloadHeader type_id is a type that is not known by the current
+  class loader then this message is sent to the client in place of
+  the payload message.
+ */
+message UnknownMessage {
+    int32 type_id = 1;
+    int32 size_bytes = 2;
+}
+
+/**
+  A C/C++ logging message.
+ */
+message LoggingMessage {
+    enum LoggingLevel {
+        INFO = 0;
+        LIFECYCLE = 1;
+        WARN = 2;
+        ERROR = 3;
+        BUG = 4;
+    }
+    LoggingLevel level = 1;
+    string message = 2;
+    string file = 3;
+    string tag = 4;
+    int32 diagnostic_code = 5;
+}
+
+/**
+  The string-encoded equivalent of [LoggingMessage].
+ */
+message EncodedLoggingMessage {
+    LoggingMessage.LoggingLevel level = 1;
+    int32 message_id = 2;
+    int32 file_id = 3;
+    int32 tag_id = 4;
+    int32 diagnostic_code = 5;
+}

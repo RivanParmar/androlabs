@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_package = "com.android.build.gradle.internal.cxx.io";
+option java_multiple_files = true;
+
+message SynchronizeFile {
+    enum Outcome {
+        UNKNOWN_OUTCOME = 0;
+        SAME_FILE = 1;
+        DELETED_DESTINATION_BECAUSE_SOURCE_DID_NOT_EXIST = 2;
+        CREATED_HARD_LINK_FROM_SOURCE_TO_DESTINATION = 3;
+        COPIED_FROM_SOURCE_TO_DESTINATION = 4;
+    }
+    enum Comparison {
+        UNKNOWN_COMPARISON = 0;
+        NOT_SAME_SOURCE_DID_NOT_EXIST = 1;
+        NOT_SAME_DESTINATION_DID_NOT_EXIST = 2;
+        NOT_SAME_LENGTH = 3;
+        NOT_SAME_CONTENT = 4; // Expensive check
+
+        SAME_SOURCE_AND_DESTINATION_DID_NOT_EXIST = 100;
+        SAME_PATH_BY_FILE_OBJECT_IDENTITY = 101;
+        SAME_PATH_ACCORDING_TO_LEXICAL_PATH = 102;
+        SAME_PATH_ACCORDING_TO_FILE_SYSTEM_PROVIDER = 103;
+        SAME_PATH_ACCORDING_TO_CANONICAL_PATH = 104;
+        SAME_CONTENT = 105; // Expensive check
+    }
+    // The folder that relevant file paths are relevant to.
+    string working_directory = 1;
+    // The source file to copy from
+    string source_file = 2;
+    // The destination file to copy to
+    string destination_file = 3;
+    // The method used to synchronize the two files
+    Comparison initial_file_comparison = 4;
+    // Synchronization outcome
+    Outcome outcome = 5;
+}
+
+message EncodedSynchronizeFile {
+    int32 working_directory_id = 1;
+    int32 source_file_id = 2;
+    int32 destination_file_id = 3;
+    SynchronizeFile.Comparison initial_file_comparison = 4;
+    SynchronizeFile.Outcome outcome = 5;
+}
+
+message FileFingerPrint {
+    string file_name = 1;
+    bool is_file = 2;
+    // Below here will be not set (default value) when this isn't a file
+    int64 length = 3;
+    int64 last_modified = 4;
+}
+
+message EncodedFileFingerPrint {
+    int32 file_name = 1;
+    bool is_file = 2;
+    int64 length = 3;
+    int64 last_modified = 4;
+}
+
