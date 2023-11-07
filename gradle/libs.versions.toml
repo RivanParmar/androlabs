@@ -1,6 +1,8 @@
 [versions]
+aapt2Proto = "8.1.2-10154469"
 accompanist = "0.32.0"
 androidGradlePlugin = "8.1.2"
+androidTools = "31.3.0-alpha12"
 androidxActivity = "1.8.0"
 androidxAnnotation = "1.7.0"
 androidxAppCompat = "1.6.1"
@@ -22,6 +24,8 @@ androidxWork = "2.9.0-beta01"
 ant = "1.10.14"
 apacheCommonsLang3 = "3.13.0"
 apacheCommonsCompress = "1.24.0"
+apksig = "8.1.2"
+apkzlib = "8.1.2"
 asm = "9.6"
 coil = "2.4.0"
 commonsIo = "2.14.0"
@@ -47,14 +51,29 @@ kryo = "5.5.0"
 ksp = "1.9.10-1.0.13"
 nativePlatform = "0.22-milestone-23"
 protobuf = "3.24.4"
+protobufJava = "4.0.0-rc-2"
 protobufPlugin = "0.9.4"
 room = "2.5.2"
+r8 = "8.1.56"
+signflinger = "8.1.2"
 slf4j = "2.0.9"
+zipflinger = "8.1.2"
 
 [libraries]
 accompanist-adaptive = { group = "com.google.accompanist", name = "accompanist-adaptive", version.ref = "accompanist" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
+android-signflinger = { group = "com.android", name = "signflinger", version.ref = "signflinger" }
+android-zipflinger = { group = "com.android", name = "zipflinger", version.ref = "zipflinger" }
+android-tools-annotations = { group = "com.android.tools", name = "annotations", version.ref = "androidTools" }
+android-tools-build-aapt2-proto = { group = "com.android.tools.build", name = "aapt2-proto", version.ref = "aapt2Proto" }
+android-tools-build-apksig = { group = "com.android.tools.build", name = "apksig", version.ref = "apksig" }
+android-tools-build-apkzlib = { group = "com.android.tools.build", name = "apkzlib", version.ref = "apkzlib" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+android-tools-layoutlib = { group = "com.android.tools.layoutlib", name = "layoutlib-api", version.ref = "androidTools" }
+android-tools-r8 = { group = "com.android.tools", name = "r8", version.ref = "r8" }
+android-tools-sdk-common = { group = "com.android.tools", name = "sdk-common", version.ref = "androidTools" }
+android-tools-sdklib = { group = "com.android.tools", name = "sdklib", version.ref = "androidTools" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
@@ -131,6 +150,8 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kryo = { group = "com.esotericsoftware", name = "kryo", version.ref = "kryo" }
 native-platform = { group = "net.rubygrapefruit", name = "native-platform", version.ref = "nativePlatform" }
 native-platform-file-events = { group = "net.rubygrapefruit", name = "file-events", version.ref = "nativePlatform" }
+protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobufJava" }
+protobuf-java-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobufJava" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }

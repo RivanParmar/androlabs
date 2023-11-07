@@ -130,6 +130,7 @@ buildTool("gradle-software") {
     subproject("testing-base")
 }
 
+include(":build-tools:aaptcompiler")
 include(":build-tools:agp-test-api")
 
 include(":platform:wizard:template-api")
