@@ -1,13 +1,14 @@
 [versions]
-aapt2Proto = "8.1.2-10154469"
+aapt2Proto = "8.1.4-10154469"
 accompanist = "0.32.0"
-androidGradlePlugin = "8.1.2"
-androidTools = "31.3.0-alpha12"
+# AGP and tools should be updated together
+androidGradlePlugin = "8.2.0"
+androidTools = "31.3.0-alpha18"
 androidxActivity = "1.8.0"
-androidxAnnotation = "1.7.0"
+androidxAnnotation = "1.7.1"
 androidxAppCompat = "1.6.1"
-androidxComposeBom = "2023.10.00"
-androidxComposeCompiler = "1.5.3"
+androidxComposeBom = "2023.10.01"
+androidxComposeCompiler = "1.5.7"
 androidxCore = "1.12.0"
 androidxCoreSplashScreen = "1.0.1"
 androidxDataStore = "1.0.0"
@@ -19,45 +20,45 @@ androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxTestRunner = "1.5.2"
 androidxTestRules = "1.5.0"
-androidxWindowManager = "1.1.0"
-androidxWork = "2.9.0-beta01"
+androidxWindowManager = "1.2.0"
+androidxWork = "2.9.0"
 ant = "1.10.14"
 apacheCommonsLang3 = "3.13.0"
 apacheCommonsCompress = "1.24.0"
-apksig = "8.1.2"
-apkzlib = "8.1.2"
+apksig = "8.1.4"
+apkzlib = "8.1.4"
 asm = "9.6"
-coil = "2.4.0"
+coil = "2.5.0"
 commonsIo = "2.14.0"
 fastutil = "8.5.12"
-firebaseBom = "32.3.1"
+firebaseBom = "32.4.0"
 firebaseCrashlyticsPlugin = "2.9.9"
 gmsPlugin = "4.4.0"
 groovy = "5.0.0-alpha-2"
 gson = "2.10.1"
 guava = "32.1.3-jre"
-hilt = "2.48.1"
-hiltExt = "1.0.0"
+hilt = "2.50"
+hiltExt = "1.1.0"
 jansi = "2.4.1"
 jatl = "0.2.3"
 javaxInject = "1"
 junit4 = "4.13.2"
 jsr305 = "3.0.2"
-kotlin = "1.9.10"
+kotlin = "1.9.21"
 kotlinxCoroutines = "1.7.3"
-kotlinxDatetime = "0.4.1"
+kotlinxDatetime = "0.5.0"
 kotlinxSerializationJson = "1.6.0"
 kryo = "5.5.0"
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.21-1.0.16"
 nativePlatform = "0.22-milestone-23"
 protobuf = "3.24.4"
 protobufJava = "4.0.0-rc-2"
 protobufPlugin = "0.9.4"
-room = "2.5.2"
-r8 = "8.1.56"
-signflinger = "8.1.2"
+room = "2.6.1"
+r8 = "8.2.33"
+signflinger = "8.2.0"
 slf4j = "2.0.9"
-zipflinger = "8.1.2"
+zipflinger = "8.2.0"
 
 [libraries]
 accompanist-adaptive = { group = "com.google.accompanist", name = "accompanist-adaptive", version.ref = "accompanist" }
@@ -163,6 +164,7 @@ slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -175,3 +177,17 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+room = { id = "androidx.room", version.ref = "room" }
+
+# Plugins defined by this project
+androlabs-android-application = { id = "androlabs.android.application", version = "unspecified" }
+androlabs-android-application-compose = { id = "androlabs.android.application.compose", version = "unspecified" }
+androlabs-android-application-firebase = { id = "androlabs.android.application.firebase", version = "unspecified" }
+androlabs-android-application-flavors = { id = "androlabs.android.application.flavors", version = "unspecified" }
+androlabs-android-feature = { id = "androlabs.android.feature", version = "unspecified" }
+androlabs-android-hilt = { id = "androlabs.android.hilt", version = "unspecified" }
+androlabs-android-library = { id = "androlabs.android.library", version = "unspecified" }
+androlabs-android-library-compose = { id = "androlabs.android.library.compose", version = "unspecified" }
+androlabs-android-room = { id = "androlabs.android.room", version = "unspecified" }
+androlabs-android-test = { id = "androlabs.android.test", version = "unspecified" }
+androlabs-jvm-library = { id = "androlabs.jvm.library", version = "unspecified" }
