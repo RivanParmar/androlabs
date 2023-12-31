@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Build operations are our way to inspect the process of executing a build"

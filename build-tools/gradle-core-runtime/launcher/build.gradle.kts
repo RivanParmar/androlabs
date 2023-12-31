@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Implementation for launching, controlling and communicating with Gradle Daemon from CLI and TAPI"

@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Public and internal 'core' Gradle APIs with implementation"

@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Contains project diagnostics or report tasks, e.g. help, project report, dependency report and similar"

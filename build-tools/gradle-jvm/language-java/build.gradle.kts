@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Source for JavaCompile, JavaExec and Javadoc tasks, it also contains logic for incremental Java compilation"

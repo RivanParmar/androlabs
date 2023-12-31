@@ -15,9 +15,9 @@
  */
 
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 dependencies {
-    implementation(libs.kotlinx.datetime)
+    api(libs.kotlinx.datetime)
 }

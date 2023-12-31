@@ -1,6 +1,6 @@
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.library.compose")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.library.compose)
 }
 
 android {
@@ -8,9 +8,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
+    implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.coil.kt)

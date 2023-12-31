@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = """JVM-specific test infrastructure, including support for bootstrapping and configuring test workers

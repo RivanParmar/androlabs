@@ -1,6 +1,6 @@
 plugins {
-    id("androlabs.android.library")
-    kotlin("kapt")
+    alias(libs.plugins.androlabs.android.library)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -8,12 +8,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
+    api(projects.core.data)
+    api(projects.core.model)
 
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.datetime)
+    implementation(libs.javax.inject)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+//    implementation(libs.kotlinx.coroutines.android)
+//    implementation(libs.kotlinx.datetime)
+
+//    implementation(libs.hilt.android)
+//    kapt(libs.hilt.compiler)
 }

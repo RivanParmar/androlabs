@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.hilt)
 }
 
 android {
@@ -28,11 +28,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:data"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
+    implementation(projects.core.common)
+    implementation(projects.core.data)
+    implementation(projects.core.datastore)
+    implementation(projects.core.model)
+    implementation(projects.core.network)
 
     implementation(libs.kotlinx.coroutines.android)
 
@@ -40,10 +40,10 @@ dependencies {
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)
 
-    testImplementation(project(":core:testing"))
-    androidTestImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
+    androidTestImplementation(projects.core.testing)
 
-    kapt(libs.hilt.ext.compiler)
+    ksp(libs.hilt.ext.compiler)
 
     androidTestImplementation(libs.androidx.work.testing)
 }

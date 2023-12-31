@@ -1,6 +1,6 @@
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.hilt)
 }
 
 android {

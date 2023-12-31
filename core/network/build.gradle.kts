@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.hilt)
     id("kotlinx-serialization")
 }
 
@@ -35,13 +35,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:model"))
+    api(libs.kotlinx.datetime)
+    api(projects.core.common)
+    api(projects.core.model)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
 
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(platform(libs.firebase.bom))

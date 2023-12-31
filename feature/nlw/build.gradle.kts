@@ -15,10 +15,17 @@
  */
 
 plugins {
-    id("androlabs.android.feature")
-    id("androlabs.android.library.compose")
+    alias(libs.plugins.androlabs.android.feature)
+    alias(libs.plugins.androlabs.android.library.compose)
 }
 
 android {
     namespace = "com.rivan.androlabs.feature.nlw"
+}
+
+dependencies {
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+
+    implementation(libs.coil.kt.compose)
 }

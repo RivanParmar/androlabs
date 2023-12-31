@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = """Contains some base and shared classes for JVM language support, like AbstractCompile class and BaseForkOptions classes,

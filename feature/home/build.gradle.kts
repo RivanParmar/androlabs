@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("androlabs.android.feature")
-    id("androlabs.android.library.compose")
+    alias(libs.plugins.androlabs.android.feature)
+    alias(libs.plugins.androlabs.android.library.compose)
 }
 
 android {
@@ -25,6 +25,8 @@ android {
 
 dependencies {
     implementation(libs.accompanist.systemuicontroller)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
 
     api(libs.accompanist.adaptive)
 }

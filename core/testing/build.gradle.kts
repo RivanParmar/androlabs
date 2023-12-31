@@ -1,7 +1,7 @@
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.library.compose")
-    id("androlabs.android.hilt")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.library.compose)
+    alias(libs.plugins.androlabs.android.hilt)
 }
 
 android {
@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
+    api(projects.core.model)
 
     api(libs.junit4)
     api(libs.androidx.test.core)

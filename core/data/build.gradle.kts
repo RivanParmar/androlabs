@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.hilt)
     id("kotlinx-serialization")
 }
 
@@ -25,11 +25,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:database"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
+    api(projects.core.common)
+    api(projects.core.database)
+    api(projects.core.datastore)
+//    implementation(projects.core.model)
+    api(projects.core.network)
 
     implementation(libs.androidx.core.ktx)
 

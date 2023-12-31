@@ -1,6 +1,6 @@
 plugins {
-    id("androlabs.android.feature")
-    id("androlabs.android.library.compose")
+    alias(libs.plugins.androlabs.android.feature)
+    alias(libs.plugins.androlabs.android.library.compose)
 }
 
 android {
@@ -8,5 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+
     implementation(libs.accompanist.adaptive)
 }

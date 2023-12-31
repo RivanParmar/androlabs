@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = """JVM-specific testing functionality, including the Test type and support for configuring options for and detecting

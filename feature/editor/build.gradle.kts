@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("androlabs.android.feature")
-    id("androlabs.android.library.compose")
+    alias(libs.plugins.androlabs.android.feature)
+    alias(libs.plugins.androlabs.android.library.compose)
 }
 
 android {

@@ -15,9 +15,9 @@
  */
 
 plugins {
-    id("androlabs.android.library")
-    id("androlabs.android.hilt")
-    id("androlabs.android.room")
+    alias(libs.plugins.androlabs.android.library)
+    alias(libs.plugins.androlabs.android.hilt)
+    alias(libs.plugins.androlabs.android.room)
 }
 
 android {
@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
+    api(projects.core.model)
 
     implementation(libs.kotlinx.datetime)
 }

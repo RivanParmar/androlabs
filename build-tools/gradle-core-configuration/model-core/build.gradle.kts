@@ -1,5 +1,5 @@
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 description = "Implementation of configuration model types and annotation metadata handling (Providers, software model, conventions)"

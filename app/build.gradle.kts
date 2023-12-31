@@ -4,11 +4,11 @@
 import com.rivan.androlabs.AndrolabsBuildType
 
 plugins {
-    id("androlabs.android.application")
-    id("androlabs.android.application.compose")
-    id("androlabs.android.application.flavors")
-    id("androlabs.android.hilt")
-    id("androlabs.android.application.firebase")
+    alias(libs.plugins.androlabs.android.application)
+    alias(libs.plugins.androlabs.android.application.compose)
+    alias(libs.plugins.androlabs.android.application.flavors)
+    alias(libs.plugins.androlabs.android.hilt)
+    alias(libs.plugins.androlabs.android.application.firebase)
 }
 
 android {
@@ -50,21 +50,21 @@ android {
 
 dependencies {
 
-    implementation(project(":feature:editor"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:nlw"))
-    implementation(project(":feature:npw"))
-    implementation(project(":feature:settings"))
+    implementation(projects.feature.editor)
+    implementation(projects.feature.home)
+    implementation(projects.feature.nlw)
+    implementation(projects.feature.npw)
+    implementation(projects.feature.settings)
 
-    implementation(project(":core:data"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:model"))
-    implementation(project(":core:ui"))
+    implementation(projects.core.data)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.model)
+    implementation(projects.core.ui)
 
-    implementation(project(":sync:work"))
+    implementation(projects.sync.work)
 
-    androidTestImplementation(project(":core:testing"))
-    androidTestImplementation(project(":core:network"))
+    androidTestImplementation(projects.core.testing)
+    androidTestImplementation(projects.core.network)
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin("test"))
@@ -82,10 +82,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
 
-    testImplementation(project(":core:testing"))
-    testImplementation(project(":core:network"))
+    testImplementation(projects.core.testing)
+    testImplementation(projects.core.network)
     testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.accompanist.testharness)
     testImplementation(kotlin("test"))
-    kaptTest(libs.hilt.compiler)
+    kspTest(libs.hilt.compiler)
 }

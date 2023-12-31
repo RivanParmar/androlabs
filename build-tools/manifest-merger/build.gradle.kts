@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("androlabs.jvm.library")
+    alias(libs.plugins.androlabs.jvm.library)
 }
 
 dependencies {
