@@ -15,11 +15,8 @@
  */
 package com.android.build.gradle.internal.test
 
-import com.android.build.api.variant.BuiltArtifacts
 import com.android.build.api.variant.impl.BuiltArtifactsImpl
 import com.android.builder.testing.api.DeviceConfigProvider
-import com.android.ide.common.build.GenericArtifactType
-import com.android.ide.common.build.GenericBuiltArtifacts
 import com.android.ide.common.build.GenericBuiltArtifactsSplitOutputMatcher
 import java.io.File
 
@@ -40,18 +37,7 @@ object BuiltArtifactsSplitOutputMatcher {
         builtArtifacts: BuiltArtifactsImpl,
         variantAbiFilters: Collection<String>
     ): List<File> {
-        val adaptedBuiltArtifactType = GenericBuiltArtifacts(
-            version = BuiltArtifacts.METADATA_FILE_VERSION,
-            artifactType = GenericArtifactType(
-                builtArtifacts.artifactType.name(),
-                builtArtifacts.artifactType.kind.toString()
-            ),
-            applicationId = builtArtifacts.applicationId,
-            variantName = builtArtifacts.variantName,
-            elements = builtArtifacts.elements.map { it.toGenericBuiltArtifact() },
-            elementType = builtArtifacts.elementType(),
-            baselineProfiles = builtArtifacts.baselineProfiles
-        )
+        val adaptedBuiltArtifactType = builtArtifacts.toGenericBuiltArtifacts()
         // now look for a matching output file
         return GenericBuiltArtifactsSplitOutputMatcher.computeBestOutput(
             adaptedBuiltArtifactType,

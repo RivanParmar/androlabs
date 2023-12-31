@@ -35,7 +35,7 @@ import java.util.Optional;
  *
  * Basically a facade object on {@link Attr} objects with some added features like automatic
  * namespace handling, manifest merger friendly identifiers and smart replacement of shortened
- * full qualified class names using manifest node's package setting from the the owning Android's
+ * full qualified class names using manifest node's package setting from the owning Android's
  * document.
  */
 public class XmlAttribute extends XmlNode {

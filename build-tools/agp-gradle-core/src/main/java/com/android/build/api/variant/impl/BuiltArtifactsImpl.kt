@@ -24,6 +24,8 @@ import com.android.build.api.variant.VariantOutputConfiguration
 import com.android.ide.common.build.BaselineProfileDetails
 import com.android.ide.common.build.CommonBuiltArtifacts
 import com.android.ide.common.build.CommonBuiltArtifactsTypeAdapter
+import com.android.ide.common.build.GenericArtifactType
+import com.android.ide.common.build.GenericBuiltArtifacts
 import com.google.gson.stream.JsonWriter
 import org.gradle.api.file.Directory
 import java.io.File
@@ -33,18 +35,36 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.bufferedWriter
 
-class BuiltArtifactsImpl @JvmOverloads constructor(
+data class BuiltArtifactsImpl @JvmOverloads constructor(
     override val version: Int = BuiltArtifacts.METADATA_FILE_VERSION,
     override val artifactType: Artifact<*>,
     override val applicationId: String,
     override val variantName: String,
     override val elements: Collection<BuiltArtifactImpl>,
     private val elementType: String? = null,
-    override val baselineProfiles: List<BaselineProfileDetails> = emptyList()
+    override val baselineProfiles: List<BaselineProfileDetails>? = null,
+    override val minSdkVersionForDexing: Int? = null,
 ): CommonBuiltArtifacts, BuiltArtifacts, Serializable {
 
-    fun elementType(): String? =
+//    fun elementType(): String? =
+//        elementType ?: initFileType(elements)
+
+    val initializedElementType: String? by lazy {
         elementType ?: initFileType(elements)
+    }
+
+    fun toGenericBuiltArtifacts(): GenericBuiltArtifacts {
+        return GenericBuiltArtifacts(
+            version = version,
+            artifactType = GenericArtifactType(artifactType.name(), artifactType.kind.toString()),
+            applicationId = applicationId,
+            variantName = variantName,
+            elements = elements.map { it.toGenericBuiltArtifact() },
+            elementType = initializedElementType,
+            baselineProfiles = baselineProfiles,
+            minSdkVersionForDexing = minSdkVersionForDexing
+        )
+    }
 
     companion object {
         const val METADATA_FILE_NAME = "output-metadata.json"
@@ -158,21 +178,12 @@ class BuiltArtifactsImpl @JvmOverloads constructor(
 
     private fun persist(projectPath: Path): String {
         // flatten and relativize the file paths to be persisted.
-        val withRelativePaths = BuiltArtifactsImpl(
-                version,
-                artifactType,
-                applicationId,
-                variantName,
-                elements
-                        .asSequence()
-                        .map { builtArtifact ->
-                            builtArtifact.newOutput(
-                                projectPath.relativize(Paths.get(builtArtifact.outputFile))
-                            )
-                        }.toList(),
-                elementType(),
-                baselineProfiles
-            )
+        val withRelativePaths = copy(
+            elements = elements.map {
+                it.newOutput(projectPath.relativize(Paths.get(it.outputFile)))
+            },
+            elementType = initializedElementType,
+        )
         return StringWriter().also {
             JsonWriter(it).use { jsonWriter ->
                 jsonWriter.setIndent("  ")
@@ -193,9 +204,11 @@ internal class BuiltArtifactsTypeAdapter(
     override val artifactTypeTypeAdapter get() = ArtifactTypeTypeAdapter
     override val elementTypeAdapter get() = BuiltArtifactTypeAdapter
     override fun getArtifactType(artifacts: BuiltArtifactsImpl) = artifacts.artifactType
-    override fun getElementType(artifacts: BuiltArtifactsImpl) = artifacts.elementType()
+    override fun getElementType(artifacts: BuiltArtifactsImpl) = artifacts.initializedElementType
     override fun getElements(artifacts: BuiltArtifactsImpl) = artifacts.elements
     override fun getBaselineProfiles(artifacts: BuiltArtifactsImpl) = artifacts.baselineProfiles
+
+    override fun getMinSdkVersionForDexing(artifacts: BuiltArtifactsImpl): Int? = artifacts.minSdkVersionForDexing
 
     override fun instantiate(
         version: Int,
@@ -204,7 +217,8 @@ internal class BuiltArtifactsTypeAdapter(
         variantName: String,
         elements: List<BuiltArtifactImpl>,
         elementType: String?,
-        baselineProfiles: List<BaselineProfileDetails>
+        baselineProfiles: List<BaselineProfileDetails>?,
+        minSdkVersionForDexing: Int?,
     ): BuiltArtifactsImpl =
             BuiltArtifactsImpl(
                     version = version,
@@ -213,6 +227,7 @@ internal class BuiltArtifactsTypeAdapter(
                     variantName = variantName,
                     elements = elements,
                     elementType = elementType,
-                    baselineProfiles = baselineProfiles
+                    baselineProfiles = baselineProfiles,
+                    minSdkVersionForDexing = minSdkVersionForDexing
             )
 }
