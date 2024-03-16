@@ -24,7 +24,7 @@ enum class AndrolabsFlavor(
 }
 
 fun Project.configureFlavors(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
     flavorConfigurationBlock: ProductFlavor.(flavor: AndrolabsFlavor) -> Unit = {}
 ) {
     commonExtension.apply {
