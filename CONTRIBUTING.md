@@ -1,4 +1,4 @@
-# Welcome to Andro Labs contributing guide
+# Welcome to Androlabs contributing guide
 Firstly, thanks for any contribution that you make to this project. We want to make contributing to this project as easy as possible, be it:
  - A bug report 
  - Fixing an issue
