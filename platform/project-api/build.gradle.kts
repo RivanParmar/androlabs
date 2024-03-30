@@ -17,3 +17,7 @@
 plugins {
     alias(libs.plugins.androlabs.jvm.library)
 }
+
+dependencies {
+    compileOnly("org.jetbrains:annotations:24.1.0")
+}

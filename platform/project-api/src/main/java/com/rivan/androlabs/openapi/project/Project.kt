@@ -1,27 +1,32 @@
 package com.rivan.androlabs.openapi.project
 
+import java.io.File
+
+
 interface Project {
 
     companion object {
         const val DIRECTORY_STORE_FOLDER = ".idea"
+        const val NAME_FILE = ".name"
     }
 
-    fun getName(): String
+    val name: String
 
-    fun getBasePath(): String?
+    val basePath: String?
 
-    fun getProjectFilePath(): String?
+    val projectFile: File?
 
-    fun getPresentableUrl(): String? = null
+    val projectFilePath: String?
+
+    val workspaceFile: File?
 
     fun save()
 
-    fun scheduleSave() = save()
+    val isOpen: Boolean
 
-    // TODO: Check whether the project uses AndroidX libraries
-    fun isAndroidX(): Boolean
+    val isInitialized: Boolean
 
-    fun isOpen(): Boolean
+    fun setProjectName(value: String)
 
-    fun isInitialized(): Boolean
+    val isAndroidX: Boolean
 }

@@ -18,7 +18,6 @@
 
 package com.rivan.androlabs.wizard.template.api
 
-import com.rivan.androlabs.openapi.module.Module
 import java.io.File
 
 /** Execution engine for the instructions in a recipe. */
@@ -67,7 +66,7 @@ interface RecipeExecutor {
      **/
     fun applyPluginInModule(
         plugin: String,
-        module: Module,
+//        module: Module,
         revision: String?,
         minRev: String? = null,
     )
