@@ -16,9 +16,14 @@ interface Project {
 
     val projectFile: File?
 
+    val presentableUrl: String?
+        get() = null
+
     val projectFilePath: String?
 
     val workspaceFile: File?
+
+    val locationHash: String
 
     fun save()
 
