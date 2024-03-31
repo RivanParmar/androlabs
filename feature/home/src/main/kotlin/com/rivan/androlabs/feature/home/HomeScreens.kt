@@ -16,6 +16,7 @@
 
 package com.rivan.androlabs.feature.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,9 +28,11 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,11 +46,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
@@ -60,7 +66,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.component.ALScaffold
 import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
@@ -72,7 +82,6 @@ import com.rivan.androlabs.core.ui.LabFeedUIState
 import com.rivan.androlabs.core.ui.labFeed
 
 // TODO: Cleanup the code if possible
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun HomeScreenLabsGrid(
     contentType: ContentType,
@@ -85,11 +94,16 @@ internal fun HomeScreenLabsGrid(
     isSyncing: Boolean = false,
     onAccountButtonClick: () -> Unit,
     onSearch: (String) -> Unit,
+    onRecentSearchDelete: (String) -> Unit,
+    onClearRecentSearches: () -> Unit,
     onFloatingActionButtonClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var searchBarIsActive by remember { mutableStateOf(false) }
+
+    var showClearRecentSearchDialog by remember { mutableStateOf(false) }
+    var recentSearchQueryToBeCleared by remember { mutableStateOf("") }
 
     // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
     ALScaffold(
@@ -134,6 +148,11 @@ internal fun HomeScreenLabsGrid(
                 onSearch = onSearch,
                 onTextChange = { searchQuery = it },
                 onActiveChange = { searchBarIsActive = it },
+                onRecentSearchDelete = {
+                    showClearRecentSearchDialog = true
+                    recentSearchQueryToBeCleared = it
+                },
+                onClearRecentSearches = onClearRecentSearches,
             )
 
             if (isSyncing || labFeedUIState.loading) {
@@ -204,6 +223,35 @@ internal fun HomeScreenLabsGrid(
                     }
                 }
             }
+        }
+
+        if (showClearRecentSearchDialog) {
+            AlertDialog(
+                onDismissRequest = { showClearRecentSearchDialog = false },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            onRecentSearchDelete(recentSearchQueryToBeCleared)
+                            showClearRecentSearchDialog = false
+                        }
+                    ) {
+                        Text(text = "Delete")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showClearRecentSearchDialog = false }) {
+                        Text(text = "Cancel")
+                    }
+                },
+                title = {
+                    // TODO: Set a proper title
+                    Text(text = "Delete this search from recent?")
+                },
+                properties = DialogProperties(
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true
+                ),
+            )
         }
     }
 }

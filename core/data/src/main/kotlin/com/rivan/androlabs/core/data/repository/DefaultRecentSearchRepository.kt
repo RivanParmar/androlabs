@@ -45,6 +45,13 @@ class DefaultRecentSearchRepository @Inject constructor(
         }
     }
 
+    override suspend fun clearRecentSearch(searchQuery: String) {
+        // TODO: We may not need Coroutine Scope here
+        withContext(ioDispatcher) {
+            recentSearchQueryDao.clearRecentSearchQuery(searchQuery)
+        }
+    }
+
     override fun getRecentSearchQueries(limit: Int): Flow<List<RecentSearchQuery>> =
         recentSearchQueryDao.getRecentSearchQueryEntities(limit).map { searchQueries ->
             searchQueries.map {

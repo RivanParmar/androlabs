@@ -16,7 +16,8 @@
 
 package com.rivan.androlabs.feature.home
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,6 +56,8 @@ internal fun HomeScreenSearchBar(
     onSearch: (String) -> Unit,
     onTextChange: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
+    onRecentSearchDelete: (String) -> Unit,
+    onClearRecentSearches: () -> Unit,
 ) {
     val leadingIcon = @Composable {
         if (!active) {
@@ -88,6 +92,8 @@ internal fun HomeScreenSearchBar(
                 RecentSearchesPanel(
                     recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
                     onRecentSearchClicked = onTextChange,
+                    onRecentSearchLongClicked = onRecentSearchDelete,
+                    onClearRecentSearches = onClearRecentSearches,
                 )
             }
         }
@@ -107,6 +113,8 @@ internal fun HomeScreenSearchBar(
                 RecentSearchesPanel(
                     recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
                     onRecentSearchClicked = onTextChange,
+                    onRecentSearchLongClicked = onRecentSearchDelete,
+                    onClearRecentSearches = onClearRecentSearches,
                 )
             }
         }
@@ -117,6 +125,8 @@ internal fun HomeScreenSearchBar(
 private fun RecentSearchesPanel(
     recentSearchQueries: List<String>,
     onRecentSearchClicked: (String) -> Unit,
+    onRecentSearchLongClicked: (String) -> Unit,
+    onClearRecentSearches: () -> Unit,
 ) {
     Column {
         Row(
@@ -130,6 +140,25 @@ private fun RecentSearchesPanel(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
+
+            if (recentSearchQueries.isNotEmpty()) {
+                // TODO: Maybe replace this with a TextButton with the text "Clear"
+                /*IconButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Clear,
+                        contentDescription = null
+                    )
+                }*/
+                TextButton(
+                    onClick = onClearRecentSearches,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                ) {
+                    Text(text = "Clear")
+                }
+            }
         }
 
         LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -137,16 +166,19 @@ private fun RecentSearchesPanel(
                 RecentSearchItem(
                     recentSearchQuery = recentSearchQuery,
                     onRecentSearchClicked = { onRecentSearchClicked(recentSearchQuery) },
+                    onRecentSearchLongClicked = { onRecentSearchLongClicked(recentSearchQuery) }
                 )
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RecentSearchItem(
     recentSearchQuery: String,
     onRecentSearchClicked: (String) -> Unit,
+    onRecentSearchLongClicked: (String) -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -155,11 +187,13 @@ private fun RecentSearchItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(vertical = 14.dp)
-            .clickable(
+            .combinedClickable(
                 interactionSource = interactionSource,
                 indication = null,
                 onClickLabel = null,
                 onClick = { onRecentSearchClicked(recentSearchQuery) },
+                onLongClickLabel = null,
+                onLongClick = { onRecentSearchLongClicked(recentSearchQuery) }
             )
     ) {
         Icon(

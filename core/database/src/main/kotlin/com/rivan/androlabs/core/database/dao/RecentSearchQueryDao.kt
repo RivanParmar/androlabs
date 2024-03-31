@@ -33,6 +33,9 @@ interface RecentSearchQueryDao {
     @Upsert
     suspend fun insertOrReplaceRecentSearchQuery(recentSearchQuery: RecentSearchQueryEntity)
 
+    @Query(value = "DELETE FROM recentSearchQueries WHERE `query`=:recentSearchQuery")
+    suspend fun clearRecentSearchQuery(recentSearchQuery: String)
+
     @Query(value = "DELETE FROM recentSearchQueries")
     suspend fun clearRecentSearchQueries()
 }

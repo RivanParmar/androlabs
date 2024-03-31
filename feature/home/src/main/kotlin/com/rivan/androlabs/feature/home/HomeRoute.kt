@@ -67,6 +67,8 @@ internal fun HomeRoute(
         recentSearchQueriesUiState = recentSearchQueriesUiState,
         onAccountButtonClick = onAccountButtonClick,
         onSearch = viewModel::onSearchTriggered,
+        onRecentSearchDelete = viewModel::clearRecentSearch,
+        onClearRecentSearches = viewModel::clearRecentSearches,
         navigateToDetail = viewModel::setSelectedLab,
         onFABClick = onFABClick,
         modifier = modifier,
@@ -85,6 +87,8 @@ private fun HomeScreen(
     isSyncing: Boolean,
     onAccountButtonClick: () -> Unit,
     onSearch: (String) -> Unit,
+    onRecentSearchDelete: (String) -> Unit,
+    onClearRecentSearches: () -> Unit,
     onFABClick: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
     modifier: Modifier = Modifier,
@@ -114,8 +118,10 @@ private fun HomeScreen(
                     isSyncing = isSyncing,
                     onAccountButtonClick = onAccountButtonClick,
                     onSearch = onSearch,
+                    onRecentSearchDelete = onRecentSearchDelete,
                     onFloatingActionButtonClick = onFABClick,
                     navigateToDetail = navigateToDetail,
+                    onClearRecentSearches = onClearRecentSearches,
                 )
             },
             second = {
@@ -128,9 +134,14 @@ private fun HomeScreen(
                         lab = labFeedUIState.selectedLab,
                         closeDetailScreen = closeDetailScreen,
                         modifier = modifier.clip(RoundedCornerShape(20.dp)),
-                        topAppBarState = labDetailTopAppBarStates.getValue(
-                            labFeedUIState.selectedLab!!.id
-                        ),
+                        topAppBarState =
+                        if (labFeedUIState.selectedLab != null) {
+                            labDetailTopAppBarStates.getValue(
+                                labFeedUIState.selectedLab!!.id
+                            )
+                        } else {
+                            rememberTopAppBarState()
+                        },
                     )
                 }
             },
@@ -147,6 +158,7 @@ private fun HomeScreen(
             isSyncing = isSyncing,
             onAccountButtonClick = onAccountButtonClick,
             onSearch = onSearch,
+            onRecentSearchDelete = onRecentSearchDelete,
             closeDetailScreen = closeDetailScreen,
             navigateToDetail = navigateToDetail,
             onFABClick = onFABClick,
@@ -158,6 +170,7 @@ private fun HomeScreen(
             } else {
                 rememberTopAppBarState()
             },
+            onClearRecentSearches = onClearRecentSearches,
         )
     }
 }
@@ -172,6 +185,8 @@ private fun HomeScreenSinglePaneContent(
     isSyncing: Boolean,
     onAccountButtonClick: () -> Unit,
     onSearch: (String) -> Unit,
+    onRecentSearchDelete: (String) -> Unit,
+    onClearRecentSearches: () -> Unit,
     onFABClick: () -> Unit,
     closeDetailScreen: () -> Unit,
     navigateToDetail: (String, ContentType) -> Unit,
@@ -202,8 +217,10 @@ private fun HomeScreenSinglePaneContent(
             isSyncing = isSyncing,
             onAccountButtonClick = onAccountButtonClick,
             onSearch = onSearch,
+            onRecentSearchDelete = onRecentSearchDelete,
             onFloatingActionButtonClick = onFABClick,
             navigateToDetail = navigateToDetail,
+            onClearRecentSearches = onClearRecentSearches,
         )
     }
 }

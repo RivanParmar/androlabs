@@ -128,6 +128,18 @@ class HomeViewModel @Inject constructor(
             recentSearchRepository.insertOrReplaceRecentSearch(query)
         }
     }
+
+    fun clearRecentSearch(query: String) {
+        viewModelScope.launch {
+            recentSearchRepository.clearRecentSearch(query)
+        }
+    }
+
+    fun clearRecentSearches() {
+        viewModelScope.launch {
+            recentSearchRepository.clearRecentSearches()
+        }
+    }
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
