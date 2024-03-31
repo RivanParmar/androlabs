@@ -17,7 +17,6 @@
 package com.rivan.androlabs.feature.editor
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -40,7 +39,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,7 +52,6 @@ import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 
 // TODO: Optimize if possible
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun EditorTab(
     selected: Boolean,
@@ -129,10 +127,10 @@ internal fun EditorTab(
 
 @Preview
 @Composable
-private fun Sample() {
+private fun EditorTabPreview() {
     AndrolabsTheme {
         Surface {
-            var selectedTabIndex by remember { mutableStateOf(0) }
+            var selectedTabIndex by remember { mutableIntStateOf(0) }
 
             ScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
