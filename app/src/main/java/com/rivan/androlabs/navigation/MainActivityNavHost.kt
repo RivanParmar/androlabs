@@ -31,7 +31,6 @@ fun MainActivityNavHost(
     startDestination: String = homeNavigationRoute,
     askToSelectSavePath: Boolean = false,
     context: Context = LocalContext.current,
-    // TODO: Save the path to the folder once the user has selected it
     updateSavePath: (String) -> Unit,
 ) {
     // TODO: Handle use case when user does not select anything
@@ -44,6 +43,8 @@ fun MainActivityNavHost(
                 it,
                 (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
             )
+            // TODO: We're currently saving the URI. Instead we may need to only save the path.
+            updateSavePath(it.toString())
         }
     }
 
