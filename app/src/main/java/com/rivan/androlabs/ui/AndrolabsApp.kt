@@ -11,7 +11,6 @@ fun AndrolabsApp(
 ) {
     MainActivityNavHost(
         appState = appState,
-        navController = appState.navController,
         askToSelectSavePath = askToSelectSavePath,
         updateSavePath = updateSavePath,
     )

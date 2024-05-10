@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
 import com.rivan.androlabs.feature.home.navigation.homeScreen
@@ -26,7 +25,6 @@ import com.rivan.androlabs.ui.AndrolabsAppState
 @Composable
 fun MainActivityNavHost(
     appState: AndrolabsAppState,
-    navController: NavHostController,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
     askToSelectSavePath: Boolean = false,
@@ -47,6 +45,8 @@ fun MainActivityNavHost(
             updateSavePath(it.toString())
         }
     }
+
+    val navController = appState.navController
 
     NavHost(
         navController = navController,
