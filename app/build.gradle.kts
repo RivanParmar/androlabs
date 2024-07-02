@@ -25,23 +25,28 @@ android {
     }
 
     buildTypes {
-        val debug by getting {
+        debug {
             applicationIdSuffix = AndrolabsBuildType.DEBUG.applicationIdSuffix
         }
-        val release by getting {
-            isMinifyEnabled = false
+        release {
+            isMinifyEnabled = true
             applicationIdSuffix = AndrolabsBuildType.RELEASE.applicationIdSuffix
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             // To publish on the Play Store a private signing key is required, but to allow anyone
             // who clones the code to sign and run the release variant, use the debug signing key.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.named("debug").get()
         }
     }
 
     packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        }
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -70,7 +75,7 @@ dependencies {
     androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
-    implementation(libs.accompanist.systemuicontroller)
+//    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -80,7 +85,7 @@ dependencies {
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.window.manager)
+//    implementation(libs.androidx.window.manager)
 
     testImplementation(projects.core.testing)
     testImplementation(projects.core.network)

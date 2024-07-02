@@ -24,9 +24,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.accompanist.systemuicontroller)
+//    implementation(libs.accompanist.systemuicontroller)
     implementation(projects.core.data)
     implementation(projects.core.domain)
 
     api(libs.accompanist.adaptive)
+
+    implementation(libs.coil.kt.compose)
 }

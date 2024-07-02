@@ -19,9 +19,9 @@ package com.android.build.gradle.internal.errors
 import com.android.build.gradle.options.SyncOptions.ErrorFormatMode
 import com.android.ide.common.blame.Message
 import com.android.ide.common.blame.MessageJsonSerializer
+import com.android.ide.common.blame.MessageJsonSerializer.STDOUT_ERROR_TAG
 import com.android.ide.common.blame.MessageReceiver
 import com.android.ide.common.blame.SourceFilePosition
-import com.android.ide.common.blame.parser.JsonEncodedGradleMessageParser.STDOUT_ERROR_TAG
 import com.google.common.base.Joiner
 import com.google.common.collect.Iterables
 import com.google.gson.Gson
