@@ -142,16 +142,6 @@ private fun RecentSearchesPanel(
             )
 
             if (recentSearchQueries.isNotEmpty()) {
-                // TODO: Maybe replace this with a TextButton with the text "Clear"
-                /*IconButton(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Clear,
-                        contentDescription = null
-                    )
-                }*/
                 TextButton(
                     onClick = onClearRecentSearches,
                     modifier = Modifier.padding(horizontal = 16.dp)

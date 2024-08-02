@@ -75,7 +75,6 @@ dependencies {
     androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
-//    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -85,7 +84,6 @@ dependencies {
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
-//    implementation(libs.androidx.window.manager)
 
     testImplementation(projects.core.testing)
     testImplementation(projects.core.network)

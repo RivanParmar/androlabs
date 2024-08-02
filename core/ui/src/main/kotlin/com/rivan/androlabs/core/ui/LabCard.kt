@@ -1,9 +1,21 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -13,15 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.rivan.androlabs.core.designsystem.R.*
-import com.rivan.androlabs.core.designsystem.R.drawable.*
+import com.rivan.androlabs.core.designsystem.R.drawable.ic_launcher_background_2
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.UserLabs
 
 // TODO: Not yet completed
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LabCard(
     userLabs: UserLabs,

@@ -24,17 +24,14 @@ import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
 import com.rivan.androlabs.core.domain.GetRecentSearchQueriesUseCase
 import com.rivan.androlabs.core.domain.GetUserLabsUseCase
-import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.UserLabData
 import com.rivan.androlabs.core.model.data.UserLabs
-import com.rivan.androlabs.core.ui.LabFeedUIState
+import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -59,8 +56,14 @@ class HomeViewModel @Inject constructor(
             initialValue = false,
         )
 
-    private val _labFeedUiState = MutableStateFlow(LabFeedUIState(loading = true))
-    val labFeedUiState: StateFlow<LabFeedUIState> = _labFeedUiState
+    val projectFeedUiState: StateFlow<ProjectFeedUiState> =
+        userLabDataRepository.getRecentLabs(getRecentUserLabs)
+            .map(ProjectFeedUiState::Success)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = ProjectFeedUiState.Loading,
+            )
 
     val recentSearchQueriesUiState: StateFlow<RecentSearchQueriesUiState> =
         recentSearchQueriesUseCase().map(RecentSearchQueriesUiState::Success)
@@ -70,41 +73,10 @@ class HomeViewModel @Inject constructor(
                 initialValue = RecentSearchQueriesUiState.Loading,
             )
 
-    init {
-        viewModelScope.launch {
-            userLabDataRepository.getRecentLabs(getRecentUserLabs)
-                .catch { ex ->
-                    _labFeedUiState.value = LabFeedUIState(error = ex.message)
-                }
-                .collect { labs ->
-                    _labFeedUiState.value = LabFeedUIState(
-                        labs = labs,
-                        selectedLab = null,
-                    )
-                }
-        }
-    }
-
-    fun setSelectedLab(labId: String, contentType: ContentType) {
-        val lab = labFeedUiState.value.labs.find { it.id == labId }
-        _labFeedUiState.value = _labFeedUiState.value.copy(
-            selectedLab = lab,
-            isDetailOnlyOpen = contentType == ContentType.SINGLE_PANE,
-        )
-    }
-
-    fun closeDetailScreen() {
-        _labFeedUiState.value = _labFeedUiState
-            .value.copy(
-                isDetailOnlyOpen = false,
-                selectedLab = null,
-            )
-    }
-
     fun updateRecentLab(labId: String, isRecent: Boolean) {
         viewModelScope.launch {
             userLabDataRepository.toggleRecentLabId(
-                labId, isRecent
+                labId, isRecent,
             )
         }
     }
@@ -168,7 +140,7 @@ private fun UserLabDataRepository.getRecentLabs(
             getUserLabs(
                 LabQuery(
                     filterLabIds = recentLabs,
-                )
+                ),
             )
         }
     }

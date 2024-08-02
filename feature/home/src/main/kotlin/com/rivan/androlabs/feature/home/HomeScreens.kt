@@ -16,47 +16,32 @@
 
 package com.rivan.androlabs.feature.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.grid.GridCells.Adaptive
-import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarState
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -65,28 +50,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.component.ALScaffold
-import com.rivan.androlabs.core.designsystem.component.ALTopAppBarLarge
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.ListType
-import com.rivan.androlabs.core.model.data.UserLabs
-import com.rivan.androlabs.core.ui.LabFeedUIState
-import com.rivan.androlabs.core.ui.labFeed
+import com.rivan.androlabs.core.ui.ProjectFeedUiState
+import com.rivan.androlabs.core.ui.projectFeed
 
 // TODO: Cleanup the code if possible
 @Composable
 internal fun HomeScreenLabsGrid(
     contentType: ContentType,
     listType: ListType,
-    labFeedUIState: LabFeedUIState,
+    labFeedUIState: ProjectFeedUiState,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
     modifier: Modifier = Modifier,
     lazyGridState: LazyGridState = rememberLazyGridState(),
@@ -97,7 +76,6 @@ internal fun HomeScreenLabsGrid(
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,
     onFloatingActionButtonClick: () -> Unit,
-    navigateToDetail: (String, ContentType) -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var searchBarIsActive by remember { mutableStateOf(false) }
@@ -108,7 +86,7 @@ internal fun HomeScreenLabsGrid(
     // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
     ALScaffold(
         floatingActionButton = {
-            // Hide the FAB in case the search bar is active and the screen size is small
+            // Hide the FAB in case the search bar is active while the screen size is small
             // TODO: Animate this!
             if ((!searchBarIsActive && contentType == ContentType.SINGLE_PANE)
                 || (contentType == ContentType.DUAL_PANE)) {
@@ -155,14 +133,15 @@ internal fun HomeScreenLabsGrid(
                 onClearRecentSearches = onClearRecentSearches,
             )
 
-            if (isSyncing || labFeedUIState.loading) {
+            if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
                 LoadingState()
-            } else if (labFeedUIState.labs.isEmpty()) {
+            } else if (labFeedUIState is ProjectFeedUiState.Error) {
+                // TODO: Use proper error state here
                 EmptyState(titleRes = R.string.labs_grid_empty)
             } else {
                 if (listType == ListType.GRID) {
                     LazyVerticalGrid(
-                        columns = Adaptive(300.dp),
+                        columns = GridCells.Adaptive(300.dp),
                         contentPadding = PaddingValues(
                             start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp
                         ),
@@ -180,17 +159,12 @@ internal fun HomeScreenLabsGrid(
                                 }
                             ),
                     ) {
-                        labFeed(
-                            labFeedUIState = labFeedUIState,
-                            contentType = contentType,
-                            onClick = { labId, screenContentType ->
-                                searchBarIsActive = false
-                                navigateToDetail(labId, screenContentType)
-                            },
+                        projectFeed(
+                            feedState = labFeedUIState,
+                            onProjectResourcesCheckedChanged = { _, _ ->
+
+                            }
                         )
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-                        }
                     }
                 } else if (listType == ListType.COLUMN) {
                     LazyColumn(
@@ -212,14 +186,14 @@ internal fun HomeScreenLabsGrid(
                             // TODO: Change this color as per required
                             .background(MaterialTheme.colorScheme.primaryContainer),
                     ) {
-                        labFeed(
+                        /*labFeed(
                             labFeedUIState = labFeedUIState,
                             contentType = contentType,
                             onClick = { labId, screenContentType ->
                                 searchBarIsActive = false
                                 navigateToDetail(labId, screenContentType)
                             },
-                        )
+                        )*/
                     }
                 }
             }
@@ -245,65 +219,13 @@ internal fun HomeScreenLabsGrid(
                 },
                 title = {
                     // TODO: Set a proper title
-                    Text(text = "Delete this search from recent?")
+                    Text(text = "Delete $recentSearchQueryToBeCleared from recents?")
                 },
                 properties = DialogProperties(
                     dismissOnBackPress = true,
                     dismissOnClickOutside = true
                 ),
             )
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
-@Composable
-internal fun HomeScreenLabsDetail(
-    lab: UserLabs?,
-    closeDetailScreen: () -> Unit,
-    modifier: Modifier = Modifier,
-    topAppBarState: TopAppBarState = rememberTopAppBarState(),
-) {
-    val scrollBehavior = TopAppBarDefaults
-        .exitUntilCollapsedScrollBehavior(topAppBarState)
-
-    Scaffold(
-        modifier = modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
-        contentColor = MaterialTheme.colorScheme.onBackground,
-        topBar = {
-            if (lab != null) {
-                ALTopAppBarLarge(
-                    title = lab.title,
-                    navigationIcon = ALIcons.Back,
-                    navigationIconContentDescription = null,
-                    actionIcon = Icons.Outlined.MoreVert,
-                    actionIconContentDescription = null,
-                    onNavigationClick = closeDetailScreen,
-                    scrollBehavior = scrollBehavior,
-                )
-            }
-        },
-    ) { padding ->
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .consumeWindowInsets(padding)
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(
-                        WindowInsetsSides.Horizontal
-                    )
-                )
-        ) {
-            if (lab == null) {
-                EmptyState(titleRes = R.string.labs_detail_empty)
-            } else {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    item { Text(text = "Hello") }
-                }
-            }
         }
     }
 }

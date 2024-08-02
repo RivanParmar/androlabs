@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.window.layout.DisplayFeature
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.feature.home.HomeRoute
@@ -34,7 +33,6 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
     listType: ListType,
-    displayFeatures: List<DisplayFeature>,
     onSearchBarTrailingIconClick: () -> Unit,
     onFABClick: () -> Unit,
 ) {
@@ -42,7 +40,6 @@ fun NavGraphBuilder.homeScreen(
         HomeRoute(
             contentType = contentType,
             listType = listType,
-            displayFeatures = displayFeatures,
             onAccountButtonClick = onSearchBarTrailingIconClick,
             onFABClick = onFABClick,
         )

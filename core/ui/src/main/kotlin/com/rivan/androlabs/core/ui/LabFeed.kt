@@ -1,11 +1,10 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridScope
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
@@ -13,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.UserLabs
 
 /**
@@ -44,6 +42,7 @@ fun LazyGridScope.projectFeed(
                 )
             }
         }
+        is ProjectFeedUiState.Error -> Unit
     }
 }
 
@@ -54,7 +53,7 @@ sealed interface ProjectFeedUiState {
     /**
      * The feed is still loading.
      */
-    object Loading : ProjectFeedUiState
+    data object Loading : ProjectFeedUiState
 
     /**
      * The feed is loaded with the given list of project resources.
@@ -63,7 +62,11 @@ sealed interface ProjectFeedUiState {
         /**
          * The list of project resources contained in this feed.
          */
-        val feed: List<UserLabs>
+        val feed: List<UserLabs>,
+    ) : ProjectFeedUiState
+
+    data class Error(
+        val message: String?,
     ) : ProjectFeedUiState
 }
 
@@ -94,53 +97,3 @@ private fun ProjectFeedContentPreview(
         }
     }
 }
-
-@OptIn(ExperimentalFoundationApi::class)
-fun LazyGridScope.labFeed(
-    labFeedUIState: LabFeedUIState,
-    contentType: ContentType,
-    onClick: (String, ContentType) -> Unit
-) {
-    if (!labFeedUIState.loading) {
-        items(items = labFeedUIState.labs, key = { it.id }) { userLabResource ->
-            LabCard(
-                userLabs = userLabResource,
-                isFavourite = userLabResource.isFavourite,
-                isCompleted = userLabResource.isCompleted,
-                onToggleFavourite = { /*TODO*/ },
-                onClick = { onClick(userLabResource.id, contentType) },
-                modifier = Modifier.animateItemPlacement()
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-fun LazyListScope.labFeed(
-    labFeedUIState: LabFeedUIState,
-    contentType: ContentType,
-    onClick: (String, ContentType) -> Unit
-) {
-    if (!labFeedUIState.loading) {
-        itemsIndexed(items = labFeedUIState.labs) { index, userLabResource ->
-            LabListItem(
-                userLabs = userLabResource,
-                onClick = { onClick(userLabResource.id, contentType) },
-                modifier = Modifier.animateItemPlacement()
-            )
-
-            if (index < labFeedUIState.labs.lastIndex) {
-                // Divider(modifier = Modifier.padding(horizontal = 20.dp)
-                Spacer(modifier = Modifier.height(2.dp))
-            }
-        }
-    }
-}
-
-data class LabFeedUIState(
-    val labs: List<UserLabs> = emptyList(),
-    val selectedLab: UserLabs? = null,
-    val isDetailOnlyOpen: Boolean = false,
-    val loading: Boolean = false,
-    val error: String? = null
-)
