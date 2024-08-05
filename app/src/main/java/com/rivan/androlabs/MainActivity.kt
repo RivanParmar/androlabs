@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                     navigationBarStyle = SystemBarStyle.auto(
                         lightScrim,
                         darkScrim,
-                    ) { darkTheme }
+                    ) { darkTheme },
                 )
                 onDispose {}
             }

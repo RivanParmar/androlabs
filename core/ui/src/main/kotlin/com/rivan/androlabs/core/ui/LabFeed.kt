@@ -1,10 +1,12 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
@@ -21,7 +23,7 @@ import com.rivan.androlabs.core.model.data.UserLabs
 @OptIn(ExperimentalFoundationApi::class)
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
-    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit
+    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
 ) {
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
@@ -46,6 +48,31 @@ fun LazyGridScope.projectFeed(
     }
 }
 
+/**
+ * An extension on [LazyListScope] defining a feed with project resources.
+ * Depending on the [feedState], this might emit no items.
+ */
+@OptIn(ExperimentalFoundationApi::class)
+fun LazyListScope.projectFeed(
+    feedState: ProjectFeedUiState,
+    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
+) {
+    when (feedState) {
+        ProjectFeedUiState.Loading -> Unit
+        is ProjectFeedUiState.Success -> {
+            items(feedState.feed, key = { it.id }) { userLab ->
+                LabListItem(
+                    userLab = userLab,
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.animateItemPlacement()
+                )
+            }
+        }
+        is ProjectFeedUiState.Error -> Unit
+    }
+}
+
+// TODO: Rename this to LabFeedUiState (and other related items)
 /**
  * A sealed hierarchy describing the state of the feed of project resources.
  */
@@ -87,12 +114,12 @@ private fun ProjectFeedLoadingPreview() {
 @Composable
 private fun ProjectFeedContentPreview(
     @PreviewParameter(UserLabPreviewParameterProvider::class)
-    UserLabs: List<UserLabs>
+    userLabs: List<UserLabs>
 ) {
     AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
-                feedState = ProjectFeedUiState.Success(UserLabs)
+                feedState = ProjectFeedUiState.Success(userLabs)
             ) { _, _ -> }
         }
     }

@@ -17,10 +17,15 @@
 package com.rivan.androlabs.core.ui
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -33,44 +38,44 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
-import com.rivan.androlabs.core.designsystem.R.drawable.*
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.UserLabs
 import java.io.File
 
 @Composable
 fun LabListItem(
-    userLabs: UserLabs,
+    userLab: UserLabs,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ListItem(
-        headlineContent = { Text(text = userLabs.title) },
+        headlineContent = { Text(text = userLab.title) },
         modifier = modifier.clickable {
-                onClick()
-            },
+            onClick()
+        },
         supportingContent = {
-            val supportingText: String = if (userLabs.extraTitle.isNotBlank() &&
-                userLabs.extraTitle.isNotEmpty()) {
-                userLabs.extraTitle
+            val supportingText: String = if (userLab.extraTitle.isNotBlank() &&
+                userLab.extraTitle.isNotEmpty()
+            ) {
+                userLab.extraTitle
             } else {
-                userLabs.type.serializedName
+                userLab.type.serializedName
             }
 
             Text(text = supportingText)
         },
         leadingContent = {
-            if (userLabs.iconPath != null) {
-                val icon = File(userLabs.iconPath!!)
+            if (userLab.iconPath != null) {
+                val icon = File(userLab.iconPath!!)
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(icon)
                         .decoderFactory(SvgDecoder.Factory())
                         .build(),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             } else {
-                val initials = userLabs.title
+                val initials = userLab.title
                     .split(' ', limit = 2)
                     .mapNotNull { it.firstOrNull()?.toString() }
                     .reduce { acc, s -> acc + s }
@@ -84,11 +89,11 @@ fun LabListItem(
                         .drawBehind {
                             drawCircle(
                                 color = color,
-                                radius = this.size.maxDimension
+                                radius = this.size.maxDimension,
                             )
                         },
                     text = initials,
-                    style = TextStyle(color = Color.White)
+                    style = TextStyle(color = Color.White),
                 )
             }
         },
@@ -99,8 +104,8 @@ fun LabListItem(
         },
         colors = ListItemDefaults.colors(
             // TODO: Use a proper color here for background
-            containerColor = Color.Transparent
-        )
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        ),
     )
 }
 
@@ -108,11 +113,12 @@ fun LabListItem(
 @Composable
 private fun ListItemPreview(
     @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>
+    userLabs: List<UserLabs>,
 ) {
     AndrolabsTheme {
         LabListItem(
-            userLabs = userLabs[1],
-            onClick = { /*TODO*/ })
+            userLab = userLabs[1],
+            onClick = { /*TODO*/ },
+        )
     }
 }

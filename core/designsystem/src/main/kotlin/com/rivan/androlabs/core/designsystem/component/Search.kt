@@ -20,8 +20,8 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -77,14 +78,14 @@ fun ALSearchBar(
 
     Box(
         modifier = Modifier
+            .fillMaxSize()
             .semantics { isTraversalGroup = true }
             .zIndex(1f)
     ) {
         SearchBar(
             modifier = modifier
-                .align(Alignment.Center)
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding),
+                .align(Alignment.TopCenter)
+                .semantics { traversalIndex = 0f },
             query = text,
             onQueryChange = { onTextChange(it) },
             onSearch = {

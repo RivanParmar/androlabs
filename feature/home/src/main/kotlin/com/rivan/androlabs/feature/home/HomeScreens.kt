@@ -20,21 +20,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -46,30 +37,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
-import com.rivan.androlabs.core.designsystem.component.ALScaffold
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
+import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.ListType
+import com.rivan.androlabs.core.model.data.UserLabs
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
+import com.rivan.androlabs.core.ui.UserLabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.projectFeed
 
-// TODO: Cleanup the code if possible
 @Composable
-internal fun HomeScreenLabsGrid(
+internal fun HomeScreenLayout(
     contentType: ContentType,
-    listType: ListType,
     labFeedUIState: ProjectFeedUiState,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
+    listType: ListType,
     modifier: Modifier = Modifier,
-    lazyGridState: LazyGridState = rememberLazyGridState(),
-    lazyListState: LazyListState = rememberLazyListState(),
     isSyncing: Boolean = false,
     onAccountButtonClick: () -> Unit,
     onSearch: (String) -> Unit,
@@ -77,155 +72,177 @@ internal fun HomeScreenLabsGrid(
     onClearRecentSearches: () -> Unit,
     onFloatingActionButtonClick: () -> Unit,
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-    var searchBarIsActive by remember { mutableStateOf(false) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var searchBarIsActive by rememberSaveable { mutableStateOf(false) }
 
     var showClearRecentSearchDialog by remember { mutableStateOf(false) }
     var recentSearchQueryToBeCleared by remember { mutableStateOf("") }
 
-    // TODO: Wrap the entire Scaffold with ALBackground after changing to a suitable theme
-    ALScaffold(
-        floatingActionButton = {
-            // Hide the FAB in case the search bar is active while the screen size is small
-            // TODO: Animate this!
-            if ((!searchBarIsActive && contentType == ContentType.SINGLE_PANE)
-                || (contentType == ContentType.DUAL_PANE)) {
-                ALFloatingActionButton(
-                    onClick = onFloatingActionButtonClick,
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    elevation = FloatingActionButtonDefaults.elevation(),
-                ) {
-                    Icon(
-                        imageVector = ALIcons.Add,
-                        contentDescription = null,
-                    )
-                }
-            }
+    HomeScreenSearchBar(
+        contentType = contentType,
+        text = searchQuery,
+        active = searchBarIsActive,
+        recentSearchQueriesUiState = recentSearchQueriesUiState,
+        onAccountButtonClick = onAccountButtonClick,
+        onSearch = onSearch,
+        onTextChange = { searchQuery = it },
+        onActiveChange = { searchBarIsActive = it },
+        onRecentSearchDelete = {
+            showClearRecentSearchDialog = true
+            recentSearchQueryToBeCleared = it
         },
-    ) { padding ->
+        onClearRecentSearches = onClearRecentSearches,
+    )
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .consumeWindowInsets(padding)
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(
-                        WindowInsetsSides.Horizontal
-                    )
-                )
-        ) {
-            // TODO: For now the search bar is static at the top but we need to hide/show it
-            //  based on scrolling of content similar to the FAB.
-            HomeScreenSearchBar(
-                contentType = contentType,
-                text = searchQuery,
-                active = searchBarIsActive,
-                recentSearchQueriesUiState = recentSearchQueriesUiState,
-                onAccountButtonClick = onAccountButtonClick,
-                onSearch = onSearch,
-                onTextChange = { searchQuery = it },
-                onActiveChange = { searchBarIsActive = it },
-                onRecentSearchDelete = {
-                    showClearRecentSearchDialog = true
-                    recentSearchQueryToBeCleared = it
-                },
-                onClearRecentSearches = onClearRecentSearches,
-            )
-
-            if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
-                LoadingState()
-            } else if (labFeedUIState is ProjectFeedUiState.Error) {
-                // TODO: Use proper error state here
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .statusBarsPadding()
+    ) {
+        if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
+            LoadingState()
+        } else if (labFeedUIState is ProjectFeedUiState.Success) {
+            if (labFeedUIState.feed.isEmpty()) {
                 EmptyState(titleRes = R.string.labs_grid_empty)
             } else {
                 if (listType == ListType.GRID) {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(300.dp),
-                        contentPadding = PaddingValues(
-                            start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp
-                        ),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(24.dp),
-                        state = lazyGridState,
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
                         modifier = modifier
-                            .fillMaxSize()
-                            .padding(
-                                top = if (contentType == ContentType.SINGLE_PANE) {
-                                    96.dp
-                                } else {
-                                    // TODO: Tweak this padding as per required
-                                    72.dp
-                                }
-                            ),
+                            .padding(top = 72.dp, bottom = 16.dp)
+                            .semantics { traversalIndex = 1f },
                     ) {
                         projectFeed(
                             feedState = labFeedUIState,
                             onProjectResourcesCheckedChanged = { _, _ ->
 
-                            }
+                            },
                         )
                     }
-                } else if (listType == ListType.COLUMN) {
+                } else {
                     LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        state = lazyListState,
-                        modifier = Modifier
-                            .padding(
-                                start = 16.dp,
-                                top = if (contentType == ContentType.SINGLE_PANE) {
-                                    104.dp
-                                } else {
-                                    // TODO: Tweak this padding as per required
-                                    72.dp
-                                },
-                                end = 16.dp,
-                                // TODO: Add bottom padding as per required
-                            )
+                        modifier = modifier
+                            .padding(start = 16.dp, top = 72.dp, end = 16.dp, bottom = 16.dp)
                             .clip(RoundedCornerShape(20.dp))
-                            // TODO: Change this color as per required
-                            .background(MaterialTheme.colorScheme.primaryContainer),
+                            .semantics { traversalIndex = 1f },
                     ) {
-                        /*labFeed(
-                            labFeedUIState = labFeedUIState,
-                            contentType = contentType,
-                            onClick = { labId, screenContentType ->
-                                searchBarIsActive = false
-                                navigateToDetail(labId, screenContentType)
-                            },
-                        )*/
+                        projectFeed(feedState = labFeedUIState) { _, _ ->
+
+                        }
                     }
                 }
             }
+        } else {
+            // TODO: Use error state here
         }
 
-        if (showClearRecentSearchDialog) {
-            AlertDialog(
-                onDismissRequest = { showClearRecentSearchDialog = false },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            onRecentSearchDelete(recentSearchQueryToBeCleared)
-                            showClearRecentSearchDialog = false
-                        }
-                    ) {
-                        Text(text = "Delete")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showClearRecentSearchDialog = false }) {
-                        Text(text = "Cancel")
-                    }
-                },
-                title = {
-                    // TODO: Set a proper title
-                    Text(text = "Delete $recentSearchQueryToBeCleared from recents?")
-                },
-                properties = DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = true
-                ),
+        ALFloatingActionButton(
+            onClick = onFloatingActionButtonClick,
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            elevation = FloatingActionButtonDefaults.elevation(),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 16.dp)
+        ) {
+            Icon(
+                imageVector = ALIcons.Add,
+                contentDescription = null,
             )
         }
+    }
+
+    if (showClearRecentSearchDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearRecentSearchDialog = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onRecentSearchDelete(recentSearchQueryToBeCleared)
+                        showClearRecentSearchDialog = false
+                    },
+                ) {
+                    Text(text = "Delete")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showClearRecentSearchDialog = false }) {
+                    Text(text = "Cancel")
+                }
+            },
+            title = {
+                // TODO: Set a proper title
+                Text(text = "Delete $recentSearchQueryToBeCleared from recents?")
+            },
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true,
+            ),
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun HomeScreenLayoutLoadingPreview() {
+    AndrolabsTheme {
+        HomeScreenLayout(
+            contentType = ContentType.SINGLE_PANE,
+            labFeedUIState = ProjectFeedUiState.Loading,
+            recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
+            listType = ListType.COLUMN,
+            onAccountButtonClick = {},
+            onSearch = {},
+            onRecentSearchDelete = {},
+            onClearRecentSearches = {},
+            onFloatingActionButtonClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun HomeScreenLayoutPreview(
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    userLabs: List<UserLabs>,
+) {
+    AndrolabsTheme {
+        HomeScreenLayout(
+            contentType = ContentType.SINGLE_PANE,
+            labFeedUIState = ProjectFeedUiState.Success(userLabs),
+            recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
+            listType = ListType.COLUMN,
+            onClearRecentSearches = {},
+            onFloatingActionButtonClick = {},
+            onSearch = {},
+            onAccountButtonClick = {},
+            onRecentSearchDelete = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun HomeScreenLayoutDualPanePreview(
+    @PreviewParameter(UserLabPreviewParameterProvider::class)
+    userLabs: List<UserLabs>,
+) {
+    AndrolabsTheme {
+        HomeScreenLayout(
+            contentType = ContentType.DUAL_PANE,
+            labFeedUIState = ProjectFeedUiState.Success(userLabs),
+            recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
+            listType = ListType.GRID,
+            onClearRecentSearches = {},
+            onFloatingActionButtonClick = {},
+            onSearch = {},
+            onAccountButtonClick = {},
+            onRecentSearchDelete = {},
+        )
     }
 }

@@ -67,7 +67,7 @@ fun HomeScreen(
     onFABClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    HomeScreenLabsGrid(
+    HomeScreenLayout(
         contentType = contentType,
         listType = listType,
         labFeedUIState = labFeedUIState,

@@ -6,7 +6,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 sealed interface DevicePosture {
-    object NormalPosture : DevicePosture
+    data object NormalPosture : DevicePosture
 
     data class BookPosture(
         val hingePosition: Rect
