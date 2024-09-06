@@ -22,13 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rivan.androlabs.core.model.data.ContentType
-import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 
 @Composable
 internal fun HomeRoute(
     contentType: ContentType,
-    listType: ListType,
     onAccountButtonClick: () -> Unit,
     onFABClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -40,10 +38,9 @@ internal fun HomeRoute(
 
     HomeScreen(
         contentType = contentType,
-        listType = listType,
         labFeedUIState = labFeedUIState,
-        isSyncing = isSyncing,
         recentSearchQueriesUiState = recentSearchQueriesUiState,
+        isSyncing = isSyncing,
         onAccountButtonClick = onAccountButtonClick,
         onSearch = viewModel::onSearchTriggered,
         onRecentSearchDelete = viewModel::clearRecentSearch,
@@ -56,7 +53,6 @@ internal fun HomeRoute(
 @Composable
 fun HomeScreen(
     contentType: ContentType,
-    listType: ListType,
     labFeedUIState: ProjectFeedUiState,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
     isSyncing: Boolean,
@@ -69,7 +65,6 @@ fun HomeScreen(
 ) {
     HomeScreenLayout(
         contentType = contentType,
-        listType = listType,
         labFeedUIState = labFeedUIState,
         recentSearchQueriesUiState = recentSearchQueriesUiState,
         modifier = modifier,

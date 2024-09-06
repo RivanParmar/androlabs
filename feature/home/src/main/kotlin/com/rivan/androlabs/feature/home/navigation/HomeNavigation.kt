@@ -21,7 +21,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.rivan.androlabs.core.model.data.ContentType
-import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.feature.home.HomeRoute
 
 const val homeNavigationRoute = "home_route"
@@ -32,14 +31,12 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
-    listType: ListType,
     onSearchBarTrailingIconClick: () -> Unit,
     onFABClick: () -> Unit,
 ) {
     composable(route = homeNavigationRoute) {
         HomeRoute(
             contentType = contentType,
-            listType = listType,
             onAccountButtonClick = onSearchBarTrailingIconClick,
             onFABClick = onFABClick,
         )

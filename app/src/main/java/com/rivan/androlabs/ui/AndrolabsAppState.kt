@@ -1,6 +1,5 @@
 package com.rivan.androlabs.ui
 
-import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -11,14 +10,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
 import androidx.window.layout.FoldingFeature
 import com.rivan.androlabs.core.model.data.ContentType
-import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.feature.home.utils.DevicePosture
 import com.rivan.androlabs.feature.home.utils.isBookPosture
 import com.rivan.androlabs.feature.home.utils.isSeparating
 
 @Stable
 class AndrolabsAppState(
-    val windowSizeClass: WindowSizeClass,
+    private val windowSizeClass: WindowSizeClass,
     val displayFeatures: List<DisplayFeature>,
     val navController: NavHostController,
 ) {
@@ -43,14 +41,6 @@ class AndrolabsAppState(
                 }
             WindowWidthSizeClass.Expanded -> ContentType.DUAL_PANE
             else -> ContentType.SINGLE_PANE
-        }
-
-    val listType: ListType
-        get() = if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
-            || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact) {
-            ListType.COLUMN
-        } else {
-            ListType.GRID
         }
 }
 

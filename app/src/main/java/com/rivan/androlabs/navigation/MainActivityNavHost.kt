@@ -55,7 +55,6 @@ fun MainActivityNavHost(
     ) {
         homeScreen(
             contentType = appState.contentType,
-            listType = appState.listType,
             onSearchBarTrailingIconClick = {
                 // TODO: This is only for now until the UI has been completed
                 navController.navigateToSettingsGraph()

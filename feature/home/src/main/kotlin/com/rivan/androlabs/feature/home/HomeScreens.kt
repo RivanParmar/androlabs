@@ -52,7 +52,6 @@ import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.ContentType
-import com.rivan.androlabs.core.model.data.ListType
 import com.rivan.androlabs.core.model.data.UserLabs
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import com.rivan.androlabs.core.ui.UserLabPreviewParameterProvider
@@ -63,7 +62,6 @@ internal fun HomeScreenLayout(
     contentType: ContentType,
     labFeedUIState: ProjectFeedUiState,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
-    listType: ListType,
     modifier: Modifier = Modifier,
     isSyncing: Boolean = false,
     onAccountButtonClick: () -> Unit,
@@ -98,7 +96,7 @@ internal fun HomeScreenLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
+            .statusBarsPadding(),
     ) {
         if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
             LoadingState()
@@ -106,7 +104,7 @@ internal fun HomeScreenLayout(
             if (labFeedUIState.feed.isEmpty()) {
                 EmptyState(titleRes = R.string.labs_grid_empty)
             } else {
-                if (listType == ListType.GRID) {
+                if (contentType == ContentType.DUAL_PANE) {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(300.dp),
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
@@ -148,7 +146,7 @@ internal fun HomeScreenLayout(
             elevation = FloatingActionButtonDefaults.elevation(),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 16.dp)
+                .padding(end = 24.dp, bottom = 32.dp),
         ) {
             Icon(
                 imageVector = ALIcons.Add,
@@ -195,7 +193,6 @@ private fun HomeScreenLayoutLoadingPreview() {
             contentType = ContentType.SINGLE_PANE,
             labFeedUIState = ProjectFeedUiState.Loading,
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
-            listType = ListType.COLUMN,
             onAccountButtonClick = {},
             onSearch = {},
             onRecentSearchDelete = {},
@@ -216,33 +213,31 @@ private fun HomeScreenLayoutPreview(
             contentType = ContentType.SINGLE_PANE,
             labFeedUIState = ProjectFeedUiState.Success(userLabs),
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
-            listType = ListType.COLUMN,
+            onAccountButtonClick = {},
+            onSearch = {},
+            onRecentSearchDelete = {},
             onClearRecentSearches = {},
             onFloatingActionButtonClick = {},
-            onSearch = {},
-            onAccountButtonClick = {},
-            onRecentSearchDelete = {},
         )
     }
 }
 
 @Preview
 @Composable
-private fun HomeScreenLayoutDualPanePreview(
+private fun HomeScreenLayoutGridPreview(
     @PreviewParameter(UserLabPreviewParameterProvider::class)
     userLabs: List<UserLabs>,
 ) {
     AndrolabsTheme {
         HomeScreenLayout(
-            contentType = ContentType.DUAL_PANE,
+            contentType = ContentType.SINGLE_PANE,
             labFeedUIState = ProjectFeedUiState.Success(userLabs),
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
-            listType = ListType.GRID,
+            onAccountButtonClick = {},
+            onSearch = {},
+            onRecentSearchDelete = {},
             onClearRecentSearches = {},
             onFloatingActionButtonClick = {},
-            onSearch = {},
-            onAccountButtonClick = {},
-            onRecentSearchDelete = {},
         )
     }
 }
