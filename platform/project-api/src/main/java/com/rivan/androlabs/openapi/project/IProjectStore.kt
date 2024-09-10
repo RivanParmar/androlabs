@@ -5,7 +5,7 @@ import java.io.File
 import java.nio.file.Path
 
 
-interface ProjectStore {
+interface IProjectStore {
 
     fun getProjectBasePath(): Path
 
