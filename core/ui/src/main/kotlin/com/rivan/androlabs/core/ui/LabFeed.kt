@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.UserLabs
 
+// TODO: Rename onProjectResourcesCheckedChanged
 /**
  * An extension on [LazyGridScope] defining a feed with project resources.
  * Depending on the [feedState], this might emit no items.
@@ -23,6 +24,7 @@ import com.rivan.androlabs.core.model.data.UserLabs
 @OptIn(ExperimentalFoundationApi::class)
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
+    onClick: () -> Unit,
     onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
 ) {
     when (feedState) {
@@ -39,7 +41,7 @@ fun LazyGridScope.projectFeed(
                             !userLabs.isFavourite
                         )
                     },
-                    onClick = { /*TODO*/ },
+                    onClick = onClick,
                     modifier = Modifier.animateItemPlacement()
                 )
             }
@@ -55,6 +57,7 @@ fun LazyGridScope.projectFeed(
 @OptIn(ExperimentalFoundationApi::class)
 fun LazyListScope.projectFeed(
     feedState: ProjectFeedUiState,
+    onClick: () -> Unit,
     onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
 ) {
     when (feedState) {
@@ -63,7 +66,7 @@ fun LazyListScope.projectFeed(
             items(feedState.feed, key = { it.id }) { userLab ->
                 LabListItem(
                     userLab = userLab,
-                    onClick = { /*TODO*/ },
+                    onClick = onClick,
                     modifier = Modifier.animateItemPlacement()
                 )
             }
@@ -103,7 +106,8 @@ private fun ProjectFeedLoadingPreview() {
     AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
-                feedState = ProjectFeedUiState.Loading
+                feedState = ProjectFeedUiState.Loading,
+                onClick = {},
             ) { _, _ -> }
         }
     }
@@ -119,7 +123,8 @@ private fun ProjectFeedContentPreview(
     AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
-                feedState = ProjectFeedUiState.Success(userLabs)
+                feedState = ProjectFeedUiState.Success(userLabs),
+                onClick = {},
             ) { _, _ -> }
         }
     }

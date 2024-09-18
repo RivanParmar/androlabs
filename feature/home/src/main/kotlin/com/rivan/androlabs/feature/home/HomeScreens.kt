@@ -68,6 +68,7 @@ internal fun HomeScreenLayout(
     onSearch: (String) -> Unit,
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,
+    onLabItemClick: () -> Unit,
     onFloatingActionButtonClick: () -> Unit,
 ) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -105,6 +106,7 @@ internal fun HomeScreenLayout(
                 EmptyState(titleRes = R.string.labs_grid_empty)
             } else {
                 if (contentType == ContentType.DUAL_PANE) {
+                    // TODO: Fix padding
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(300.dp),
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
@@ -116,6 +118,7 @@ internal fun HomeScreenLayout(
                     ) {
                         projectFeed(
                             feedState = labFeedUIState,
+                            onClick = onLabItemClick,
                             onProjectResourcesCheckedChanged = { _, _ ->
 
                             },
@@ -130,7 +133,10 @@ internal fun HomeScreenLayout(
                             .clip(RoundedCornerShape(20.dp))
                             .semantics { traversalIndex = 1f },
                     ) {
-                        projectFeed(feedState = labFeedUIState) { _, _ ->
+                        projectFeed(
+                            feedState = labFeedUIState,
+                            onClick = onLabItemClick,
+                        ) { _, _ ->
 
                         }
                     }
@@ -197,6 +203,7 @@ private fun HomeScreenLayoutLoadingPreview() {
             onSearch = {},
             onRecentSearchDelete = {},
             onClearRecentSearches = {},
+            onLabItemClick = {},
             onFloatingActionButtonClick = {},
         )
     }
@@ -217,11 +224,13 @@ private fun HomeScreenLayoutPreview(
             onSearch = {},
             onRecentSearchDelete = {},
             onClearRecentSearches = {},
+            onLabItemClick = {},
             onFloatingActionButtonClick = {},
         )
     }
 }
 
+// TODO: Use large screen preview here
 @Preview
 @Composable
 private fun HomeScreenLayoutGridPreview(
@@ -237,6 +246,7 @@ private fun HomeScreenLayoutGridPreview(
             onSearch = {},
             onRecentSearchDelete = {},
             onClearRecentSearches = {},
+            onLabItemClick = {},
             onFloatingActionButtonClick = {},
         )
     }

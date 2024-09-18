@@ -19,7 +19,11 @@ package com.rivan.androlabs
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.adaptive.calculateDisplayFeatures
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
+import com.rivan.androlabs.core.model.data.ContentType
+import com.rivan.androlabs.navigation.EditorActivityNavHost
 
 class EditorActivity : ComponentActivity() {
 
@@ -27,7 +31,11 @@ class EditorActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndrolabsTheme {
-
+                EditorActivityNavHost(
+                    contentType = ContentType.SINGLE_PANE,
+                    displayFeatures = calculateDisplayFeatures(activity = this),
+                    navController = rememberNavController(),
+                )
             }
         }
     }

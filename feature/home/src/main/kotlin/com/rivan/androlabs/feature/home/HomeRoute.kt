@@ -28,6 +28,7 @@ import com.rivan.androlabs.core.ui.ProjectFeedUiState
 internal fun HomeRoute(
     contentType: ContentType,
     onAccountButtonClick: () -> Unit,
+    onLabItemClick: () -> Unit,
     onFABClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -45,6 +46,7 @@ internal fun HomeRoute(
         onSearch = viewModel::onSearchTriggered,
         onRecentSearchDelete = viewModel::clearRecentSearch,
         onClearRecentSearches = viewModel::clearRecentSearches,
+        onLabItemClick = onLabItemClick,
         onFABClick = onFABClick,
         modifier = modifier,
     )
@@ -60,6 +62,7 @@ fun HomeScreen(
     onSearch: (String) -> Unit,
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,
+    onLabItemClick: () -> Unit,
     onFABClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,6 +76,7 @@ fun HomeScreen(
         onSearch = onSearch,
         onRecentSearchDelete = onRecentSearchDelete,
         onClearRecentSearches = onClearRecentSearches,
+        onLabItemClick = onLabItemClick,
         onFloatingActionButtonClick = onFABClick,
     )
 }

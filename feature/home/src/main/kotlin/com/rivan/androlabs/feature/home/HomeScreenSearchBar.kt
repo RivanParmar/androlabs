@@ -107,7 +107,6 @@ internal fun HomeScreenSearchBar(
             onActiveChange = onActiveChange,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            modifier = Modifier.padding(12.dp),
         ) {
             if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
                 RecentSearchesPanel(

@@ -2,14 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Uncomment these permissions if required -->
-    <!--<uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />-->
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!--
@@ -43,7 +35,8 @@
 
         <activity
             android:name=".EditorActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AL" />
 
         <!-- Disable Firebase analytics by default. This setting is overwritten for the `prod`
         flavor -->

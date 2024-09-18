@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
+import com.rivan.androlabs.EditorActivity
 import com.rivan.androlabs.feature.home.navigation.homeNavigationRoute
 import com.rivan.androlabs.feature.home.navigation.homeScreen
 import com.rivan.androlabs.feature.nlw.navigation.navigateToNlw
@@ -58,6 +59,9 @@ fun MainActivityNavHost(
             onSearchBarTrailingIconClick = {
                 // TODO: This is only for now until the UI has been completed
                 navController.navigateToSettingsGraph()
+            },
+            onLabItemClick = {
+                context.startActivity(Intent(context, EditorActivity::class.java))
             },
             onFABClick = {
                 // Ask the user to select a common path for saving the labs

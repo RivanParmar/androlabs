@@ -32,12 +32,14 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
     onSearchBarTrailingIconClick: () -> Unit,
+    onLabItemClick: () -> Unit,
     onFABClick: () -> Unit,
 ) {
     composable(route = homeNavigationRoute) {
         HomeRoute(
             contentType = contentType,
             onAccountButtonClick = onSearchBarTrailingIconClick,
+            onLabItemClick = onLabItemClick,
             onFABClick = onFABClick,
         )
     }
