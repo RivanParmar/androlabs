@@ -58,7 +58,6 @@ fun LazyGridScope.projectFeed(
 fun LazyListScope.projectFeed(
     feedState: ProjectFeedUiState,
     onClick: () -> Unit,
-    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
 ) {
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit

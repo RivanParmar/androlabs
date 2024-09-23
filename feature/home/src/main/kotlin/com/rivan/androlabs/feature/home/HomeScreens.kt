@@ -136,9 +136,7 @@ internal fun HomeScreenLayout(
                         projectFeed(
                             feedState = labFeedUIState,
                             onClick = onLabItemClick,
-                        ) { _, _ ->
-
-                        }
+                        )
                     }
                 }
             }
