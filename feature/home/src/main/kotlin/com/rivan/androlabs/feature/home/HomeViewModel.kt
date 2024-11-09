@@ -18,23 +18,15 @@ package com.rivan.androlabs.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rivan.androlabs.core.data.repository.LabQuery
 import com.rivan.androlabs.core.data.repository.RecentSearchRepository
 import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
+import com.rivan.androlabs.core.domain.GetLabsUseCase
 import com.rivan.androlabs.core.domain.GetRecentSearchQueriesUseCase
-import com.rivan.androlabs.core.domain.GetUserLabsUseCase
-import com.rivan.androlabs.core.model.data.UserLabData
-import com.rivan.androlabs.core.model.data.UserLabs
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -43,7 +35,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     syncStatusMonitor: SyncStatusMonitor,
-    getRecentUserLabs: GetUserLabsUseCase,
+    getRecentLabs: GetLabsUseCase,
     recentSearchQueriesUseCase: GetRecentSearchQueriesUseCase,
     private val userLabDataRepository: UserLabDataRepository,
     private val recentSearchRepository: RecentSearchRepository,
@@ -57,7 +49,7 @@ class HomeViewModel @Inject constructor(
         )
 
     val projectFeedUiState: StateFlow<ProjectFeedUiState> =
-        userLabDataRepository.getRecentLabs(getRecentUserLabs)
+        getRecentLabs()
             .map(ProjectFeedUiState::Success)
             .stateIn(
                 scope = viewModelScope,
@@ -114,9 +106,9 @@ class HomeViewModel @Inject constructor(
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
+/*@OptIn(ExperimentalCoroutinesApi::class)
 private fun UserLabDataRepository.getRecentLabs(
-    getUserLabs: GetUserLabsUseCase,
+    getUserLabs: GetLabsUseCase,
 ): Flow<List<UserLabs>> = userLabData
     // Map the user data into a set of recent lab IDs or null if we should return an
     // empty list.
@@ -146,4 +138,4 @@ private fun UserLabDataRepository.getRecentLabs(
     }
 
 private fun UserLabData.shouldShowEmptyFeed() =
-    recentLabs.isEmpty()
+    recentLabs.isEmpty()*/

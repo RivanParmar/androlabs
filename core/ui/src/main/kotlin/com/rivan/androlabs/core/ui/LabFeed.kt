@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.model.data.UserLabs
+import com.rivan.androlabs.core.model.data.Lab
 
 // TODO: Rename onProjectResourcesCheckedChanged
 /**
@@ -25,22 +25,13 @@ import com.rivan.androlabs.core.model.data.UserLabs
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
     onClick: () -> Unit,
-    onProjectResourcesCheckedChanged: (String, Boolean) -> Unit,
 ) {
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
         is ProjectFeedUiState.Success -> {
             items(feedState.feed, key = { it.id }) { userLabs ->
                 LabCard(
-                    userLabs = userLabs,
-                    isFavourite = userLabs.isFavourite,
-                    isCompleted = userLabs.isCompleted,
-                    onToggleFavourite = {
-                        onProjectResourcesCheckedChanged(
-                            userLabs.id,
-                            !userLabs.isFavourite
-                        )
-                    },
+                    lab = userLabs,
                     onClick = onClick,
                     modifier = Modifier.animateItemPlacement()
                 )
@@ -64,7 +55,7 @@ fun LazyListScope.projectFeed(
         is ProjectFeedUiState.Success -> {
             items(feedState.feed, key = { it.id }) { userLab ->
                 LabListItem(
-                    userLab = userLab,
+                    lab = userLab,
                     onClick = onClick,
                     modifier = Modifier.animateItemPlacement()
                 )
@@ -91,7 +82,7 @@ sealed interface ProjectFeedUiState {
         /**
          * The list of project resources contained in this feed.
          */
-        val feed: List<UserLabs>,
+        val feed: List<Lab>,
     ) : ProjectFeedUiState
 
     data class Error(
@@ -107,7 +98,7 @@ private fun ProjectFeedLoadingPreview() {
             projectFeed(
                 feedState = ProjectFeedUiState.Loading,
                 onClick = {},
-            ) { _, _ -> }
+            )
         }
     }
 }
@@ -116,15 +107,15 @@ private fun ProjectFeedLoadingPreview() {
 @Preview(device = Devices.TABLET)
 @Composable
 private fun ProjectFeedContentPreview(
-    @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>
+    @PreviewParameter(LabPreviewParameterProvider::class)
+    labs: List<Lab>
 ) {
     AndrolabsTheme {
         LazyVerticalGrid(columns = GridCells.Adaptive(300.dp)) {
             projectFeed(
-                feedState = ProjectFeedUiState.Success(userLabs),
+                feedState = ProjectFeedUiState.Success(labs),
                 onClick = {},
-            ) { _, _ -> }
+            )
         }
     }
 }

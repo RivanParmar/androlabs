@@ -17,5 +17,5 @@
 package com.rivan.androlabs.core.model.data
 
 data class UserSearchResult(
-    val labs: List<UserLabs> = emptyList()
+    val labs: List<Lab> = emptyList()
 )

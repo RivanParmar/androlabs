@@ -45,36 +45,36 @@ import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.model.data.UserLabs
+import com.rivan.androlabs.core.model.data.Lab
 import java.io.File
 
 @Composable
 fun LabListItem(
-    userLab: UserLabs,
+    lab: Lab,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isDropdownMenuExpanded by remember { mutableStateOf(false) }
 
     ListItem(
-        headlineContent = { Text(text = userLab.title) },
+        headlineContent = { Text(text = lab.title) },
         modifier = modifier.clickable {
             onClick()
         },
         supportingContent = {
-            val supportingText: String = if (userLab.extraTitle.isNotBlank() &&
-                userLab.extraTitle.isNotEmpty()
+            val supportingText: String = if (lab.extraTitle.isNotBlank() &&
+                lab.extraTitle.isNotEmpty()
             ) {
-                userLab.extraTitle
+                lab.extraTitle
             } else {
-                userLab.type.serializedName
+                lab.type.serializedName
             }
 
             Text(text = supportingText)
         },
         leadingContent = {
-            if (userLab.iconPath != null) {
-                val icon = File(userLab.iconPath!!)
+            if (lab.iconPath != null) {
+                val icon = File(lab.iconPath!!)
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(icon)
@@ -83,7 +83,7 @@ fun LabListItem(
                     contentDescription = null,
                 )
             } else {
-                val initials = userLab.title
+                val initials = lab.title
                     .split(' ', limit = 2)
                     .mapNotNull { it.firstOrNull()?.toString() }
                     .reduce { acc, s -> acc + s }
@@ -140,12 +140,12 @@ fun LabListItem(
 @Preview
 @Composable
 private fun ListItemPreview(
-    @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>,
+    @PreviewParameter(LabPreviewParameterProvider::class)
+    labs: List<Lab>,
 ) {
     AndrolabsTheme {
         LabListItem(
-            userLab = userLabs[1],
+            lab = labs[1],
             onClick = {},
         )
     }

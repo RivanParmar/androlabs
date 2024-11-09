@@ -29,17 +29,14 @@ import com.rivan.androlabs.core.designsystem.R.drawable.ic_launcher_background_2
 import com.rivan.androlabs.core.designsystem.component.ALIconToggleButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
-import com.rivan.androlabs.core.model.data.UserLabs
+import com.rivan.androlabs.core.model.data.Lab
 
 // TODO: Not yet completed
 @Composable
 fun LabCard(
-    userLabs: UserLabs,
-    isFavourite: Boolean,
-    isCompleted: Boolean,
-    onToggleFavourite: () -> Unit,
+    lab: Lab,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
         onClick = onClick,
@@ -48,7 +45,7 @@ fun LabCard(
         modifier = modifier
     ) {
         Row {
-            LabHeaderImage(userLabs.headerImageUrl)
+            LabHeaderImage(lab.headerImageUrl)
         }
 
         HorizontalDivider()
@@ -57,9 +54,9 @@ fun LabCard(
             modifier = Modifier.padding(10.dp)
         ) {
             Column {
-                LabTitle(userLabs.title)
+                LabTitle(lab.title)
                 Spacer(modifier = Modifier.height(4.dp))
-                LabExtraTitle(userLabs.extraTitle)
+                LabExtraTitle(lab.extraTitle)
             }
         }
     }
@@ -119,13 +116,13 @@ private fun FavouriteButton(
         icon = {
             Icon(
                 painter = painterResource(ALIcons.FavouriteBorder),
-                contentDescription = null
+                contentDescription = null,
             )
         },
         checkedIcon = {
             Icon(
                 painter = painterResource(ALIcons.Favourite),
-                contentDescription = null
+                contentDescription = null,
             )
         }
     )
@@ -141,16 +138,13 @@ private fun LabExtraTitle(
 @Preview(name = "ProjectResourceCard")
 @Composable
 private fun ProjectResourceCardPreview(
-    @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>
+    @PreviewParameter(LabPreviewParameterProvider::class)
+    labs: List<Lab>
 ) {
     AndrolabsTheme {
         Surface {
             LabCard(
-                userLabs = userLabs[1],
-                isFavourite = false,
-                isCompleted = false,
-                onToggleFavourite = { },
+                lab = labs[1],
                 onClick = { }
             )
         }

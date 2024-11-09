@@ -32,5 +32,5 @@ data class Lab(
     val lastEdited: Instant?,
     val path: String?,
     val type: LabType,
-    val vendor: String?
+    val vendor: String?,
 )

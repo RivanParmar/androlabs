@@ -52,9 +52,9 @@ import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.ContentType
-import com.rivan.androlabs.core.model.data.UserLabs
+import com.rivan.androlabs.core.model.data.Lab
+import com.rivan.androlabs.core.ui.LabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
-import com.rivan.androlabs.core.ui.UserLabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.projectFeed
 
 @Composable
@@ -119,9 +119,6 @@ internal fun HomeScreenLayout(
                         projectFeed(
                             feedState = labFeedUIState,
                             onClick = onLabItemClick,
-                            onProjectResourcesCheckedChanged = { _, _ ->
-
-                            },
                         )
                     }
                 } else {
@@ -179,7 +176,7 @@ internal fun HomeScreenLayout(
             },
             title = {
                 // TODO: Set a proper title
-                Text(text = "Delete $recentSearchQueryToBeCleared from recents?")
+                Text(text = "Delete $recentSearchQueryToBeCleared from recent?")
             },
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -210,13 +207,13 @@ private fun HomeScreenLayoutLoadingPreview() {
 @Preview
 @Composable
 private fun HomeScreenLayoutPreview(
-    @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>,
+    @PreviewParameter(LabPreviewParameterProvider::class)
+    labs: List<Lab>,
 ) {
     AndrolabsTheme {
         HomeScreenLayout(
             contentType = ContentType.SINGLE_PANE,
-            labFeedUIState = ProjectFeedUiState.Success(userLabs),
+            labFeedUIState = ProjectFeedUiState.Success(labs),
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
             onAccountButtonClick = {},
             onSearch = {},
@@ -232,13 +229,13 @@ private fun HomeScreenLayoutPreview(
 @Preview
 @Composable
 private fun HomeScreenLayoutGridPreview(
-    @PreviewParameter(UserLabPreviewParameterProvider::class)
-    userLabs: List<UserLabs>,
+    @PreviewParameter(LabPreviewParameterProvider::class)
+    labs: List<Lab>,
 ) {
     AndrolabsTheme {
         HomeScreenLayout(
             contentType = ContentType.SINGLE_PANE,
-            labFeedUIState = ProjectFeedUiState.Success(userLabs),
+            labFeedUIState = ProjectFeedUiState.Success(labs),
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
             onAccountButtonClick = {},
             onSearch = {},

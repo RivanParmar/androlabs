@@ -21,7 +21,6 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
@@ -131,14 +130,17 @@ fun ALDockedSearchBar(
     trailingIcon: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
+    // TODO: Fix the padding
     Box(
         modifier = Modifier
+            .fillMaxSize()
             .semantics { isTraversalGroup = true }
             .zIndex(1f)
-            .fillMaxWidth()
     ) {
         DockedSearchBar(
-            modifier = modifier.align(Alignment.TopEnd),
+            modifier = modifier
+                .align(Alignment.TopEnd)
+                .semantics { traversalIndex = 0f },
             query = text,
             onQueryChange = { onTextChange(it) },
             onSearch = {
