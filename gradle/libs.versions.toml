@@ -1,30 +1,27 @@
 [versions]
 aapt2Proto = "8.1.4-10154469"
-accompanist = "0.34.0"
+accompanist = "0.37.0"
 # AGP and tools should be updated together
-androidGradlePlugin = "8.4.0"
-androidTools = "31.4.0"
-androidxActivity = "1.8.2"
-androidxAnnotation = "1.8.0"
-androidxAppCompat = "1.6.1"
-androidxComposeAlpha = "1.7.0-beta01"
-androidxComposeBom = "2024.02.02"
-androidxComposeCompiler = "1.5.12"
-androidxComposeMaterial3Adaptive = "1.0.0-beta01"
-androidxComposeMaterial3AdaptiveNavigationSuite = "1.3.0-beta01"
-androidxCore = "1.12.0"
+androidGradlePlugin = "8.9.1"
+androidTools = "31.9.1"
+androidxActivity = "1.10.1"
+androidxAnnotation = "1.9.1"
+androidxAppCompat = "1.7.0"
+androidxComposeBom = "2025.03.01"
+androidxComposeFoundation = "1.8.0-rc02"
+androidxCore = "1.15.0"
 androidxCoreSplashScreen = "1.0.1"
-androidxDataStore = "1.0.0"
-androidxEspresso = "3.5.1"
+androidxDataStore = "1.1.4"
+androidxEspresso = "3.6.1"
 androidxHiltNavigationCompose = "1.2.0"
-androidxLifecycle = "2.7.0"
-androidxNavigation = "2.8.0-alpha06"
-androidxTestCore = "1.5.0"
-androidxTestExt = "1.1.5"
-androidxTestRules = "1.5.0"
-androidxTestRunner = "1.5.2"
-androidxWindowManager = "1.3.0-alpha03"
-androidxWork = "2.9.0"
+androidxLifecycle = "2.8.7"
+androidxNavigation = "2.8.9"
+androidxTestCore = "1.6.1"
+androidxTestExt = "1.2.1"
+androidxTestRules = "1.6.1"
+androidxTestRunner = "1.6.2"
+androidxWindowManager = "1.3.0"
+androidxWork = "2.10.0"
 ant = "1.10.14"
 apacheCommonsLang3 = "3.13.0"
 apacheCommonsCompress = "1.24.0"
@@ -34,28 +31,29 @@ asm = "9.6"
 coil = "2.6.0"
 commonsIo = "2.14.0"
 fastutil = "8.5.12"
-firebaseBom = "32.4.0"
-firebaseCrashlyticsPlugin = "2.9.9"
-gmsPlugin = "4.4.1"
+firebaseBom = "33.7.0"
+firebaseCrashlyticsPlugin = "3.0.2"
+gmsPlugin = "4.4.2"
 groovy = "5.0.0-alpha-2"
 gson = "2.10.1"
-guava = "32.1.3-jre"
-hilt = "2.51.1"
-hiltExt = "1.1.0"
+guava = "33.0.0-jre"
+hilt = "2.54"
+hiltExt = "1.2.0"
 jansi = "2.4.1"
 jatl = "0.2.3"
 javaxInject = "1"
 junit4 = "4.13.2"
 jsr305 = "3.0.2"
-kotlin = "2.0.0"
-kotlinxCoroutines = "1.8.0"
-kotlinxDatetime = "0.5.0"
-kotlinxSerializationJson = "1.6.3"
+kotlin = "2.1.10"
+kotlinxCoroutines = "1.10.1"
+kotlinxDatetime = "0.6.1"
+kotlinxSerializationJson = "1.8.1"
 kryo = "5.5.0"
-ksp = "2.0.0-1.0.21"
+ksp = "2.1.10-1.0.31"
 nativePlatform = "0.22-milestone-23"
-protobuf = "4.26.0"
-protobufJava = "4.0.0-rc-2"
+# TODO: Update this dependency once https://github.com/firebase/firebase-android-sdk/issues/5997 is fixed
+protobuf = "4.26.1"
+#protobufJava = "4.0.0-rc-2"
 protobufPlugin = "0.9.4"
 room = "2.6.1"
 r8 = "8.2.33"
@@ -63,10 +61,13 @@ signflinger = "8.2.0"
 slf4j = "2.0.9"
 zipflinger = "8.2.0"
 
+[bundles]
+androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
+
 [libraries]
 accompanist-adaptive = { group = "com.google.accompanist", name = "accompanist-adaptive", version.ref = "accompanist" }
 #accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
-accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
+#accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
 android-signflinger = { group = "com.android", name = "signflinger", version.ref = "signflinger" }
 android-zipflinger = { group = "com.android", name = "zipflinger", version.ref = "zipflinger" }
 android-tools-annotations = { group = "com.android.tools", name = "annotations", version.ref = "androidTools" }
@@ -82,19 +83,18 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigationSuite" }
-androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
-androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout", version.ref = "androidxComposeMaterial3Adaptive" }
-androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation", version.ref = "androidxComposeMaterial3Adaptive" }
+androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
+androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
+androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }
+androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxComposeAlpha" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -128,9 +128,9 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
 fastutil = { group = "it.unimi.dsi", name = "fastutil", version.ref = "fastutil" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref="firebaseBom" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
 groovy = { group = "org.apache.groovy", name = "groovy", version.ref = "groovy" }
 groovy-ant = { group = "org.apache.groovy", name = "groovy-ant", version.ref = "groovy" }
@@ -157,8 +157,8 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kryo = { group = "com.esotericsoftware", name = "kryo", version.ref = "kryo" }
 native-platform = { group = "net.rubygrapefruit", name = "native-platform", version.ref = "nativePlatform" }
 native-platform-file-events = { group = "net.rubygrapefruit", name = "file-events", version.ref = "nativePlatform" }
-protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobufJava" }
-protobuf-java-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobufJava" }
+#protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobufJava" }
+#protobuf-java-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobufJava" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }

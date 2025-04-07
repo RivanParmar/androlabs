@@ -71,7 +71,7 @@ dependencies {
     androidTestImplementation(projects.core.testing)
     androidTestImplementation(projects.core.network)
     androidTestImplementation(libs.androidx.navigation.testing)
-    androidTestImplementation(libs.accompanist.testharness)
+//    androidTestImplementation(libs.accompanist.testharness)
     androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
@@ -88,7 +88,7 @@ dependencies {
     testImplementation(projects.core.testing)
     testImplementation(projects.core.network)
     testImplementation(libs.androidx.navigation.testing)
-    testImplementation(libs.accompanist.testharness)
+//    testImplementation(libs.accompanist.testharness)
     testImplementation(kotlin("test"))
     kspTest(libs.hilt.compiler)
 }
