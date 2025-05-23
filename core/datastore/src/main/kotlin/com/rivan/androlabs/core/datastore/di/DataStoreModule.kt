@@ -37,7 +37,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
 
-    @Provides
+    /*@Provides
     @Singleton
     fun providesUserLabPrefsDataStore(
         @ApplicationContext context: Context,
@@ -49,7 +49,7 @@ object DataStoreModule {
             scope = CoroutineScope(ioDispatcher + SupervisorJob()),
         ) {
             context.dataStoreFile("user_lab_prefs.pb")
-        }
+        }*/
 
     @Provides
     @Singleton

@@ -19,27 +19,24 @@ package com.rivan.androlabs
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.MainActivityUiState.Loading
-import com.rivan.androlabs.MainActivityUiState.Success
-import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.repository.UserSettingsRepository
-import com.rivan.androlabs.core.model.data.UserLabData
 import com.rivan.androlabs.core.model.data.UserSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val userLabDataRepository: UserLabDataRepository,
+//    private val userLabDataRepository: UserLabDataRepository,
     private val userSettingsRepository: UserSettingsRepository
 ) : ViewModel() {
 
     val uiState: StateFlow<MainActivityUiState> =
-        combine(
+        /*combine(
             userLabDataRepository.userLabData,
             userSettingsRepository.userSettings
         ) { userLabData, userSettings ->
@@ -48,7 +45,14 @@ class MainActivityViewModel @Inject constructor(
             scope = viewModelScope,
             initialValue = Loading,
             started = SharingStarted.Eagerly
-        )
+        )*/
+        userSettingsRepository.userSettings
+            .map(MainActivityUiState::Success)
+            .stateIn(
+                scope = viewModelScope,
+                initialValue = Loading,
+                started = SharingStarted.Eagerly,
+            )
 
     fun updateSavePath(savePath: String) {
         viewModelScope.launch {
@@ -60,7 +64,7 @@ class MainActivityViewModel @Inject constructor(
 sealed interface MainActivityUiState {
     data object Loading: MainActivityUiState
     data class Success(
-        val userLabData: UserLabData,
+//        val userLabData: UserLabData,
         val userSettings: UserSettings
     ) : MainActivityUiState
 }
