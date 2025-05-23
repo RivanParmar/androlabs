@@ -16,24 +16,46 @@
 
 package com.rivan.androlabs.feature.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Contacts
+import androidx.compose.material.icons.filled.FolderOpen
+import androidx.compose.material.icons.filled.ImportExport
+import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Snooze
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +64,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,6 +75,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
+import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButtonMenu
+import com.rivan.androlabs.core.designsystem.component.ALTopSearchBar
 import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.ContentType
@@ -57,6 +85,7 @@ import com.rivan.androlabs.core.ui.LabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import com.rivan.androlabs.core.ui.projectFeed
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreenLayout(
     contentType: ContentType,
@@ -69,15 +98,25 @@ internal fun HomeScreenLayout(
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,
     onLabItemClick: () -> Unit,
-    onFloatingActionButtonClick: () -> Unit,
+    onFloatingActionButtonClick: (String) -> Unit,
 ) {
+    val scrollBehavior = SearchBarDefaults.enterAlwaysSearchBarScrollBehavior()
+
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var searchBarIsActive by rememberSaveable { mutableStateOf(false) }
 
     var showClearRecentSearchDialog by remember { mutableStateOf(false) }
     var recentSearchQueryToBeCleared by remember { mutableStateOf("") }
 
-    HomeScreenSearchBar(
+    val listState = rememberLazyListState()
+    val fabVisible by remember {
+        derivedStateOf { listState.firstVisibleItemIndex == 0 }
+    }
+
+    // TODO: Remove HomeScreenSearchBar and use a Box for DockedSearchBar when type is
+    //  DUAL_PANE and default to the Scaffold when SINGLE_PANE
+
+    /*HomeScreenSearchBar(
         contentType = contentType,
         text = searchQuery,
         active = searchBarIsActive,
@@ -141,7 +180,7 @@ internal fun HomeScreenLayout(
             // TODO: Use error state here
         }
 
-        ALFloatingActionButton(
+        /*ALFloatingActionButton(
             onClick = onFloatingActionButtonClick,
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             elevation = FloatingActionButtonDefaults.elevation(),
@@ -153,6 +192,88 @@ internal fun HomeScreenLayout(
                 imageVector = ALIcons.Add,
                 contentDescription = null,
             )
+        }*/
+
+        FloatingActionButton(
+            visible = fabVisible,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 12.dp, bottom = 16.dp),
+        )
+    }*/
+
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            ALTopSearchBar(
+                scrollBehavior = scrollBehavior,
+                onTrailingIconClick = onAccountButtonClick,
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                visible = fabVisible,
+                onFABMenuItemClick = onFloatingActionButtonClick,
+            )
+        },
+        floatingActionButtonPosition = FabPosition.End,
+        contentWindowInsets = WindowInsets(0.dp),
+    ) { padding ->
+        if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
+            LoadingState()
+        } else if (labFeedUIState is ProjectFeedUiState.Success) {
+            if (labFeedUIState.feed.isEmpty()) {
+                EmptyState(titleRes = R.string.labs_grid_empty)
+            } else {
+                if (contentType == ContentType.DUAL_PANE) {
+                    // TODO: Fix padding
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(300.dp),
+                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = modifier
+                            .padding(padding)
+                            .consumeWindowInsets(padding)
+                            .windowInsetsPadding(
+                                WindowInsets.safeDrawing.only(
+                                    WindowInsetsSides.Horizontal
+                                )
+                            )
+                            .semantics { traversalIndex = 1f },
+                    ) {
+                        projectFeed(
+                            feedState = labFeedUIState,
+                            onClick = onLabItemClick,
+                        )
+                    }
+                } else {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = modifier
+                            .padding(padding)
+                            .consumeWindowInsets(padding)
+                            .windowInsetsPadding(
+                                WindowInsets.safeDrawing.only(
+                                    WindowInsetsSides.Horizontal
+                                )
+                            )
+                            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .semantics { traversalIndex = 1f },
+                    ) {
+                        projectFeed(
+                            feedState = labFeedUIState,
+                            onClick = onLabItemClick,
+                        )
+                    }
+                }
+            }
+        } else {
+            // TODO: Use error state here
         }
     }
 
@@ -183,6 +304,60 @@ internal fun HomeScreenLayout(
                 dismissOnClickOutside = true,
             ),
         )
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun FloatingActionButton(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    onFABMenuItemClick: (String) -> Unit,
+) {
+    val items =
+        listOf(
+            Icons.Filled.ImportExport to "VCS",
+            Icons.Filled.FolderOpen to "Open",
+            Icons.Filled.Add to "New",
+        )
+
+    var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
+
+    BackHandler(fabMenuExpanded) { fabMenuExpanded = false }
+
+    ALFloatingActionButtonMenu(
+        expanded = fabMenuExpanded,
+        visible = visible,
+        onCheckedChange = { fabMenuExpanded = !fabMenuExpanded },
+        modifier = modifier,
+    ) {
+        items.forEachIndexed { i, item ->
+            FloatingActionButtonMenuItem(
+                modifier = Modifier
+                    .semantics {
+                        isTraversalGroup = true
+
+                        if (i == items.size - 1) {
+                            customActions =
+                                listOf(
+                                    CustomAccessibilityAction(
+                                        label = "Close menu",
+                                        action = {
+                                            fabMenuExpanded = false
+                                            true
+                                        }
+                                    )
+                                )
+                        }
+                    },
+                onClick = {
+                    fabMenuExpanded = false
+                    onFABMenuItemClick(item.second)
+                },
+                icon = { Icon(item.first, contentDescription = null) },
+                text = { Text(text = item.second) },
+            )
+        }
     }
 }
 

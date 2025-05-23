@@ -33,7 +33,7 @@ fun NavGraphBuilder.homeScreen(
     contentType: ContentType,
     onSearchBarTrailingIconClick: () -> Unit,
     onLabItemClick: () -> Unit,
-    onFABClick: () -> Unit,
+    onFABClick: (String) -> Unit,
 ) {
     composable(route = homeNavigationRoute) {
         HomeRoute(

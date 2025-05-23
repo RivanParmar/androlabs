@@ -7,8 +7,9 @@ androidTools = "31.9.1"
 androidxActivity = "1.10.1"
 androidxAnnotation = "1.9.1"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2025.03.01"
+androidxComposeBom = "2025.05.00"
 androidxComposeFoundation = "1.8.0-rc02"
+androidxComposeMaterial3 = "1.4.0-alpha14"
 androidxCore = "1.15.0"
 androidxCoreSplashScreen = "1.0.1"
 androidxDataStore = "1.1.4"
@@ -86,7 +87,7 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
 androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
 androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }

@@ -19,7 +19,6 @@ package com.rivan.androlabs.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.core.data.repository.RecentSearchRepository
-import com.rivan.androlabs.core.data.repository.UserLabDataRepository
 import com.rivan.androlabs.core.data.util.SyncStatusMonitor
 import com.rivan.androlabs.core.domain.GetLabsUseCase
 import com.rivan.androlabs.core.domain.GetRecentSearchQueriesUseCase
@@ -37,7 +36,7 @@ class HomeViewModel @Inject constructor(
     syncStatusMonitor: SyncStatusMonitor,
     getRecentLabs: GetLabsUseCase,
     recentSearchQueriesUseCase: GetRecentSearchQueriesUseCase,
-    private val userLabDataRepository: UserLabDataRepository,
+//    private val userLabDataRepository: UserLabDataRepository,
     private val recentSearchRepository: RecentSearchRepository,
 ) : ViewModel() {
 
@@ -65,7 +64,7 @@ class HomeViewModel @Inject constructor(
                 initialValue = RecentSearchQueriesUiState.Loading,
             )
 
-    fun updateRecentLab(labId: String, isRecent: Boolean) {
+    /*fun updateRecentLab(labId: String, isRecent: Boolean) {
         viewModelScope.launch {
             userLabDataRepository.toggleRecentLabId(
                 labId, isRecent,
@@ -85,7 +84,7 @@ class HomeViewModel @Inject constructor(
             userLabDataRepository
                 .updateLabCompleted(labId, isChecked)
         }
-    }
+    }*/
 
     fun onSearchTriggered(query: String) {
         viewModelScope.launch {

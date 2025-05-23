@@ -16,7 +16,6 @@
 
 package com.rivan.androlabs.feature.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -162,7 +161,6 @@ private fun RecentSearchesPanel(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RecentSearchItem(
     recentSearchQuery: String,

@@ -35,12 +35,12 @@ fun MainActivityNavHost(
     // TODO: Handle use case when user does not select anything
     //  In such a case we could either show an AlertDialog or a Snackbar
     val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocumentTree()
+        contract = ActivityResultContracts.OpenDocumentTree(),
     ) {
         if (it != null) {
             context.contentResolver.takePersistableUriPermission(
                 it,
-                (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION),
             )
             // TODO: We're currently saving the URI. Instead we may need to only save the path.
             updateSavePath(it.toString())
@@ -63,12 +63,18 @@ fun MainActivityNavHost(
             onLabItemClick = {
                 context.startActivity(Intent(context, EditorActivity::class.java))
             },
-            onFABClick = {
+            onFABClick = { item ->
+                // TODO: Show a dialog before opening the folder picker.
+
                 // Ask the user to select a common path for saving the labs
                 if (askToSelectSavePath) {
                     launcher.launch(null)
                 } else {
-                    navController.navigateToNlw()
+                    when (item) {
+                        "Open" -> {}
+                        "New" -> navController.navigateToNlw()
+                        else -> { /* Do nothing */ }
+                    }
                 }
             },
         )
