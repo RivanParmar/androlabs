@@ -4,10 +4,12 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.expressiveLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -87,6 +89,7 @@ val DarkDefaultColorScheme = darkColorScheme(
  * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
  * @param dynamicColor If `true`, then dynamic theming will be used when supported.
  */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AndrolabsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -98,7 +101,7 @@ fun AndrolabsTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
+        else -> if (darkTheme) DarkDefaultColorScheme else expressiveLightColorScheme()
     }
 
     // Background theme
@@ -111,10 +114,10 @@ fun AndrolabsTheme(
     CompositionLocalProvider(
         LocalBackgroundTheme provides defaultBackgroundTheme
     ) {
-        MaterialTheme(
+        MaterialExpressiveTheme(
             colorScheme = colorScheme,
             typography = Typography,
-            content = content
+            content = content,
         )
     }
 }
