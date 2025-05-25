@@ -17,9 +17,7 @@
 package com.rivan.androlabs.feature.home
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -28,37 +26,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Contacts
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.ImportExport
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Snooze
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -74,16 +70,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButton
 import com.rivan.androlabs.core.designsystem.component.ALFloatingActionButtonMenu
-import com.rivan.androlabs.core.designsystem.component.ALTopSearchBar
-import com.rivan.androlabs.core.designsystem.icon.ALIcons
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.ContentType
 import com.rivan.androlabs.core.model.data.Lab
 import com.rivan.androlabs.core.ui.LabPreviewParameterProvider
 import com.rivan.androlabs.core.ui.ProjectFeedUiState
 import com.rivan.androlabs.core.ui.projectFeed
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,8 +96,9 @@ internal fun HomeScreenLayout(
 ) {
     val scrollBehavior = SearchBarDefaults.enterAlwaysSearchBarScrollBehavior()
 
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-    var searchBarIsActive by rememberSaveable { mutableStateOf(false) }
+    val searchBarState = rememberSearchBarState()
+    val textFieldState = rememberTextFieldState()
+    val scope = rememberCoroutineScope()
 
     var showClearRecentSearchDialog by remember { mutableStateOf(false) }
     var recentSearchQueryToBeCleared by remember { mutableStateOf("") }
@@ -113,103 +108,36 @@ internal fun HomeScreenLayout(
         derivedStateOf { listState.firstVisibleItemIndex == 0 }
     }
 
-    // TODO: Remove HomeScreenSearchBar and use a Box for DockedSearchBar when type is
-    //  DUAL_PANE and default to the Scaffold when SINGLE_PANE
-
-    /*HomeScreenSearchBar(
-        contentType = contentType,
-        text = searchQuery,
-        active = searchBarIsActive,
-        recentSearchQueriesUiState = recentSearchQueriesUiState,
-        onAccountButtonClick = onAccountButtonClick,
-        onSearch = onSearch,
-        onTextChange = { searchQuery = it },
-        onActiveChange = { searchBarIsActive = it },
-        onRecentSearchDelete = {
-            showClearRecentSearchDialog = true
-            recentSearchQueryToBeCleared = it
-        },
-        onClearRecentSearches = onClearRecentSearches,
-    )
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding(),
-    ) {
-        if (isSyncing || labFeedUIState is ProjectFeedUiState.Loading) {
-            LoadingState()
-        } else if (labFeedUIState is ProjectFeedUiState.Success) {
-            if (labFeedUIState.feed.isEmpty()) {
-                EmptyState(titleRes = R.string.labs_grid_empty)
-            } else {
-                if (contentType == ContentType.DUAL_PANE) {
-                    // TODO: Fix padding
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(300.dp),
-                        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = modifier
-                            .padding(top = 72.dp, bottom = 16.dp)
-                            .semantics { traversalIndex = 1f },
-                    ) {
-                        projectFeed(
-                            feedState = labFeedUIState,
-                            onClick = onLabItemClick,
-                        )
-                    }
-                } else {
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(2.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = modifier
-                            .padding(start = 16.dp, top = 72.dp, end = 16.dp, bottom = 16.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .semantics { traversalIndex = 1f },
-                    ) {
-                        projectFeed(
-                            feedState = labFeedUIState,
-                            onClick = onLabItemClick,
-                        )
-                    }
-                }
-            }
-        } else {
-            // TODO: Use error state here
-        }
-
-        /*ALFloatingActionButton(
-            onClick = onFloatingActionButtonClick,
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            elevation = FloatingActionButtonDefaults.elevation(),
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 24.dp, bottom = 32.dp),
-        ) {
-            Icon(
-                imageVector = ALIcons.Add,
-                contentDescription = null,
-            )
-        }*/
-
-        FloatingActionButton(
-            visible = fabVisible,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 12.dp, bottom = 16.dp),
-        )
-    }*/
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            ALTopSearchBar(
+            HomeScreenSearchBar(
                 scrollBehavior = scrollBehavior,
+                contentType = contentType,
+                recentSearchQueriesUiState = recentSearchQueriesUiState,
+                onSearch = {
+                    if (it.isNotEmpty() && it.isNotBlank()) {
+                        onSearch(it)
+                        scope.launch { searchBarState.animateToCollapsed() }
+                    }
+                },
+                onLeadingIconClick = {
+                    // TODO: Why is this not working?
+                    scope.launch { searchBarState.animateToCollapsed() }
+                },
                 onTrailingIconClick = onAccountButtonClick,
+                onSearchItemClick = {
+                    textFieldState.setTextAndPlaceCursorAtEnd(it)
+                    scope.launch { searchBarState.animateToCollapsed() }
+                },
+                onRecentSearchDelete = {
+                    showClearRecentSearchDialog = true
+                    recentSearchQueryToBeCleared = it
+                },
+                // TODO: Maybe we should show confirmation dialog before clearing searches
+                onClearRecentSearches = onClearRecentSearches,
             )
         },
         floatingActionButton = {

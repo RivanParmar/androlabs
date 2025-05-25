@@ -20,9 +20,9 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DockedSearchBar
+import androidx.compose.material3.ExpandedDockedSearchBar
 import androidx.compose.material3.ExpandedFullScreenSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -37,13 +38,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SearchBarScrollBehavior
+import androidx.compose.material3.SearchBarState
 import androidx.compose.material3.SearchBarValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopSearchBar
 import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -53,7 +54,6 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import kotlinx.coroutines.launch
 
 /**
  * Androlabs search bar with content slots. Wraps Material 3 [SearchBar].
@@ -90,14 +90,14 @@ fun ALSearchBar(
         } else {
             16.dp
         },
-        label = "SearchBar Horizontal Padding Animation"
+        label = "SearchBar Horizontal Padding Animation",
     )
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .semantics { isTraversalGroup = true }
-            .zIndex(1f)
+            .zIndex(1f),
     ) {
         SearchBar(
             modifier = modifier
@@ -115,7 +115,7 @@ fun ALSearchBar(
             placeholder = { Text(text = stringResource(id = placeholderRes)) },
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            content = content
+            content = content,
         )
     }
 }
@@ -124,25 +124,29 @@ fun ALSearchBar(
 @Composable
 fun ALTopSearchBar(
     scrollBehavior: SearchBarScrollBehavior,
+    @StringRes placeholderRes: Int,
+    isDocked: Boolean,
     modifier: Modifier = Modifier,
+    searchBarState: SearchBarState = rememberSearchBarState(),
+    textFieldState: TextFieldState = rememberTextFieldState(),
+    onSearch: (String) -> Unit,
+    onLeadingIconClick: () -> Unit,
     onTrailingIconClick: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
-    val searchBarState = rememberSearchBarState()
-    val textFieldState = rememberTextFieldState()
-    val scope = rememberCoroutineScope()
-
+    // TODO: Allow setting the leading and trailing icons
     val inputField =
         @Composable {
             SearchBarDefaults.InputField(
                 modifier = modifier,
                 searchBarState = searchBarState,
                 textFieldState = textFieldState,
-                onSearch = { scope.launch { searchBarState.animateToCollapsed() } },
-                placeholder = { Text("Search...") },
+                onSearch = onSearch,
+                placeholder = { Text(text = stringResource(id = placeholderRes)) },
                 leadingIcon = {
                     if (searchBarState.currentValue == SearchBarValue.Expanded) {
                         IconButton(
-                            onClick = { scope.launch { searchBarState.animateToCollapsed() } }
+                            onClick = onLeadingIconClick,
                         ) {
                             Icon(Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
                         }
@@ -164,7 +168,7 @@ fun ALTopSearchBar(
                             Icon(Icons.Default.AccountCircle, contentDescription = null)
                         }
                     }
-                }
+                },
             )
         }
 
@@ -173,10 +177,19 @@ fun ALTopSearchBar(
         state = searchBarState,
         inputField = inputField,
     )
-    ExpandedFullScreenSearchBar(
-        state = searchBarState,
-        inputField = inputField,
-    ) { }
+    if (isDocked) {
+        ExpandedDockedSearchBar(
+            state = searchBarState,
+            inputField = inputField,
+            content = content,
+        )
+    } else {
+        ExpandedFullScreenSearchBar(
+            state = searchBarState,
+            inputField = inputField,
+            content = content,
+        )
+    }
 }
 
 /**
@@ -213,7 +226,7 @@ fun ALDockedSearchBar(
         modifier = Modifier
             .fillMaxSize()
             .semantics { isTraversalGroup = true }
-            .zIndex(1f)
+            .zIndex(1f),
     ) {
         DockedSearchBar(
             modifier = modifier
@@ -230,7 +243,7 @@ fun ALDockedSearchBar(
             placeholder = { Text(text = stringResource(id = placeholderRes)) },
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            content = content
+            content = content,
         )
     }
 }

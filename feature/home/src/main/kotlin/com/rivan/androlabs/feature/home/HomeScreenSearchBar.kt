@@ -26,13 +26,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SearchBarScrollBehavior
+import androidx.compose.material3.SearchBarState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,81 +45,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.rivan.androlabs.core.designsystem.component.ALDockedSearchBar
-import com.rivan.androlabs.core.designsystem.component.ALSearchBar
-import com.rivan.androlabs.core.designsystem.icon.ALIcons
+import com.rivan.androlabs.core.designsystem.component.ALTopSearchBar
 import com.rivan.androlabs.core.model.data.ContentType
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreenSearchBar(
+    scrollBehavior: SearchBarScrollBehavior,
     contentType: ContentType,
-    text: String,
-    active: Boolean,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,
-    onAccountButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    searchBarState: SearchBarState = rememberSearchBarState(),
+    textFieldState: TextFieldState = rememberTextFieldState(),
     onSearch: (String) -> Unit,
-    onTextChange: (String) -> Unit,
-    onActiveChange: (Boolean) -> Unit,
+    onLeadingIconClick: () -> Unit,
+    onTrailingIconClick: () -> Unit,
+    onSearchItemClick: (String) -> Unit,
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,
 ) {
-    val leadingIcon = @Composable {
-        if (!active) {
-            Icon(imageVector = ALIcons.Search, contentDescription = null)
-        } else {
-            IconButton(onClick = { onActiveChange(false) }) {
-                Icon(imageVector = ALIcons.Back, contentDescription = null)
-            }
-        }
-    }
-
-    val trailingIcon = @Composable {
-        if (!active) {
-            IconButton(onClick = onAccountButtonClick) {
-                Icon(imageVector = ALIcons.Account, contentDescription = null)
-            }
-        }
-    }
-
-    if (contentType == ContentType.SINGLE_PANE) {
-        ALSearchBar(
-            placeholderRes = R.string.search_bar_placeholder_text,
-            text = text,
-            active = active,
-            onSearch = onSearch,
-            onTextChange = onTextChange,
-            onActiveChange = onActiveChange,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-        ) {
-            if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
-                RecentSearchesPanel(
-                    recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
-                    onRecentSearchClicked = onTextChange,
-                    onRecentSearchLongClicked = onRecentSearchDelete,
-                    onClearRecentSearches = onClearRecentSearches,
-                )
-            }
-        }
-    } else {
-        ALDockedSearchBar(
-            placeholderRes = R.string.search_bar_placeholder_text,
-            text = text,
-            active = active,
-            onSearch = onSearch,
-            onTextChange = onTextChange,
-            onActiveChange = onActiveChange,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-        ) {
-            if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
-                RecentSearchesPanel(
-                    recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
-                    onRecentSearchClicked = onTextChange,
-                    onRecentSearchLongClicked = onRecentSearchDelete,
-                    onClearRecentSearches = onClearRecentSearches,
-                )
-            }
+    ALTopSearchBar(
+        scrollBehavior = scrollBehavior,
+        placeholderRes = R.string.search_bar_placeholder_text,
+        isDocked = contentType == ContentType.DUAL_PANE,
+        modifier = modifier,
+        searchBarState = searchBarState,
+        textFieldState = textFieldState,
+        onSearch = onSearch,
+        onLeadingIconClick = onLeadingIconClick,
+        onTrailingIconClick = onTrailingIconClick,
+    ) {
+        if (recentSearchQueriesUiState is RecentSearchQueriesUiState.Success) {
+            RecentSearchesPanel(
+                recentSearchQueries = recentSearchQueriesUiState.recentQueries.map { it.query },
+                onRecentSearchClicked = onSearchItemClick,
+                onRecentSearchLongClicked = onRecentSearchDelete,
+                onClearRecentSearches = onClearRecentSearches,
+            )
         }
     }
 }

@@ -73,7 +73,6 @@ fun ALFloatingActionButtonMenu(
                     contentDescription = "Toggle menu"
                     }
                     .animateFloatingActionButton(
-//                         TODO: Check if FAB is visible
                         visible = visible || expanded,
                         alignment = Alignment.BottomEnd,
                     ),
