@@ -16,12 +16,20 @@
 
 package com.rivan.androlabs
 
+import android.content.Context
+import android.net.Uri
+import androidx.core.net.toUri
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.MainActivityUiState.Loading
+import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.data.repository.UserSettingsRepository
+import com.rivan.androlabs.core.model.data.Lab
+import com.rivan.androlabs.core.model.data.LabType
 import com.rivan.androlabs.core.model.data.UserSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -31,8 +39,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
 //    private val userLabDataRepository: UserLabDataRepository,
-    private val userSettingsRepository: UserSettingsRepository
+    private val labRepository: LabRepository,
+    private val userSettingsRepository: UserSettingsRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<MainActivityUiState> =
@@ -58,6 +68,39 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch {
             userSettingsRepository.setSavePath(savePath)
         }
+    }
+
+    fun openProject(path: String) {
+        viewModelScope.launch {
+            val uri = path.toUri()
+            val folderName = getFolderNameFromUri(uri)
+
+            // TODO: This is incomplete! We need to retrieve all the information
+            //  from the project and update the entry.
+            if (folderName != null) {
+                labRepository.insertOrIgnoreLabs(
+                    listOf(
+                        Lab(
+                            0,
+                            folderName,
+                            "Project",
+                            "",
+                            null,
+                            null,
+                            null,
+                            null,
+                            path,
+                            LabType.Unknown,
+                            null,
+                        ),
+                    ),
+                )
+            }
+        }
+    }
+
+    private fun getFolderNameFromUri(uri: Uri): String? {
+        return DocumentFile.fromTreeUri(context, uri)?.name
     }
 }
 

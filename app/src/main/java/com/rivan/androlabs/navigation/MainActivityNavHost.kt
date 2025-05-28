@@ -26,15 +26,17 @@ import com.rivan.androlabs.ui.AndrolabsAppState
 @Composable
 fun MainActivityNavHost(
     appState: AndrolabsAppState,
+    savePath: String?,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
     askToSelectSavePath: Boolean = false,
     context: Context = LocalContext.current,
     updateSavePath: (String) -> Unit,
+    openProject: (String) -> Unit,
 ) {
     // TODO: Handle use case when user does not select anything
     //  In such a case we could either show an AlertDialog or a Snackbar
-    val launcher = rememberLauncherForActivityResult(
+    val savePathSelector = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree(),
     ) {
         if (it != null) {
@@ -42,8 +44,23 @@ fun MainActivityNavHost(
                 it,
                 (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION),
             )
-            // TODO: We're currently saving the URI. Instead we may need to only save the path.
             updateSavePath(it.toString())
+        }
+    }
+
+    val projectOpener = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree(),
+    ) {
+        if (it != null && savePath != null) {
+            // TODO: This doesn't work! We will need to create a proper class for
+            //  handling the paths and permissions
+            if (!savePath.contains(it.toString())) {
+                context.contentResolver.takePersistableUriPermission(
+                    it,
+                    (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION),
+                )
+            }
+            openProject(it.toString())
         }
     }
 
@@ -68,10 +85,10 @@ fun MainActivityNavHost(
 
                 // Ask the user to select a common path for saving the labs
                 if (askToSelectSavePath) {
-                    launcher.launch(null)
+                    savePathSelector.launch(null)
                 } else {
                     when (item) {
-                        "Open" -> {}
+                        "Open" -> projectOpener.launch(null)
                         "New" -> navController.navigateToNlw()
                         else -> { /* Do nothing */ }
                     }
