@@ -13,7 +13,7 @@ data class FirestoreChangeList(
     /**
      * The id of the model that was changed
      */
-    val id: String,
+    val id: Long,
     /**
      * Unique consecutive, monotonically increasing version number in the collection describing
      * the relative point of change between models in the collection
@@ -23,5 +23,5 @@ data class FirestoreChangeList(
      * Summarizes the update to the model; whether it was deleted or updated.
      * Updates include creations.
      */
-    val isDelete: Boolean
+    val isDelete: Boolean,
 )

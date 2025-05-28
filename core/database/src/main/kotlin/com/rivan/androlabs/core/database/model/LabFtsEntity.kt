@@ -27,7 +27,7 @@ import androidx.room.Fts4
 @Fts4
 data class LabFtsEntity(
     @ColumnInfo(name = "labId")
-    val labId: String,
+    val labId: Long,
 
     @ColumnInfo(name = "title")
     val title: String,

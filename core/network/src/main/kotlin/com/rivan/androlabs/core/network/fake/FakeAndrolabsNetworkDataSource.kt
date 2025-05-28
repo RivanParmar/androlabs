@@ -42,7 +42,7 @@ class FakeAndrolabsNetworkDataSource @Inject constructor(
  * [FirestoreChangeList.id]
  */
 private fun <T> List<T>.mapToChangeList(
-    idGetter: (T) -> String,
+    idGetter: (T) -> Long,
 ) = mapIndexed { index, item ->
     FirestoreChangeList(
         id = idGetter(item),

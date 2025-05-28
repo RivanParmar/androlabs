@@ -30,8 +30,9 @@ import kotlinx.datetime.Instant
     tableName = "labs"
 )
 data class LabEntity(
-    @PrimaryKey
-    val id: String,
+    // Default value of `0` means to auto generate the id
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val title: String,
     @ColumnInfo(name = "extra_title")
     val extraTitle: String,
@@ -45,7 +46,7 @@ data class LabEntity(
     val lastEdited: Instant?,
     val path: String?,
     val type: LabType,
-    val vendor: String?
+    val vendor: String?,
 )
 
 fun LabEntity.asExternalModel() = Lab(

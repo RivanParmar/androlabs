@@ -32,7 +32,7 @@ interface LabsFtsDao {
     suspend fun insertAll(labs: List<LabFtsEntity>)
 
     @Query("SELECT labId FROM labsFts WHERE labsFts MATCH :query")
-    fun searchAllLabs(query: String): Flow<List<String>>
+    fun searchAllLabs(query: String): Flow<List<Long>>
 
     @Query("SELECT count(*) FROM labsFts")
     fun getCount(): Flow<Int>

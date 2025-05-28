@@ -22,7 +22,7 @@ import kotlinx.datetime.Instant
  * External data layer representation of a fully populated Androlabs lab
  */
 data class Lab(
-    val id: String,
+    val id: Long,
     val title: String,
     val extraTitle: String,
     val description: String,

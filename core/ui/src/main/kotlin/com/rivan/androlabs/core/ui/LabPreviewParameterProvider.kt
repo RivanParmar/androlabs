@@ -15,7 +15,7 @@ class LabPreviewParameterProvider
             return sequenceOf(
                 listOf(
                     Lab(
-                        id = "1",
+                        id = 1,
                         title = "Android App 1",
                         extraTitle = "Beginner Project",
                         description = "No description provided!",
@@ -36,7 +36,7 @@ class LabPreviewParameterProvider
                         vendor = null,
                     ),
                     Lab(
-                        id = "2",
+                        id = 2,
                         title = "Androlab 1",
                         extraTitle = "Beginner Lab",
                         description = "No description provided!",
@@ -49,7 +49,7 @@ class LabPreviewParameterProvider
                         vendor = null,
                     ),
                     Lab(
-                        id = "3",
+                        id = 3,
                         title = "Androlab 2",
                         extraTitle = "Foundational Lab",
                         description = "No description provided!",
