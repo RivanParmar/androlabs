@@ -61,6 +61,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.isTraversalGroup
@@ -156,7 +157,6 @@ internal fun HomeScreenLayout(
                 EmptyState(titleRes = R.string.labs_grid_empty)
             } else {
                 if (contentType == ContentType.DUAL_PANE) {
-                    // TODO: Fix padding
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(300.dp),
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
@@ -181,6 +181,7 @@ internal fun HomeScreenLayout(
                     LazyColumn(
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
+                        state = listState,
                         modifier = modifier
                             .padding(padding)
                             .consumeWindowInsets(padding)
@@ -224,8 +225,12 @@ internal fun HomeScreenLayout(
                 }
             },
             title = {
-                // TODO: Set a proper title
-                Text(text = "Delete $recentSearchQueryToBeCleared from recent?")
+                Text(
+                    text = stringResource(
+                        R.string.delete_search_item_confirmation,
+                        recentSearchQueryToBeCleared,
+                    ),
+                )
             },
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -329,7 +334,7 @@ private fun HomeScreenLayoutPreview(
 }
 
 // TODO: Use large screen preview here
-@Preview
+@Preview(device = "id:pixel_tablet")
 @Composable
 private fun HomeScreenLayoutGridPreview(
     @PreviewParameter(LabPreviewParameterProvider::class)
@@ -337,7 +342,7 @@ private fun HomeScreenLayoutGridPreview(
 ) {
     AndrolabsTheme {
         HomeScreenLayout(
-            contentType = ContentType.SINGLE_PANE,
+            contentType = ContentType.DUAL_PANE,
             labFeedUIState = ProjectFeedUiState.Success(labs),
             recentSearchQueriesUiState = RecentSearchQueriesUiState.Success(),
             onAccountButtonClick = {},

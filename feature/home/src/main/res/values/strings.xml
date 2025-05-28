@@ -21,4 +21,7 @@
 
     <string name="labs_grid_empty">No recent labs</string>
     <string name="labs_detail_empty">No lab selected</string>
+
+    <!-- TODO: Set proper text -->
+    <string name="delete_search_item_confirmation">Delete %s from search history?</string>
 </resources>
