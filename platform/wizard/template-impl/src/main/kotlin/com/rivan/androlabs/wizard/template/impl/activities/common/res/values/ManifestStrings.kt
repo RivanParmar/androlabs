@@ -22,7 +22,7 @@ import com.rivan.androlabs.wizard.template.api.renderIf
 fun manifestStrings(
     activityClass: String,
     isNewModule: Boolean,
-    generateActivityTitle: Boolean
+    generateActivityTitle: Boolean,
 ): String {
     val innerBlock = renderIf(!isNewModule && generateActivityTitle) {
         """<string name="title_${activityToLayout(activityClass)}">$activityClass</string>"""

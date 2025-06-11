@@ -26,16 +26,31 @@ fun emptyActivityKt(
     activityClass: String,
     layoutName: String,
     generateLayout: Boolean,
-    useAndroidX: Boolean
+    useAndroidX: Boolean,
 ) = """
 package ${escapeKotlinIdentifier(packageName)}
  
-import ${getMaterialComponentName("android.support.v7.app.AppCompatActivity", useAndroidX)}
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import ${getMaterialComponentName("android.support.v7.app.AppCompatActivity", useAndroidX)}
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 ${renderIf(namespace != packageName) { "import ${escapeKotlinIdentifier(namespace)}.R" }}
 
 class $activityClass : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ${renderIf(generateLayout) { """setContentView(R.layout.$layoutName)""" }}
+        ${
+    renderIf(generateLayout) {
+        """enableEdgeToEdge()
+        setContentView(R.layout.$layoutName)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }"""
+    }
+}
+    }
+}
 """

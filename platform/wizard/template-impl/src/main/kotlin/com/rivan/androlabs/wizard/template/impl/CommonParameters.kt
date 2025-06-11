@@ -18,6 +18,7 @@
 
 package com.rivan.androlabs.wizard.template.impl
 
+import com.rivan.androlabs.wizard.template.api.Constraint
 import com.rivan.androlabs.wizard.template.api.StringParameter
 import com.rivan.androlabs.wizard.template.api.stringParameter
 
@@ -26,5 +27,7 @@ val defaultPackageNameParameter: StringParameter
         name = "Package name"
         visible = { !isNewModule }
         default = "com.mycompany.myapp"
+        constraints = listOf(Constraint.NONEMPTY, Constraint.PACKAGE)
         suggest = { packageName }
+        loggable = true
     }

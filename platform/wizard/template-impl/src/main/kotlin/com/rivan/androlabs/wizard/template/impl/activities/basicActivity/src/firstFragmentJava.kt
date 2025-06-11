@@ -30,12 +30,12 @@ fun firstFragmentJava(
     firstFragmentClass: String,
     secondFragmentClass: String,
     firstFragmentLayoutName: String,
-    isViewBindingSupported: Boolean
+    isViewBindingSupported: Boolean,
 ): String {
     val onCreateViewBlock = if (isViewBindingSupported) """
-      binding = ${layoutToViewBindingClass(firstFragmentLayoutName)}.inflate(inflater, container, false);
-      return binding.getRoot();
-  """ else "return inflater.inflate(R.layout.$firstFragmentLayoutName, container, false);"
+        binding = ${layoutToViewBindingClass(firstFragmentLayoutName)}.inflate(inflater, container, false);
+        return binding.getRoot();
+    """ else "return inflater.inflate(R.layout.$firstFragmentLayoutName, container, false);"
 
     return """package ${packageName};
 
@@ -49,7 +49,7 @@ import ${getMaterialComponentName("android.support.v4.app.Fragment", useAndroidX
 import androidx.navigation.fragment.NavHostFragment;
 ${importViewBindingClass(isViewBindingSupported, packageName, applicationPackage, firstFragmentLayoutName, Language.Java)}
 
-public class ${firstFragmentClass} extends Fragment {
+public class $firstFragmentClass extends Fragment {
 
 ${renderIf(isViewBindingSupported) {"""
     private ${layoutToViewBindingClass(firstFragmentLayoutName)} binding;
@@ -57,7 +57,7 @@ ${renderIf(isViewBindingSupported) {"""
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
         $onCreateViewBlock
@@ -70,12 +70,11 @@ ${renderIf(isViewBindingSupported) {"""
         Language.Java,
         isViewBindingSupported,
         id = "button_first",
-        parentView = "view")}.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        parentView = "view",
+    )
+    }.setOnClickListener(v ->
                 NavHostFragment.findNavController(${firstFragmentClass}.this)
                         .navigate(R.id.action_${firstFragmentClass}_to_${secondFragmentClass});
-            }
         });
     }
 

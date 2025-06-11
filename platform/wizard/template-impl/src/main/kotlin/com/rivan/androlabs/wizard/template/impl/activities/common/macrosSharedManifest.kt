@@ -23,8 +23,8 @@ fun commonActivityBody(isLauncher: Boolean, isLibraryProject: Boolean = false) =
     renderIf(isLauncher && !isLibraryProject) {
         """
         <intent-filter>
-          <action android:name="android.intent.action.MAIN" />
-          <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         """
     }

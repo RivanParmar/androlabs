@@ -14,22 +14,28 @@
  * limitations under the License.
  */
 
-// Modifications Copyright (C) 2023 RIvan Parmar
+// Modifications Copyright (C) 2023 Rivan Parmar
 
 package com.rivan.androlabs.wizard.template.impl.activities.basicActivity
 
 import com.rivan.androlabs.wizard.template.api.BooleanParameter
 import com.rivan.androlabs.wizard.template.api.Category
 import com.rivan.androlabs.wizard.template.api.CheckBoxWidget
+import com.rivan.androlabs.wizard.template.api.Constraint.CLASS
+import com.rivan.androlabs.wizard.template.api.Constraint.LAYOUT
+import com.rivan.androlabs.wizard.template.api.Constraint.NAVIGATION
+import com.rivan.androlabs.wizard.template.api.Constraint.NONEMPTY
+import com.rivan.androlabs.wizard.template.api.Constraint.UNIQUE
 import com.rivan.androlabs.wizard.template.api.Divider
+import com.rivan.androlabs.wizard.template.api.FormFactor
 import com.rivan.androlabs.wizard.template.api.LanguageWidget
 import com.rivan.androlabs.wizard.template.api.ModuleTemplateData
 import com.rivan.androlabs.wizard.template.api.PackageNameWidget
 import com.rivan.androlabs.wizard.template.api.StringParameter
-import com.rivan.androlabs.wizard.template.api.TemplateCategory
 import com.rivan.androlabs.wizard.template.api.TemplateConstraint
 import com.rivan.androlabs.wizard.template.api.TemplateData
 import com.rivan.androlabs.wizard.template.api.TextFieldWidget
+import com.rivan.androlabs.wizard.template.api.WizardUiContext
 import com.rivan.androlabs.wizard.template.api.activityToLayout
 import com.rivan.androlabs.wizard.template.api.booleanParameter
 import com.rivan.androlabs.wizard.template.api.classToResource
@@ -46,30 +52,42 @@ val basicActivityTemplate get() = template {
     description = "Creates a new basic activity"
 
     category = Category.Activity
-    templateCategory = TemplateCategory.Mobile
+    formFactor = FormFactor.Mobile
+    screens = listOf(
+        WizardUiContext.ActivityGallery,
+        WizardUiContext.MenuEntry,
+        WizardUiContext.NewProject,
+        WizardUiContext.NewModule,
+    )
     constraints = listOf(TemplateConstraint.AndroidX, TemplateConstraint.Material3)
 
     lateinit var activityClass: StringParameter
     val layoutName: StringParameter = stringParameter {
         name = "Layout Name"
+        constraints = listOf(LAYOUT, UNIQUE, NONEMPTY)
         suggest = { activityToLayout(activityClass.value) }
         default = "activity_main"
         help = "The name of the layout to create for the activity"
+        loggable = true
     }
 
     activityClass = stringParameter {
         name = "Activity Name"
+        constraints = listOf(CLASS, UNIQUE, NONEMPTY)
         suggest = { layoutToActivity(layoutName.value) }
         default = "MainActivity"
         help = "The name of the activity class to create"
+        loggable = true
     }
 
     val menuName: StringParameter = stringParameter {
         name = "Menu Resource File"
+        constraints = listOf(LAYOUT, UNIQUE, NONEMPTY)
         suggest = { "menu_${classToResource(activityClass.value)}" }
         visible = { isNewModule }
         default = "menu_main"
         help = "The name of the resource file to create for the items"
+        loggable = true
     }
 
     val isLauncher: BooleanParameter = booleanParameter {
@@ -81,24 +99,30 @@ val basicActivityTemplate get() = template {
 
     val contentLayoutName: StringParameter = stringParameter {
         name = "Content Layout Name"
+        constraints = listOf(LAYOUT, UNIQUE)
         suggest = { activityToLayout(activityClass.value, "content") }
         default = "content_main"
         visible = { false }
         help = "The name of the App Bar layout to create for the activity"
+        loggable = true
     }
 
     val firstFragmentLayoutName: StringParameter = stringParameter {
         name = "First fragment Layout Name"
+        constraints = listOf(LAYOUT, UNIQUE, NONEMPTY)
         default = "fragment_first"
         visible = { false }
         help = "The name of the layout of the Fragment as the initial destination in Navigation"
+        loggable = true
     }
 
     val secondFragmentLayoutName: StringParameter = stringParameter {
-        name = "First fragment Layout Name"
+        name = "Second fragment Layout Name"
+        constraints = listOf(LAYOUT, UNIQUE, NONEMPTY)
         default = "fragment_second"
         visible = { false }
         help = "The name of the layout of the Fragment as the second destination in Navigation"
+        loggable = true
     }
 
     val navGraphName = stringParameter {
@@ -106,7 +130,9 @@ val basicActivityTemplate get() = template {
         default = "nav_graph"
         help = "The name of the navigation graph"
         visible = { false }
+        constraints = listOf(NAVIGATION, UNIQUE)
         suggest = { "nav_graph" }
+        loggable = true
     }
 
     val packageName = defaultPackageNameParameter
@@ -124,7 +150,7 @@ val basicActivityTemplate get() = template {
         TextFieldWidget(contentLayoutName),
         TextFieldWidget(firstFragmentLayoutName),
         TextFieldWidget(secondFragmentLayoutName),
-        TextFieldWidget(navGraphName)
+        TextFieldWidget(navGraphName),
     )
 
     thumb {

@@ -30,7 +30,7 @@ fun secondFragmentKt(
     firstFragmentClass: String,
     secondFragmentClass: String,
     secondFragmentLayoutName: String,
-    isViewBindingSupported: Boolean
+    isViewBindingSupported: Boolean,
 ): String {
 
     val onCreateViewBlock = if (isViewBindingSupported) """
@@ -52,7 +52,7 @@ ${importViewBindingClass(isViewBindingSupported, packageName, applicationPackage
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class ${secondFragmentClass} : Fragment() {
+class $secondFragmentClass : Fragment() {
 
 ${renderIf(isViewBindingSupported) {"""
     private var _binding: ${layoutToViewBindingClass(secondFragmentLayoutName)}? = null
@@ -65,7 +65,7 @@ ${renderIf(isViewBindingSupported) {"""
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ${onCreateViewBlock}
+        $onCreateViewBlock
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +76,9 @@ ${renderIf(isViewBindingSupported) {"""
         isViewBindingSupported,
         id = "button_second",
         className = "Button",
-        parentView = "view")}.setOnClickListener {
+        parentView = "view",
+    )
+    }.setOnClickListener {
             findNavController().navigate(R.id.action_${secondFragmentClass}_to_${firstFragmentClass})
         }
     }

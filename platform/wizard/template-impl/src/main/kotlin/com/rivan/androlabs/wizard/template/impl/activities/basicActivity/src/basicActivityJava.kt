@@ -32,7 +32,7 @@ fun basicActivityJava(
     layoutName: String,
     menuName: String,
     navHostFragmentId: String,
-    isViewBindingSupported: Boolean
+    isViewBindingSupported: Boolean,
 ): String {
     val applicationPackageBlock = renderIf(applicationPackage != null) { "import $applicationPackage.R;" }
     val newProjectImportBlock = renderIf(isNewProject) {
@@ -44,34 +44,34 @@ import android.view.MenuItem;
 
     val newProjectBlock2 = renderIf(isNewProject) {
         """
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.${menuName}, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.${menuName}, menu);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
-    """
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
+        }
+        """
     }
 
     val contentViewBlock = if (isViewBindingSupported) """
-     binding = ${layoutToViewBindingClass(layoutName)}.inflate(getLayoutInflater());
-     setContentView(binding.getRoot());
-  """ else "setContentView(R.layout.$layoutName);"
+       binding = ${layoutToViewBindingClass(layoutName)}.inflate(getLayoutInflater());
+       setContentView(binding.getRoot());
+    """ else "setContentView(R.layout.$layoutName);"
 
     return """
 package ${(packageName)};
@@ -80,7 +80,6 @@ import android.os.Bundle;
 import ${getMaterialComponentName("android.support.design.widget.Snackbar", useAndroidX)};
 import ${getMaterialComponentName("android.support.v7.app.AppCompatActivity", useAndroidX)};
 import android.view.View;
-import androidx.core.view.WindowCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -90,7 +89,7 @@ ${importViewBindingClass(isViewBindingSupported, packageName, applicationPackage
 $newProjectImportBlock
 $applicationPackageBlock
 
-public class ${activityClass} extends AppCompatActivity {
+public class $activityClass extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
 ${renderIf(isViewBindingSupported) {"""
@@ -110,7 +109,9 @@ ${renderIf(isViewBindingSupported) {"""
         ${findViewById(
         Language.Java,
         isViewBindingSupported = isViewBindingSupported,
-        id = "fab")}.setOnClickListener(new View.OnClickListener() {
+        id = "fab",
+    )
+    }.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

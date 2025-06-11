@@ -16,4 +16,7 @@
 
 package com.rivan.androlabs.wizard.template.impl.activities.common
 
+const val DOLLAR = "$"
+
+// Should match SdkVersionInfo.LOWEST_ACTIVE_API
 const val MIN_API = 16

@@ -14,37 +14,33 @@
  * limitations under the License.
  */
 
-package com.rivan.androlabs.wizard.template.impl.activities.basicActivity.res.layout
+package com.rivan.androlabs.wizard.template.impl.activities.common.navigation.res.layout
 
 import com.rivan.androlabs.wizard.template.api.getMaterialComponentName
 
-fun fragmentSimpleXml(
-    navGraphName: String,
-    navHostFragmentId: String,
-    useAndroidX: Boolean,
-): String {
-    val layout = getMaterialComponentName("android.support.constraint.ConstraintLayout", useAndroidX)
-
-    return """
-<?xml version="1.0" encoding="utf-8"?>
-<$layout
+fun fragmentFirstXml(
+    packageName: String, navFragmentPrefix: String, fragmentClass: String, useAndroidX: Boolean,
+) = """
+<${getMaterialComponentName("android.support.constraint.ConstraintLayout", useAndroidX)}
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:context="${packageName}.ui.${navFragmentPrefix}.${fragmentClass}" >
 
-    <fragment
-        android:id="@+id/${navHostFragmentId}"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/text_${navFragmentPrefix}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/${navGraphName}" />
-</$layout>
+        app:layout_constraintBottom_toBottomOf="parent" />
+</${getMaterialComponentName("android.support.constraint.ConstraintLayout", useAndroidX)}>
 """
-}

@@ -30,7 +30,7 @@ fun secondFragmentJava(
     firstFragmentClass: String,
     secondFragmentClass: String,
     secondFragmentLayoutName: String,
-    isViewBindingSupported: Boolean
+    isViewBindingSupported: Boolean,
 ): String {
     val onCreateViewBlock = if (isViewBindingSupported) """
       binding = ${layoutToViewBindingClass(secondFragmentLayoutName)}.inflate(inflater, container, false);
@@ -49,7 +49,7 @@ import ${getMaterialComponentName("android.support.v4.app.Fragment", useAndroidX
 import androidx.navigation.fragment.NavHostFragment;
 ${importViewBindingClass(isViewBindingSupported, packageName, applicationPackage, secondFragmentLayoutName, Language.Java)}
 
-public class ${secondFragmentClass} extends Fragment {
+public class $secondFragmentClass extends Fragment {
 
 ${renderIf(isViewBindingSupported) {"""
     private ${layoutToViewBindingClass(secondFragmentLayoutName)} binding;
@@ -57,7 +57,7 @@ ${renderIf(isViewBindingSupported) {"""
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
         $onCreateViewBlock
@@ -70,12 +70,11 @@ ${renderIf(isViewBindingSupported) {"""
         Language.Java,
         isViewBindingSupported,
         id = "button_second",
-        parentView = "view")}.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        parentView = "view",
+    )
+    }.setOnClickListener(v ->
                 NavHostFragment.findNavController(${secondFragmentClass}.this)
                         .navigate(R.id.action_${secondFragmentClass}_to_${firstFragmentClass});
-            }
         });
     }
 

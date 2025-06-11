@@ -20,7 +20,7 @@ import com.rivan.androlabs.wizard.template.api.Language
 import com.rivan.androlabs.wizard.template.api.ModuleTemplateData
 import com.rivan.androlabs.wizard.template.api.PackageName
 import com.rivan.androlabs.wizard.template.api.RecipeExecutor
-import com.rivan.androlabs.wizard.template.impl.activities.common.addAllKotlinDependency
+import com.rivan.androlabs.wizard.template.impl.activities.common.addAllKotlinDependencies
 import com.rivan.androlabs.wizard.template.impl.activities.common.addMaterial3Dependency
 import com.rivan.androlabs.wizard.template.impl.activities.common.generateManifest
 import com.rivan.androlabs.wizard.template.impl.activities.common.generateSimpleLayout
@@ -33,7 +33,7 @@ fun RecipeExecutor.generateEmptyActivity(
     generateLayout: Boolean,
     layoutName: String,
     isLauncher: Boolean,
-    packageName: PackageName
+    packageName: PackageName,
 ) {
     val (projectData, srcOut) = moduleData
     val useAndroidX = projectData.androidXSupport
@@ -41,16 +41,17 @@ fun RecipeExecutor.generateEmptyActivity(
 
     addDependency("com.android.support:appcompat-v7:${moduleData.apis.appCompatVersion}.+")
     addMaterial3Dependency()
+    addDependency("androidx.activity:activity:+")
 
     generateManifest(
         moduleData, activityClass, packageName, isLauncher, false,
-        generateActivityTitle = false
+        generateActivityTitle = false,
     )
 
-    addAllKotlinDependency(moduleData)
+    addAllKotlinDependencies(moduleData)
 
     if (generateLayout) {
-        generateSimpleLayout(moduleData, activityClass, layoutName)
+        generateSimpleLayout(moduleData, activityClass, layoutName, containerId = "main")
     }
 
     val simpleActivity = when (projectData.language) {

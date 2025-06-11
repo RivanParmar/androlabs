@@ -22,7 +22,7 @@ fun navGraphXml(
     secondFragmentClass: String,
     firstFragmentLayoutName: String,
     secondFragmentLayoutName: String,
-    navGraphName: String
+    navGraphName: String,
 ) =
     """<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"

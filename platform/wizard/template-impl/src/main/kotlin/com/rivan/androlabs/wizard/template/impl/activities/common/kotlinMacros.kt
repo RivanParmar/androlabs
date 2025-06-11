@@ -20,17 +20,68 @@ import com.rivan.androlabs.wizard.template.api.Language
 import com.rivan.androlabs.wizard.template.api.ModuleTemplateData
 import com.rivan.androlabs.wizard.template.api.RecipeExecutor
 
-fun RecipeExecutor.addAllKotlinDependency(
+fun RecipeExecutor.addAllKotlinDependencies(
     data: ModuleTemplateData,
-    revision: String = data.projectTemplateData.kotlinVersion
+    revision: String = data.projectTemplateData.kotlinVersion,
 ) {
     val projectData = data.projectTemplateData
     if (!data.isNewModule && projectData.language == Language.Kotlin) {
-        applyPlugin("org.jetbrains.kotlin.android", revision)
-        addClasspathDependency("org.jetbrains.kotlin:kotlin-gradle-plugin:$revision")
+        applyPlugin(
+            "org.jetbrains.kotlin.android",
+            "org.jetbrains.kotlin:kotlin-gradle-plugin",
+            revision,
+        )
+    }
+}
+
+fun RecipeExecutor.addComposeDependencies(
+    data: ModuleTemplateData,
+    composeBomVersion: String = COMPOSE_BOM_VERSION,
+    composeUiVersion: String? = null,
+) {
+    addPlugin(
+        "org.jetbrains.kotlin.plugin.compose",
+        "org.jetbrains.kotlin:compose-compiler-gradle-plugin",
+        data.projectTemplateData.kotlinVersion,
+    )
+    addPlatformDependency(mavenCoordinate = "androidx.compose:compose-bom:$composeBomVersion")
+    addPlatformDependency(
+        mavenCoordinate = "androidx.compose:compose-bom:$composeBomVersion",
+        configuration = "androidTestImplementation",
+    )
+
+    val composeUiFormattedVersion = composeUiVersion?.let { ":$it" } ?: ""
+    addDependency(mavenCoordinate = "androidx.compose.ui:ui$composeUiFormattedVersion")
+    addDependency(mavenCoordinate = "androidx.compose.ui:ui-graphics")
+    addDependency(
+        mavenCoordinate = "androidx.compose.ui:ui-tooling",
+        configuration = "debugImplementation",
+    )
+    addDependency(mavenCoordinate = "androidx.compose.ui:ui-tooling-preview")
+    addDependency(
+        mavenCoordinate = "androidx.compose.ui:ui-test-manifest",
+        configuration = "debugImplementation",
+    )
+    addDependency(
+        mavenCoordinate = "androidx.compose.ui:ui-test-junit4",
+        configuration = "androidTestImplementation",
+    )
+}
+
+fun RecipeExecutor.addMaterialDependency(useAndroidX: Boolean) {
+    if (useAndroidX) {
+        // Material 2 dependencies are now pinned to 1.4.0
+        addDependency("com.google.android.material:material:1.4.+")
     }
 }
 
 fun RecipeExecutor.addMaterial3Dependency() {
     addDependency("com.google.android.material:material:+", minRev = "1.5.0")
+}
+
+fun RecipeExecutor.addSupportWearableDependency() {
+    addDependency("com.google.android.support:wearable:+", minRev = "2.8.1")
+    // This is needed for the com.google.android.support:wearable as a provided dependency
+    // otherwise it's warned by lint
+    addDependency("com.google.android.wearable:wearable:+", "provided", minRev = "2.8.1")
 }

@@ -21,12 +21,17 @@ import com.rivan.androlabs.wizard.template.api.renderIf
 
 fun emptyActivityJava(
     packageName: String, namespace: String, activityClass: String,
-    layoutName: String, generateLayout: Boolean, useAndroidX: Boolean
+    layoutName: String, generateLayout: Boolean, useAndroidX: Boolean,
 ) = """
 package ${packageName};
- 
-import ${getMaterialComponentName("android.support.v7.app.AppCompatActivity", useAndroidX)};
+
 import android.os.Bundle;
+ 
+import androidx.activity.EdgeToEdge;
+import ${getMaterialComponentName("android.support.v7.app.AppCompatActivity", useAndroidX)};
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 ${renderIf(namespace != packageName) { "import ${namespace}.R;" }}
 
 public class $activityClass extends AppCompatActivity {
@@ -34,7 +39,17 @@ public class $activityClass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ${renderIf(generateLayout) { """setContentView(R.layout.$layoutName);""" }}
+        ${
+    renderIf(generateLayout) {
+        """EdgeToEdge.enable(this);
+        setContentView(R.layout.$layoutName);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });"""
+    }
+}
     }
 }
 """

@@ -21,13 +21,18 @@ package com.rivan.androlabs.wizard.template.impl.activities.emptyActivity
 import com.rivan.androlabs.wizard.template.api.BooleanParameter
 import com.rivan.androlabs.wizard.template.api.Category
 import com.rivan.androlabs.wizard.template.api.CheckBoxWidget
+import com.rivan.androlabs.wizard.template.api.Constraint.CLASS
+import com.rivan.androlabs.wizard.template.api.Constraint.LAYOUT
+import com.rivan.androlabs.wizard.template.api.Constraint.NONEMPTY
+import com.rivan.androlabs.wizard.template.api.Constraint.UNIQUE
+import com.rivan.androlabs.wizard.template.api.FormFactor
 import com.rivan.androlabs.wizard.template.api.LanguageWidget
 import com.rivan.androlabs.wizard.template.api.ModuleTemplateData
 import com.rivan.androlabs.wizard.template.api.PackageNameWidget
 import com.rivan.androlabs.wizard.template.api.StringParameter
-import com.rivan.androlabs.wizard.template.api.TemplateCategory
 import com.rivan.androlabs.wizard.template.api.TemplateConstraint
 import com.rivan.androlabs.wizard.template.api.TextFieldWidget
+import com.rivan.androlabs.wizard.template.api.WizardUiContext
 import com.rivan.androlabs.wizard.template.api.activityToLayout
 import com.rivan.androlabs.wizard.template.api.booleanParameter
 import com.rivan.androlabs.wizard.template.api.layoutToActivity
@@ -43,7 +48,13 @@ val emptyActivityTemplate get() = template {
     description = "Creates a new empty activity"
 
     category = Category.Activity
-    templateCategory = TemplateCategory.Mobile
+    formFactor = FormFactor.Mobile
+    screens = listOf(
+        WizardUiContext.ActivityGallery,
+        WizardUiContext.MenuEntry,
+        WizardUiContext.NewProject,
+        WizardUiContext.NewModule,
+    )
     constraints = listOf(TemplateConstraint.AndroidX, TemplateConstraint.Material3)
 
     val generateLayout: BooleanParameter = booleanParameter {
@@ -56,21 +67,25 @@ val emptyActivityTemplate get() = template {
 
     val activityClass: StringParameter = stringParameter {
         name = "Activity Name"
+        constraints = listOf(CLASS, UNIQUE, NONEMPTY)
         suggest = {
             layoutToActivity(layoutName.value)
         }
         default = "MainActivity"
         help = "The name of the activity class to create"
+        loggable = true
     }
 
     layoutName = stringParameter {
         name = "Layout Name"
+        constraints = listOf(LAYOUT, UNIQUE, NONEMPTY)
         suggest = {
             activityToLayout(activityClass.value)
         }
         default = "activity_main"
         visible = { generateLayout.value }
         help = "The name of the UI layout to create for the activity"
+        loggable = true
     }
 
     val isLauncher: BooleanParameter = booleanParameter {
@@ -88,7 +103,7 @@ val emptyActivityTemplate get() = template {
         TextFieldWidget(layoutName),
         CheckBoxWidget(isLauncher),
         PackageNameWidget(packageName),
-        LanguageWidget()
+        LanguageWidget(),
     )
 
     thumb {
@@ -98,7 +113,7 @@ val emptyActivityTemplate get() = template {
     recipe = { data ->
         generateEmptyActivity(
             data as ModuleTemplateData, activityClass.value, generateLayout.value,
-            layoutName.value, isLauncher.value, packageName.value
+            layoutName.value, isLauncher.value, packageName.value,
         )
     }
 }

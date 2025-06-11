@@ -32,7 +32,7 @@ import com.rivan.androlabs.wizard.template.api.underscoreToLowerCamelCase
  *        E.g. used in a form of ${bidingName}.${id}. "binding" is used as a default value
  * @param className name of the class if the obtained view needs explicit cast
  * @param parentView name of the parent view if exists. Usually called from a class that doesn't
- * have findViewById method. E.g. Fragment
+ *        have findViewById method. E.g. Fragment
  */
 fun findViewById(
     language: Language,
@@ -40,7 +40,7 @@ fun findViewById(
     id: String,
     bindingName: String = "binding",
     className: String? = null,
-    parentView: String? = null
+    parentView: String? = null,
 ) = when (language) {
     Language.Java -> findViewByIdJava(
         isViewBindingSupported = isViewBindingSupported,
@@ -59,7 +59,7 @@ private fun findViewByIdJava(
     isViewBindingSupported: Boolean,
     id: String,
     bindingName: String,
-    parentView: String? = null
+    parentView: String? = null,
 ) = if (isViewBindingSupported) "$bindingName.${underscoreToLowerCamelCase(id)}"
 else """${renderIf(parentView != null) { "$parentView." }} findViewById(R.id.${id})"""
 
@@ -68,7 +68,7 @@ private fun findViewByIdKotlin(
     id: String,
     bindingName: String,
     className: String? = null,
-    parentView: String? = null
+    parentView: String? = null,
 ) = if (isViewBindingSupported) "$bindingName.${underscoreToLowerCamelCase(id)}"
 else """${renderIf(parentView != null) { "$parentView." }} findViewById${renderIf(className != null) { "<$className>" }}(R.id.${id})"""
 
