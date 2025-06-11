@@ -18,10 +18,11 @@ package com.rivan.androlabs.wizard.template.api
 
 import java.net.URL
 
-// TODO: Use `Int` instead of URL if template plugins will be Android libraries, i.e., vector
-//  support will be available
+// TODO: Allow setting images from drawable resources. And maybe use vector images instead of
+//   regular pngs/jpgs.
 /**
- * Stores information about a thumb which should be displayed in the wizard.
+ * Stores information about a thumb which should be displayed in galleries such as New Activity
+ * Gallery.
  */
 open class Thumb(val path: () -> URL) {
     /**

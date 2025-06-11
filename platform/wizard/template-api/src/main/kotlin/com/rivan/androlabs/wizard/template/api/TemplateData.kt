@@ -19,6 +19,7 @@
 package com.rivan.androlabs.wizard.template.api
 
 import java.io.File
+import java.net.URL
 
 /**
  * Data which is required for template rendering.
@@ -34,8 +35,9 @@ sealed class TemplateData
 data class ApiVersion(val api: Int, val apiString: String)
 
 typealias PackageName = String
-typealias GradlePluginVersion = String
-typealias TemplateCategoryNames = Map<TemplateCategory, List<String>>
+typealias JavaVersion = String
+typealias Revision = String
+typealias FormFactorNames = Map<FormFactor, List<String>>
 enum class Language(val string: String, val extension: String) {
     Java("Java", "java"),
     Kotlin("Kotlin", "kt");
@@ -49,22 +51,26 @@ enum class Language(val string: String, val extension: String) {
          */
         @JvmStatic
         fun fromName(name: String?, defaultValue: Language): Language =
-            values().firstOrNull { it.string == name } ?: defaultValue
+            entries.firstOrNull { it.string == name } ?: defaultValue
     }
 }
 
+const val KOTLIN_DSL_LINK = "https://d.android.com/build/migrate-to-kotlin-dsl"
 enum class BuildConfigurationLanguageForNewProject(
     val description: String,
     val useKts: Boolean,
-    val useVersionCatalog: Boolean
 ) {
-    KTS("Kotlin DSL (build.gradle.kts) [Recommended]", true, false),
-    KTS_VERSION_CATALOG(
-        "Kotlin DSL (build.gradle.kts) + Gradle Version Catalogs [Experimental] ",
-        true,
-        true
-    ),
-    Groovy("Groovy DSL (build.gradle)", false, false);
+    KTS("Kotlin DSL (build.gradle.kts) [Recommended]", true),
+    Groovy("Groovy DSL (build.gradle)", false);
+
+    override fun toString() = description
+}
+
+enum class BuildConfigurationLanguageForNewModule(
+    val description: String,
+) {
+    KTS("Kotlin DSL (build.gradle.kts) [Recommended]"),
+    Groovy("Groovy DSL (build.gradle)");
 
     override fun toString() = description
 }
@@ -78,18 +84,35 @@ data class ApiTemplateData(
 
 data class ProjectTemplateData(
     val androidXSupport: Boolean,
-    val gradlePluginVersion: GradlePluginVersion,
+    val agpVersion: AgpVersion,
+    val additionalMavenRepos: List<URL>,
     val sdkDir: File?,
     val language: Language,
     val kotlinVersion: String,
     val rootDir: File,
     val applicationPackage: PackageName?,
-    val includedTemplateCategoryNames: TemplateCategoryNames,
+    val includedFormFactorNames: FormFactorNames,
     val debugKeystoreSha1: String?,
-    val isNewProject: Boolean
+    // To disable android plugin checking for ascii paths (windows tests)
+    val overridePathCheck: Boolean? = false,
+    val isNewProject: Boolean,
 ): TemplateData()
 
-fun TemplateCategoryNames.has(tt: TemplateCategory) = !this[tt].isNullOrEmpty()
+fun FormFactorNames.has(ff: FormFactor) = !this[ff].isNullOrEmpty()
+
+/**
+ * Info about base feature.
+ *
+ * When we have dynamic feature project, Androlabs may need to add something to base feature
+ * module even when Androlabs does not create something directly inside of the module. For
+ * example, Androlabs may do it when creating a new dynamic module or an activity inside
+ * dynamic module.
+ */
+data class BaseFeature(
+    val name: String,
+    val dir: File,
+    val resDir: File,
+)
 
 data class ModuleTemplateData(
     val projectTemplateData: ProjectTemplateData,
@@ -104,17 +127,26 @@ data class ModuleTemplateData(
     val name: String,
     val isLibrary: Boolean,
     val packageName: PackageName,
-    val templateCategory: TemplateCategory,
+    val formFactor: FormFactor,
     val themesData: ThemesData,
+    /**
+     * Info about base feature. Only present in dynamic feature project.
+     */
+    val baseFeature: BaseFeature?,
     val apis: ApiTemplateData,
     val viewBindingSupport: ViewBindingSupport,
+    val category: Category,
+    val isCompose: Boolean,
     val isMaterial3: Boolean,
     val useGenericLocalTests: Boolean,
-    val useGenericInstrumentedTests: Boolean
+    val useGenericInstrumentedTests: Boolean,
 ): TemplateData() {
+    val isDynamic: Boolean
+        get() = baseFeature != null
 
     /**
-     * Returns the [namespace](https://developer.android.com/studio/build/configure-app-module#set-namespace)
+     * Returns the
+     * [namespace](https://developer.android.com/studio/build/configure-app-module#set-namespace)
      * of the module, i.e. the package where the R and BuildConfig classes are generated.
      */
     val namespace: String

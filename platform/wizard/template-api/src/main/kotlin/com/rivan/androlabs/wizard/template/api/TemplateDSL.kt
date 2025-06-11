@@ -24,13 +24,14 @@ internal data class TemplateImpl(
     override val documentationUrl: String?,
     override val minSdk: Int,
     override val category: Category,
-    override val templateCategory: TemplateCategory,
+    override val formFactor: FormFactor,
     override val widgets: Collection<Widget<*>>,
     private val _thumb: () -> Thumb,
     override val recipe: Recipe,
+    override val uiContexts: Collection<WizardUiContext>,
     override val constraints: Collection<TemplateConstraint>,
     override val useGenericInstrumentedTests: Boolean,
-    override val useGenericLocalTests: Boolean
+    override val useGenericLocalTests: Boolean,
 ) : Template {
     override fun thumb(): Thumb = _thumb()
 }
@@ -48,9 +49,10 @@ class TemplateBuilder {
     var documentationUrl: String? = null
     var minApi: Int = 1
     var category: Category? = null
-    var templateCategory: TemplateCategory? = null
+    var formFactor: FormFactor? = null
     var thumb: () -> Thumb = { Thumb.NoThumb }
     var recipe: Recipe? = null
+    var screens: Collection<WizardUiContext> = listOf()
     var widgets = listOf<Widget<*>>()
     var constraints = listOf<TemplateConstraint>()
     var useGenericAndroidTests: Boolean = true
@@ -76,7 +78,7 @@ class TemplateBuilder {
         checkNotNull(name) { "Template must have a name." }
         checkNotNull(description) { "Template must have a description." }
         checkNotNull(category) { "Template have to specify category." }
-        checkNotNull(templateCategory) { "Template have to specify templateCategory." }
+        checkNotNull(formFactor) { "Template have to specify form factor." }
         checkNotNull(recipe) { "Template must have a recipe to run." }
 
         return TemplateImpl(
@@ -85,13 +87,14 @@ class TemplateBuilder {
             documentationUrl,
             minApi,
             category!!,
-            templateCategory!!,
+            formFactor!!,
             widgets,
             thumb,
             recipe!!,
+            screens,
             constraints,
             useGenericAndroidTests,
-            useGenericLocalTests
+            useGenericLocalTests,
         )
     }
 }

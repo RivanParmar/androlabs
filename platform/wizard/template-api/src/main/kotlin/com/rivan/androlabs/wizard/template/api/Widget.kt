@@ -18,6 +18,7 @@
 
 package com.rivan.androlabs.wizard.template.api
 
+// TODO: Add support for using String resources
 /**
  * Represents an UI element.
  *
@@ -30,7 +31,7 @@ interface Widget<T>
  *
  * Usually parameters and widgets have 1-1 relationship but there are exceptions:
  *  * Some [Parameter]s may have no widget because they pass data implicitly and don't need user input.
- *  * Some [Widget]s may have no underlying [Parameter] (e.g. [Separator])
+ *  * Some [Widget]s may have no underlying [Parameter] (e.g. [Divider])
  */
 sealed class ParameterWidget<T>(val parameter: Parameter<T>): Widget<T>
 
@@ -39,8 +40,14 @@ sealed class ParameterWidget<T>(val parameter: Parameter<T>): Widget<T>
  */
 data class TextFieldWidget(val p: StringParameter): ParameterWidget<String>(p)
 
+// TODO: Add icon to this.
 /**
- * Drop down menu for selecting a language (Kotlin or Java).
+ * An ordinary text label.
+ */
+data class LabelWidget(val text: String) : Widget<String>
+
+/**
+ * Dropdown menu for selecting a language (Kotlin or Java).
  *
  * Exists alongside with [EnumWidget] because it may require special treatment.
  */
@@ -49,13 +56,13 @@ class LanguageWidget: Widget<String>
 /**
  * [Widget] for selecting package.
  *
- * Looks like combination of [TextFieldWidget] and [EnumWidget] (use can both write and choose from
+ * Looks like combination of [TextFieldWidget] and [EnumWidget] (user can both write and choose from
  * drop down menu).
  */
 data class PackageNameWidget(val p: StringParameter): ParameterWidget<String>(p)
 
 /**
- * Drop down menu for any kind of [Enum]. Will include all possible enum values.
+ * Dropdown menu for any kind of [Enum]. Will include all possible enum values.
  */
 data class EnumWidget<T : Enum<T>>(val p: EnumParameter<T>): ParameterWidget<T>(p)
 
@@ -65,7 +72,7 @@ data class EnumWidget<T : Enum<T>>(val p: EnumParameter<T>): ParameterWidget<T>(
 data class CheckBoxWidget(val p: BooleanParameter): ParameterWidget<Boolean>(p)
 
 /**
- * A Text label with a link to and external website.
+ * A Text label with a link to an external website.
  */
 data class UrlLinkWidget(val urlName: String, val urlAddress: String): Widget<String>
 

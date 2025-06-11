@@ -263,3 +263,17 @@ private val kotlinKeywords = listOf(
 fun findResource(contextClass: Class<Any>, from: File) : URL {
     return Resources.getResource(contextClass, "/${from.path}")
 }
+
+/**
+ * Creates a domain name from the form of package name (e.g. from "com.example.www" to
+ * "www.example.com"). Returns an example domain if the [packageName] is empty.
+ */
+fun packageNameToDomain(packageName: String): String {
+    val domain = packageName
+        .split(".")
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+        .reversed()
+        .joinToString(".")
+    return if (domain.isEmpty()) "example.com" else domain
+}
