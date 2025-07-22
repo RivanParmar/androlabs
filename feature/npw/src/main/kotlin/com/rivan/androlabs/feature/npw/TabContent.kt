@@ -34,7 +34,7 @@ fun TemplatesTabContent(
     templates: List<Template>,
     onTemplateClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    selectedIndex: Int = -1
+    selectedIndex: Int = -1,
 ) {
     if (templates.isEmpty()) {
         EmptyTabContent()
@@ -43,7 +43,7 @@ fun TemplatesTabContent(
             modifier = modifier.padding(horizontal = 4.dp, vertical = 8.dp),
             columns = GridCells.Adaptive(172.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             templates.forEachIndexed { index, template ->
                 //val templateName = template.name
@@ -51,7 +51,7 @@ fun TemplatesTabContent(
                     TemplateCard(
                         template = template,
                         onClick = { onTemplateClick(index) },
-                        selected = index == selectedIndex
+                        selected = index == selectedIndex,
                     )
                 }
             }
@@ -64,7 +64,7 @@ fun EmptyTabContent() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "No templates available!")
     }
