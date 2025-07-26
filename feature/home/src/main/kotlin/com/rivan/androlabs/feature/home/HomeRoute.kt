@@ -53,7 +53,7 @@ internal fun HomeRoute(
 }
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     contentType: ContentType,
     labFeedUIState: ProjectFeedUiState,
     recentSearchQueriesUiState: RecentSearchQueriesUiState,

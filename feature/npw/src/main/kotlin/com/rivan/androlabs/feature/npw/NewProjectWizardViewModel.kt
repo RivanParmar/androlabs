@@ -17,6 +17,7 @@
 package com.rivan.androlabs.feature.npw
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rivan.androlabs.wizard.template.api.FormFactor
 import com.rivan.androlabs.wizard.template.api.Template
 import com.rivan.androlabs.wizard.template.api.WizardUiContext
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class NewProjectWizardViewModel : ViewModel() {
 
@@ -35,6 +37,14 @@ class NewProjectWizardViewModel : ViewModel() {
         ),
     )
     val tabState: StateFlow<NpwTabState> = _tabState.asStateFlow()
+
+    private val _dialogState = MutableStateFlow(
+        NpwDialogState(
+            canGoBack = false,
+            canGoForward = false,
+        ),
+    )
+    val dialogState: StateFlow<NpwDialogState> = _dialogState.asStateFlow()
 
     fun getTemplates(): List<Template> {
         val templates = WizardTemplateProviderImpl().getTemplates()
@@ -60,9 +70,16 @@ class NewProjectWizardViewModel : ViewModel() {
             }
         }
     }
-}
 
-data class NpwTabState(
-    val titles: List<FormFactor>,
-    val currentIndex: Int,
-)
+    fun setCanGoBack(canGoBack: Boolean) {
+        viewModelScope.launch {
+            _dialogState.value = _dialogState.value.copy(canGoBack = canGoBack)
+        }
+    }
+
+    fun setCanGoForward(canGoForward: Boolean) {
+        viewModelScope.launch {
+            _dialogState.value = _dialogState.value.copy(canGoForward = canGoForward)
+        }
+    }
+}
