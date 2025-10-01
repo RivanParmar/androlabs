@@ -131,7 +131,7 @@ fun ALTopSearchBar(
     textFieldState: TextFieldState = rememberTextFieldState(),
     onSearch: (String) -> Unit,
     onLeadingIconClick: () -> Unit,
-    onTrailingIconClick: () -> Unit,
+    onTrailingIconClick: (Boolean) -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     // TODO: Allow setting the leading and trailing icons
@@ -157,13 +157,13 @@ fun ALTopSearchBar(
                 trailingIcon = {
                     if (searchBarState.currentValue == SearchBarValue.Expanded) {
                         IconButton(
-                            onClick = { /* TODO */ }
+                            onClick = { onTrailingIconClick(true) },
                         ) {
                             Icon(Icons.Default.Clear, contentDescription = "Clear")
                         }
                     } else {
                         IconButton(
-                            onClick = onTrailingIconClick,
+                            onClick = { onTrailingIconClick(false) },
                         ) {
                             Icon(Icons.Default.AccountCircle, contentDescription = null)
                         }

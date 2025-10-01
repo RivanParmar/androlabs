@@ -59,7 +59,7 @@ internal fun HomeScreenSearchBar(
     textFieldState: TextFieldState = rememberTextFieldState(),
     onSearch: (String) -> Unit,
     onLeadingIconClick: () -> Unit,
-    onTrailingIconClick: () -> Unit,
+    onTrailingIconClick: (Boolean) -> Unit,
     onSearchItemClick: (String) -> Unit,
     onRecentSearchDelete: (String) -> Unit,
     onClearRecentSearches: () -> Unit,

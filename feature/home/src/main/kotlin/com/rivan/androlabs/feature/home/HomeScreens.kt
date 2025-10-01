@@ -118,17 +118,24 @@ internal fun HomeScreenLayout(
                 scrollBehavior = scrollBehavior,
                 contentType = contentType,
                 recentSearchQueriesUiState = recentSearchQueriesUiState,
+                searchBarState = searchBarState,
+                textFieldState = textFieldState,
                 onSearch = {
-                    if (it.isNotEmpty() && it.isNotBlank()) {
+                    if (it.isNotBlank()) {
                         onSearch(it)
                         scope.launch { searchBarState.animateToCollapsed() }
                     }
                 },
                 onLeadingIconClick = {
-                    // TODO: Why is this not working?
                     scope.launch { searchBarState.animateToCollapsed() }
                 },
-                onTrailingIconClick = onAccountButtonClick,
+                onTrailingIconClick = { expanded ->
+                    if (expanded) {
+                        textFieldState.setTextAndPlaceCursorAtEnd("")
+                    } else {
+                        onAccountButtonClick()
+                    }
+                },
                 onSearchItemClick = {
                     textFieldState.setTextAndPlaceCursorAtEnd(it)
                     scope.launch { searchBarState.animateToCollapsed() }
