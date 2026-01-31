@@ -1,6 +1,5 @@
 package com.rivan.androlabs.core.ui
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridScope
@@ -16,12 +15,10 @@ import androidx.compose.ui.unit.dp
 import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.Lab
 
-// TODO: Rename onProjectResourcesCheckedChanged
 /**
  * An extension on [LazyGridScope] defining a feed with project resources.
  * Depending on the [feedState], this might emit no items.
  */
-@OptIn(ExperimentalFoundationApi::class)
 fun LazyGridScope.projectFeed(
     feedState: ProjectFeedUiState,
     onClick: () -> Unit,
@@ -33,7 +30,7 @@ fun LazyGridScope.projectFeed(
                 LabCard(
                     lab = userLabs,
                     onClick = onClick,
-                    modifier = Modifier.animateItemPlacement()
+                    modifier = Modifier.animateItem()
                 )
             }
         }
@@ -45,7 +42,6 @@ fun LazyGridScope.projectFeed(
  * An extension on [LazyListScope] defining a feed with project resources.
  * Depending on the [feedState], this might emit no items.
  */
-@OptIn(ExperimentalFoundationApi::class)
 fun LazyListScope.projectFeed(
     feedState: ProjectFeedUiState,
     onClick: () -> Unit,
@@ -57,7 +53,7 @@ fun LazyListScope.projectFeed(
                 LabListItem(
                     lab = userLab,
                     onClick = onClick,
-                    modifier = Modifier.animateItemPlacement()
+                    modifier = Modifier.animateItem()
                 )
             }
         }

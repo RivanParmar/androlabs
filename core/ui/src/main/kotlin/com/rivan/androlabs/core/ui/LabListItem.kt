@@ -48,6 +48,8 @@ import com.rivan.androlabs.core.designsystem.theme.AndrolabsTheme
 import com.rivan.androlabs.core.model.data.Lab
 import java.io.File
 
+// TODO: The padding between the leading content and the title text is variable.
+//  Fix this!
 @Composable
 fun LabListItem(
     lab: Lab,
@@ -84,7 +86,7 @@ fun LabListItem(
                 )
             } else {
                 val initials = lab.title
-                    .split(' ', limit = 2)
+                    .split(' ', limit = 1)
                     .mapNotNull { it.firstOrNull()?.toString() }
                     .reduce { acc, s -> acc + s }
 
