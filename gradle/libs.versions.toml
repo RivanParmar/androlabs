@@ -2,14 +2,14 @@
 aapt2Proto = "8.1.4-10154469"
 accompanist = "0.37.0"
 # AGP and tools should be updated together
-androidGradlePlugin = "8.9.1"
-androidTools = "31.9.1"
+androidGradlePlugin = "8.13.0"
+androidTools = "31.13.0"
 androidxActivity = "1.10.1"
 androidxAnnotation = "1.9.1"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2025.05.00"
-androidxComposeFoundation = "1.8.0-rc02"
-androidxComposeMaterial3 = "1.4.0-alpha14"
+androidxComposeBom = "2026.01.01"
+#androidxComposeFoundation = "1.8.0-alpha07"
+androidxComposeMaterial3 = "1.5.0-alpha13"
 androidxCore = "1.15.0"
 androidxCoreSplashScreen = "1.0.1"
 androidxDataStore = "1.1.4"
@@ -33,32 +33,27 @@ coil = "2.6.0"
 commonsIo = "2.14.0"
 fastutil = "8.5.12"
 firebaseBom = "33.7.0"
-firebaseCrashlyticsPlugin = "3.0.2"
+firebaseCrashlyticsPlugin = "3.0.6"
 gmsPlugin = "4.4.2"
 groovy = "5.0.0-alpha-2"
 gson = "2.10.1"
 guava = "33.0.0-jre"
-hilt = "2.54"
+hilt = "2.56"
 hiltExt = "1.2.0"
 jansi = "2.4.1"
 jatl = "0.2.3"
 javaxInject = "1"
 junit4 = "4.13.2"
-jsr305 = "3.0.2"
-kotlin = "2.1.10"
+kotlin = "2.2.20"
 kotlinxCoroutines = "1.10.1"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.8.1"
-kryo = "5.5.0"
-ksp = "2.1.10-1.0.31"
-nativePlatform = "0.22-milestone-23"
+ksp = "2.3.1"
 # TODO: Update this dependency once https://github.com/firebase/firebase-android-sdk/issues/5997 is fixed
 protobuf = "4.26.1"
 #protobufJava = "4.0.0-rc-2"
 protobufPlugin = "0.9.4"
-room = "2.6.1"
-r8 = "8.2.33"
-signflinger = "8.2.0"
+room = "2.7.2"
 slf4j = "2.0.9"
 zipflinger = "8.2.0"
 
@@ -84,7 +79,7 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
