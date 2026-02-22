@@ -17,6 +17,8 @@
 package com.rivan.androlabs.core.data.di
 
 import com.rivan.androlabs.core.data.repository.DefaultRecentSearchRepository
+import com.rivan.androlabs.core.data.repository.FileSystemRepository
+import com.rivan.androlabs.core.data.repository.FileSystemRepositoryImpl
 import com.rivan.androlabs.core.data.repository.LabRepository
 import com.rivan.androlabs.core.data.repository.LabRepositoryImpl
 import com.rivan.androlabs.core.data.repository.RecentSearchRepository
@@ -57,4 +59,9 @@ interface DataModule {
     fun bindsNetworkMonitor(
         networkMonitor: ConnectivityManagerNetworkMonitor,
     ): NetworkMonitor
+
+    @Binds
+    fun bindsFileSystemRepository(
+        fileSystemRepository: FileSystemRepositoryImpl,
+    ): FileSystemRepository
 }

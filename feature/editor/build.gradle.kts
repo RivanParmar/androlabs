@@ -22,3 +22,7 @@ plugins {
 android {
     namespace = "com.rivan.androlabs.feature.editor"
 }
+
+dependencies {
+    implementation(projects.core.data)
+}
