@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
@@ -44,16 +44,25 @@ fun LazyGridScope.projectFeed(
  */
 fun LazyListScope.projectFeed(
     feedState: ProjectFeedUiState,
-    onClick: () -> Unit,
+    onOpen: () -> Unit,
+    onRemove: () -> Unit,
+    onSetIcon: () -> Unit,
 ) {
     when (feedState) {
         ProjectFeedUiState.Loading -> Unit
         is ProjectFeedUiState.Success -> {
-            items(feedState.feed, key = { it.id }) { userLab ->
+            itemsIndexed(
+                feedState.feed,
+                key = { _: Int, lab: Lab ->  lab.id },
+            ) { index, userLab ->
                 LabListItem(
                     lab = userLab,
-                    onClick = onClick,
-                    modifier = Modifier.animateItem()
+                    index = index,
+                    count = feedState.feed.size,
+                    onOpen = onOpen,
+                    onRemove = onRemove,
+                    onSetIcon = onSetIcon,
+                    modifier = Modifier.animateItem(),
                 )
             }
         }
