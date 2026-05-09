@@ -26,12 +26,12 @@ import com.rivan.androlabs.ui.AndrolabsAppState
 @Composable
 fun MainActivityNavHost(
     appState: AndrolabsAppState,
-    savePath: String?,
+    defaultPath: String?,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
-    askToSelectSavePath: Boolean = false,
+    askToSelectDefaultPath: Boolean = false,
     context: Context = LocalContext.current,
-    updateSavePath: (String) -> Unit,
+    updateDefaultPath: (String) -> Unit,
     openProject: (String) -> Unit,
 ) {
     // TODO: Handle use case when user does not select anything
@@ -44,17 +44,17 @@ fun MainActivityNavHost(
                 it,
                 (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION),
             )
-            updateSavePath(it.toString())
+            updateDefaultPath(it.toString())
         }
     }
 
     val projectOpener = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocumentTree(),
     ) {
-        if (it != null && savePath != null) {
+        if (it != null && defaultPath != null) {
             // TODO: This doesn't work! We will need to create a proper class for
             //  handling the paths and permissions
-            if (!savePath.contains(it.toString())) {
+            if (!defaultPath.contains(it.toString())) {
                 context.contentResolver.takePersistableUriPermission(
                     it,
                     (Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION),
@@ -84,7 +84,7 @@ fun MainActivityNavHost(
                 // TODO: Show a dialog before opening the folder picker.
 
                 // Ask the user to select a common path for saving the labs
-                if (askToSelectSavePath) {
+                if (askToSelectDefaultPath) {
                     savePathSelector.launch(null)
                 } else {
                     when (item) {

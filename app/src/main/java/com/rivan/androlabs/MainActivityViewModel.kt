@@ -64,9 +64,9 @@ class MainActivityViewModel @Inject constructor(
                 started = SharingStarted.Eagerly,
             )
 
-    fun updateSavePath(savePath: String) {
+    fun updateDefaultPath(defaultPath: String) {
         viewModelScope.launch {
-            userSettingsRepository.setSavePath(savePath)
+            userSettingsRepository.setDefaultPath(defaultPath)
         }
     }
 

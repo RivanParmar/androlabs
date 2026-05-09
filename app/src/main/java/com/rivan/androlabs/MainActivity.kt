@@ -95,9 +95,9 @@ class MainActivity : ComponentActivity() {
             ) {
                 AndrolabsApp(
                     appState = appState,
-                    savePath = getSavePath(uiState),
-                    askToSelectSavePath = askToSelectSavePath(uiState),
-                    updateSavePath = viewModel::updateSavePath,
+                    defaultPath = getDefaultPath(uiState),
+                    askToSelectDefaultPath = askToSelectDefaultPath(uiState),
+                    updateDefaultPath = viewModel::updateDefaultPath,
                     openProject = viewModel::openProject,
                 )
             }
@@ -121,20 +121,20 @@ private fun shouldUseDarkTheme(
     }
 }
 
-private fun getSavePath(
+private fun getDefaultPath(
     uiState: MainActivityUiState,
 ): String? = when (uiState) {
     Loading -> null
-    is Success -> uiState.userSettings.savePath
+    is Success -> uiState.userSettings.defaultPath
 }
 
 // TODO: The save path is stored even after deleting the app. The storage permission gets removed
 //  on deleting the app. Check if this is a bug on our side or something else.
-private fun askToSelectSavePath(
+private fun askToSelectDefaultPath(
     uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
     Loading -> false
-    is Success -> uiState.userSettings.savePath.isEmpty()
+    is Success -> uiState.userSettings.defaultPath.isEmpty()
 }
 
 /**

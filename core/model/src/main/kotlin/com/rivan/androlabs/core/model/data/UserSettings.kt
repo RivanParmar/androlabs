@@ -8,6 +8,6 @@ data class UserSettings(
     val darkThemeConfig: DarkThemeConfig,
     val useDynamicColor: Boolean,
 
-    val savePath: String,
+    val defaultPath: String,
     val liteModeEnabled: Boolean,
 )

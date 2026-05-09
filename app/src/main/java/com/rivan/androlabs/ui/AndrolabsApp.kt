@@ -6,16 +6,16 @@ import com.rivan.androlabs.navigation.MainActivityNavHost
 @Composable
 fun AndrolabsApp(
     appState: AndrolabsAppState,
-    savePath: String?,
-    askToSelectSavePath: Boolean,
-    updateSavePath: (String) -> Unit,
+    defaultPath: String?,
+    askToSelectDefaultPath: Boolean,
+    updateDefaultPath: (String) -> Unit,
     openProject: (String) -> Unit,
 ) {
     MainActivityNavHost(
         appState = appState,
-        savePath = savePath,
-        askToSelectSavePath = askToSelectSavePath,
-        updateSavePath = updateSavePath,
+        defaultPath = defaultPath,
+        askToSelectDefaultPath = askToSelectDefaultPath,
+        updateDefaultPath = updateDefaultPath,
         openProject = openProject,
     )
 }

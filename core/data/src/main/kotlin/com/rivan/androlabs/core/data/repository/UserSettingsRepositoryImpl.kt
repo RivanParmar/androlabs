@@ -42,8 +42,8 @@ class UserSettingsRepositoryImpl @Inject constructor(
         userPreferencesDataSource.setDynamicColorPreference(useDynamicColor)
     }
 
-    override suspend fun setSavePath(savePath: String) {
-        userPreferencesDataSource.setSavePath(savePath)
+    override suspend fun setDefaultPath(savePath: String) {
+        userPreferencesDataSource.setDefaultPath(savePath)
     }
 
     override suspend fun setLiteModePreference(liteModeEnabled: Boolean) {

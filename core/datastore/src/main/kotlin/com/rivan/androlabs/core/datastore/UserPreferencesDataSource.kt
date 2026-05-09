@@ -50,7 +50,7 @@ class UserPreferencesDataSource @Inject constructor(
                 },
                 useDynamicColor = it.useDynamicColor,
 
-                savePath = it.savePath,
+                defaultPath = it.defaultPath,
                 liteModeEnabled = it.liteModeEnabled
             )
         }
@@ -87,10 +87,10 @@ class UserPreferencesDataSource @Inject constructor(
         }
     }
 
-    suspend fun setSavePath(savePath: String) {
+    suspend fun setDefaultPath(defaultPath: String) {
         userPreferences.updateData {
             it.copy {
-                this.savePath = savePath
+                this.defaultPath = defaultPath
             }
         }
     }
