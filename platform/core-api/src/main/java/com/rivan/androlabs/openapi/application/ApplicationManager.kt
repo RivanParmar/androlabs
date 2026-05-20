@@ -1,3 +1,7 @@
+// Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+
+// Modifications Copyright (C) 2026 Rivan Parmar
+
 package com.rivan.androlabs.openapi.application
 
 interface ApplicationManager {
