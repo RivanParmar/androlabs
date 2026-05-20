@@ -151,6 +151,8 @@ include(":platform:project-api")
 
 include(":platform:language-api")
 
+include(":platform:util")
+
 // region build-tools include DSL
 
 fun buildTool(buildToolName: String, buildToolConfiguration: BuildToolsScope.() -> Unit) =
